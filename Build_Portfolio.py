@@ -1,4 +1,9 @@
-##### Find portfolio most sensitive to 'factor', of size 'size'
+#######################################################################################################################################
+# 
+# This function creates a portfolio given a factor, size, funds and a specific date, for Euro Stoxx 600 Stocks. 
+# Stocks can be changed by specifying their associated tag. 
+# 
+#######################################################################################################################################
 
 def get_portfolio(factor,size,funds,date):
 
@@ -6,10 +11,11 @@ def get_portfolio(factor,size,funds,date):
     names = []
     POSITION = []
 
-    # Get ID's of the Euro Stoxx 600 Stocks
-    # Euro_stoxx_600_IDs = range(4690,5890,2)
+    # Get ID's of the Euro Stoxx 600 Stocks.
+    # Stocks can be changed by specifying another stock's tag. 
+    euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
 
-    for i in euro_stoxx_600[::20]:
+    for i in euro_stoxx_600:
 
         sensitivity = api_instance.get_model_sensitivities(model=i,date_from=date,date_to=date,term = 'Long Term')
 
