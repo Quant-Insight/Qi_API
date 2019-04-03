@@ -1,3 +1,9 @@
+#######################################################################################################################################
+# 
+# This function returns the portfolio exposures for a given portfolio and a given date. 
+# 
+#######################################################################################################################################
+
 def get_portfolio_exposures_bucket(portfolio,date):
 
     stock_names = portfolio['Name']
