@@ -1,3 +1,14 @@
+    
+#######################################################################################################################################
+# 
+# The following code allows pull data to an excel file. 
+# 
+#######################################################################################################################################
+#
+#######################################################################################################################################
+# Funcions
+#######################################################################################################################################
+
 def get_sensitivity_grid(model,start,end,term):
     
     
@@ -50,8 +61,6 @@ def get_sensitivity_grid(model,start,end,term):
     return sensitivity_grid
     
     
-    
-    
 def get_model_data(model,start,end,term):
     
     
@@ -69,15 +78,10 @@ def get_model_data(model,start,end,term):
             date_to = '%d-12-31' % year
         else:
             date_to = end
-    
-#         print("Gathering data for %s from %s to %s..." % (model,
-#         date_from,
-#         date_to))
+
     
         time_series += api_instance.get_model_timeseries(model=model,date_from=date_from,date_to=date_to,term=term)
     
-    # time_series = api_instance.get_model_timeseries(model=model,date_from=start_date,date_to=end_date,term=term)
-
     FVG = [data.sigma for data in time_series]
     Rsq = [data.rsquare for data in time_series]
     dates = [data._date for data in time_series]
@@ -85,23 +89,23 @@ def get_model_data(model,start,end,term):
     model_value = [data.fair_value for data in time_series]
     percentage_gap = [data.percentage_gap for data in time_series]
     absolute_gap = [data.absolute_gap for data in time_series]
-#     target_mean = [data.target_mean for data in time_series]
-#     target_stdev = [data.target_stdev for data in time_series]
-#     target_zscore = [data.target_zscore for data in time_series]
-#     zscore = [data.zscore for data in time_series]
-
 
     df_ = pandas.DataFrame({'FVG':FVG, 'Rsq':Rsq, 'Model Value':model_value, 'Percentage Gap':percentage_gap,
                             'Absolute Gap':absolute_gap})
     df_.index = dates
     
     return df_
-     
-    
-    
-    
+        
+#######################################################################################################################################
+# Main code
+#######################################################################################################################################
+
+# Define your stocks here.  
+sp1500_names =  [x.name for x in api_instance.get_models(tags="S&P 1500")][::2]
 stocks = sp1500_names
+# Change the address where the file will be saved and the name of the Excel file. 
 writer = pandas.ExcelWriter('C:/Users/field/OneDrive/QI/S&P1500 api data (5 years).xlsx', engine='openpyxl')
+
 for stock in stocks:
     model_data = get_model_data(stock,'2015-01-01','2019-04-02','Long Term')
     sens_data = get_sensitivity_grid(stock,'2015-01-1','2019-04-02','Long Term')
