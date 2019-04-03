@@ -6,7 +6,7 @@ This repository includes some examples of how to use Quant-Insight API.
 
 * API key
 
-  * If you still don't have an API key, you can contact Quant-Insight to get a API trial key. 
+  * If you still don't have an API key, you can contact Quant-Insight. 
   
   * If you already have an API key, you just need to add this part of the code at the beginning with your API key instead of 'ADD-YOUR-       API-KEY-HERE': 
 
