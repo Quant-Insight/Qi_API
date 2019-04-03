@@ -1,0 +1,52 @@
+#######################################################################################################################################
+### First steps to use Quant-Insight API with examples
+#######################################################################################################################################
+#
+### Install packages. Note that to install packages on Jupyter Notebook you need to use !pip install instead of pip install
+
+!pip install matplotlib pandas
+
+!pip install \
+--upgrade \
+--extra-index-url=https://dl.cloudsmith.io/DLTOKEN/quant-insight/python/python/index/ \
+qi-client
+
+### Import packages and create 
+import time
+import qi_client
+from qi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Qi API Key
+configuration = qi_client.Configuration()
+configuration.api_key['X-API-KEY'] = 'ADD-YOUR-API-KEY-HERE'
+
+# create an instance of the API class
+api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
+
+#######################################################################################################################################
+### Get all buckets
+#######################################################################################################################################
+
+try:
+# Get bucket details
+    api_response = api_instance.get_buckets()
+    pprint(api_response)
+except ApiException as e:
+    print("Exception when calling DefaultApi->get_bucket: %s\n" % e)
+    
+#######################################################################################################################################
+### Get bucket details
+#######################################################################################################################################
+    
+# Numeric ID or name of the bucket to retrieve
+# We can chose any of the buckets names from the previous list. 
+bucket = 'Global Growth'
+try:
+  # Get bucket details
+  api_response = api_instance.get_bucket(bucket)
+  pprint(api_response)
+except ApiException as e:
+  print("Exception when calling DefaultApi->get_bucket: %s\n" % e)
+ 
+    
