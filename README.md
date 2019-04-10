@@ -4,6 +4,11 @@ This repository includes some examples of how to use Quant-Insight API.
 
 ## What do you need to start using the API?
 
+
+* Client Download Token
+
+  * This will be unique to your organisation and is required in order to install the Qi Client. 
+
 * API key
 
   * If you still don't have an API key, you can contact Quant-Insight. 
