@@ -1,3 +1,9 @@
+#####################################################################
+#
+# NOTE: This will only work for Equities.
+#####################################################################
+
+
 def get_bucket_grid_major_bucket_groups(model,start,end,term):
     
     buckets_major_groups = {'Global Growth': 'Economic Fundamentals', 'Inf. Expec.': 'Economic Fundamentals', 'Metals': 'Economic Fundamentals',
