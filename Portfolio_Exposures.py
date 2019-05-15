@@ -4,14 +4,45 @@
 # 
 #######################################################################################################################################
 
-def get_portfolio_exposures_bucket(portfolio,date):
+''' 
+
+The portfolio has to be in the following format:
+
+portfolio = pandas.DataFrame({'Name':[stock a, stock b, stock c],
+                              'Position':[100, -100, 100]})
+                              
+stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, FB
+
+
+This can be done by manually inputting the data (as seen above), or by importing an Excel file, or csv file like so:
+
+xl = pandas.ExcelFile('file_location/file_name')
+portfolio = xl.parse('Sheet_name')
+
+OR
+
+portfolio = pandas.read_csv('file_location/file_name')
+
+
+The three inputs that need updating here are: file_location, file_name and Sheet_name
+
+The Excel/csv file must be in the following format:
+
+       | Name | Position |
+       | AAPL |   100    |
+       | MSFT |  -100    |
+       | FB   |   100    |
+
+'''
+
+def get_portfolio_cash_exposures_bucket(portfolio,date):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
 
     for stock in stock_names:
 
-        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date)
+        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term='Long Term')
         df_sensitivities = pandas.DataFrame()
         date = [x for x in sensitivity.keys()][0]
 
@@ -29,22 +60,16 @@ def get_portfolio_exposures_bucket(portfolio,date):
             df_tot = df_sensitivities
         else:
             df_tot = df_tot.append(df_sensitivities)
-
-    SUMS = [sum(df_tot[x]) for x in df_tot.columns]
-    sumss = pandas.DataFrame(SUMS).rename(columns={0:'Sum'})
-    sumss = sumss.transpose()
-    sumss.columns = df_tot.columns
-    df_tot = df_tot.append(sumss)
-    portfolio_sensitivities = df_tot[abs(df_tot).transpose().nlargest(15,'Sum').index].transpose()
-
+            
+            
+    portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
+    
     for stock in stock_names:
 
-        portfolio_sensitivities[stock] = [a*float(portfolio.loc[portfolio['Name']==stock]['Position Value'])/100 for a in portfolio_sensitivities[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
 
-    portfolio_sensitivities = portfolio_sensitivities.drop(columns = 'Sum')
-
-    ex_SUMS = [sum(portfolio_sensitivities.loc[x]) for x in portfolio_sensitivities.index]
-    portfolio_sensitivities['TOTAL'] = ex_SUMS
-    portfolio_exposures = portfolio_sensitivities.transpose()
+    portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
-    return portfolio_exposures
+    portfolio_exposures = portfolio_sensitivities.loc[['Total']]
+    
+    return portfolio_sensitivities
