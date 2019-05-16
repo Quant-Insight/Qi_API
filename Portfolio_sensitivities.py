@@ -8,7 +8,8 @@
 The portfolio has to be in the following format:
 
 portfolio = pandas.DataFrame({'Name':[stock a, stock b, stock c],
-                              'Weight':[0.3, 0.3, 0.4]})
+                              'Weight':[0.3, 0.3, 0.4],
+                              'L/S':[1,-1,1]})
                               
                               
 stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, FB
@@ -26,10 +27,10 @@ The three inputs that need updating here are: file_location, file_name and Sheet
 
 The Excel/csv file must be in the following format:
 
-       | Name | Weight   |
-       | AAPL |   0.3    |
-       | MSFT |   0.3    |
-       | FB   |   0.4    |
+       | Name | Weight  | L/S |
+       | AAPL |   0.3   |  1  |
+       | MSFT |   0.3   | -1  |
+       | FB   |   0.4   |  1  |
 '''
 
 
