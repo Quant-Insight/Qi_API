@@ -1,3 +1,40 @@
+#######################################################################################################################################
+# 
+# This function returns the portfolio sensitivities for a given portfolio and a given date. 
+# 
+#######################################################################################################################################
+
+''' 
+The portfolio has to be in the following format:
+
+portfolio = pandas.DataFrame({'Name':[stock a, stock b, stock c],
+                              'Weight':[0.3, 0.3, 0.4]})
+                              
+                              
+stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, FB
+
+This can be done by manually inputting the data (as seen above), or by importing an Excel file, or csv file like so:
+
+xl = pandas.ExcelFile('file_location/file_name')
+portfolio = xl.parse('Sheet_name')
+
+OR
+
+portfolio = pandas.read_csv('file_location/file_name')
+
+The three inputs that need updating here are: file_location, file_name and Sheet_name
+
+The Excel/csv file must be in the following format:
+
+       | Name | Weight   |
+       | AAPL |   0.3    |
+       | MSFT |   0.3    |
+       | FB   |   0.4    |
+'''
+
+
+
+
 def get_portfolio_sens_exposures_bucket(portfolio,date):
 
     stock_names = portfolio['Name']
