@@ -1,11 +1,22 @@
-#####################################################################
+#######################################################################################################################################
+# 
+# This function creates a table with the sensitivities values of a specific model within a period of time. These sensitivities 
+# are added to get the total values by bucket major groups. 
+# 
+# Inputs: 
+#         model - model (e.g. 'AAPL')
+#         start - starting date (e.g. '2016-05-17')
+#         end - ending date (e.g. '2019-05-17')
+#         term - term (e.g. 'Long Term')
 #
 # NOTE: This will only work for Equities.
-#####################################################################
+#
+#######################################################################################################################################
 
 
 def get_bucket_grid_major_bucket_groups(model,start,end,term):
     
+    # This is the list of all the buckets associated to its major group. 
     buckets_major_groups = {'Global Growth': 'Economic Fundamentals', 'Inf. Expec.': 'Economic Fundamentals', 'Metals': 'Economic Fundamentals',
                        'Energy': 'Economic Fundamentals', 'Corp Credit': 'Financial Conditions', 'Real Rates': 'Financial Conditions',
                        'Global QE': 'Financial Conditions', 'Country Growth': 'Financial Conditions', 'DM FX': 'Financial Conditions', 
@@ -13,6 +24,7 @@ def get_bucket_grid_major_bucket_groups(model,start,end,term):
                        'Country CDS': 'Risk Appetite', 'EM Sov Risk': 'Risk Appetite', 'Peripheral EU Sov Risk': 'Risk Appetite',
                        'Est. Earnings': 'Micro'}
     
+    # Retrieve all the sensitivities associated to the model. 
     sensitivity = api_instance.get_model_sensitivities(model=model,date_from=start,date_to=end,term=term)
     
     sensitivity_grid = pandas.DataFrame()
@@ -25,7 +37,6 @@ def get_bucket_grid_major_bucket_groups(model,start,end,term):
         df_sensitivities = pandas.DataFrame()
 
         for data in sensitivity[date]:
-            #print('data[bucket_name] ' + str(data['bucket_name']))
             
             if data['bucket_name'] in buckets_major_groups: 
                 global_bucket_name = buckets_major_groups[data['bucket_name']]
@@ -46,6 +57,7 @@ def get_bucket_grid_major_bucket_groups(model,start,end,term):
             sensitivity_grid = sensitivity_grid.append(df_sensitivities)
 
     return sensitivity_grid
+
 
 
 def get_Rsq(model,start,end,term):
