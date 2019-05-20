@@ -1,6 +1,6 @@
 #######################################################################################################################################
 # 
-# This function creates a table with the sensitivities values of an specific model within a period of time.  
+# This function creates a table with the sensitivities values of a specific model within a period of time.  
 # 
 # Inputs: 
 #         model - model (e.g. 'AAPL')
