@@ -1,3 +1,16 @@
+#######################################################################################################################################
+# 
+# This function creates a table with the sensitivities values of an specific model within a period of time.  
+# 
+# Inputs: 
+#         model - model (e.g. 'AAPL')
+#         start - starting date (e.g. '2016-05-17')
+#         end - ending date (e.g. '2019-05-17')
+#         term - term (e.g. 'Long Term')
+#
+#######################################################################################################################################
+
+
 def get_bucket_grid(model,start,end,term):
     
     sensitivity = api_instance.get_model_sensitivities(model=model,date_from=start,date_to=end,term=term)
