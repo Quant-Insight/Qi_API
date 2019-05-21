@@ -32,7 +32,7 @@ def get_portfolio(factor,size,date,term):
 
     # Get ID's of the Euro Stoxx 600 Stocks.
     # Stocks can be changed by specifying another stock's tag. 
-    euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::20]
+    euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
 
     for asset in euro_stoxx_600:
 
