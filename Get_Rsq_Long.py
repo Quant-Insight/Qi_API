@@ -14,8 +14,8 @@
 #               * Dates - dataframe index. 
 #               * Rsq - model Rsq values sorted by date. 
 #               * e.g.
-#                               | Rsq
-#                    Dates      |           
+#                                Rsq
+#                    Dates                 
 #                    2018-05-21	| 34.93530
 #                    2018-05-22	| 34.85189
 #                    2018-05-23	| 34.75355  
