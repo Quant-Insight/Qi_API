@@ -1,3 +1,27 @@
+#######################################################################################################################################
+# 
+# This function creates a table with the Rsq values of a given model, for a given period of time. 
+# 
+# Inputs: 
+#         model - model (e.g. 'AAPL')
+#         start - starting date (e.g. '2018-05-21')
+#         end - ending date (e.g. '2019-05-20')
+#         term - term (e.g. 'Long Term')
+#
+# Output: 
+#         dataframe with the following columns:
+#               * Dates - dataframe index. 
+#               * Rsq - model Rsq values sorted by date. 
+#               * e.g.
+#                               | Rsq
+#                    Dates	    |           
+#                    2018-05-21	| 34.93530
+#                    2018-05-22	| 34.85189
+#                    2018-05-23	| 34.75355     
+#
+#######################################################################################################################################
+
+
 def get_rsq_long(model, start, end, term):
 # Note that this may be more than 1 year of data, so need to split requests
     year_start = int(start[:4])
