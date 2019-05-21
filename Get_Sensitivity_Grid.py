@@ -1,5 +1,30 @@
+#######################################################################################################################################
+# 
+# This function creates a table with the sensitivities of a given model on a factor level, for a given period of time. Note that we have
+# data from Monday to Friday. 
+# 
+# Inputs: 
+#         model - model (e.g. 'AAPL')
+#         start - starting date (e.g. '2009-01-01')
+#         end - ending date (e.g. '2019-05-20')
+#         term - term (e.g. 'Long Term')
+#
+# Output: 
+#         dataframe with the following columns:
+#               * Dates - dataframe index. 
+#               * A column per Factor with its sensitivities per day. 
+#               * e.g.
+#
+#                     |	10y Infl. Expec.|	2y Infl. Expec.| 5y Infl. Expec.| ADXY	   | Baltic Dry | Brent	  | ...	
+#           Dates     |                 |                  |                |          |            |         | ...  
+#           2009-01-01|	0.04744	        |    0.05013	   | 0.05206	    | -0.00458 | 0.03520	| 0.04426 | ...  
+#           2009-01-02|	0.04795	        |    0.05082	   | 0.05271	    | -0.00522 | 0.03593	| 0.04423 | ...
+#           ...       | ...             |    ...           | ...            | ...      | ...        | ...     | ...         
+#
+#######################################################################################################################################
+
 def get_sensitivity_grid(model,start,end,term):
-    
+    # Note that the periods of time can be longer than a year. We need to divide them in one-year periods. 
     year_start = int(start[:4])
     year_end = int(end[:4])
     sensitivity = {}
