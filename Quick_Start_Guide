@@ -69,18 +69,6 @@ def get_bucket_drivers_table(bucket):
         bucket_inst1_mnemonic = [x.instrument1.mnemonic for x in bucket_drivers]
         bucket_inst1_id = [x.instrument1.id for x in bucket_drivers]
     
-  #  bucket_inst2_ticker = [x.instrument2.ticker for x in bucket_drivers]
-  #  bucket_inst2_mnemonic = [x.instrument2.mnemonic for x in bucket_drivers]
-  #  bucket_inst2_id = [x.instrument2.id for x in bucket_drivers]
-    
-  #  bucket_inst3_ticker = [x.instrument3.ticker for x in bucket_drivers]
-  #  bucket_inst3_mnemonic = [x.instrument3.mnemonic for x in bucket_drivers]
-  #  bucket_inst3_id = [x.instrument3.id for x in bucket_drivers]
-    
-  #  bucket_inst4_ticker = [x.instrument4.ticker for x in bucket_drivers]
-  #  bucket_inst4_mnemonic = [x.instrument4.mnemonic for x in bucket_drivers]
-  #  bucket_inst4_id = [x.instrument4.id for x in bucket_drivers]
-    
         driver_names = [x.name for x in bucket_drivers]
         driver_shortnames = [x.short_name for x in bucket_drivers]
     
