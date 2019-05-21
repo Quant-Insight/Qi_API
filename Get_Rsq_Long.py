@@ -1,6 +1,7 @@
 #######################################################################################################################################
 # 
-# This function creates a table with the Rsq values of a given model, for a given period of time. 
+# This function creates a table with the Rsq values of a given model, for a given period of time. Note that we have data from Monday to 
+# Friday. 
 # 
 # Inputs: 
 #         model - model (e.g. 'AAPL')
@@ -17,7 +18,8 @@
 #                    Dates      |           
 #                    2018-05-21	| 34.93530
 #                    2018-05-22	| 34.85189
-#                    2018-05-23	| 34.75355     
+#                    2018-05-23	| 34.75355  
+#                    ...        | ...
 #
 #######################################################################################################################################
 
