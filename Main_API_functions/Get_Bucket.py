@@ -7,7 +7,7 @@
 #               * bucket - numeric id or name of the bucket (e.g. 'Corp credit')
 #               * numeric_id (optional) - True to consider bucket as a numeric id. False to consider bucket as a name (False by default).
 #
-# Output: A list with the id and the name of all the buckets in our API.
+# Output: the id and the name of the bucket requested.
 #               * e.g.
 #                      {'id': 23, 'name': 'Corp credit'}
 #
