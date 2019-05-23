@@ -1,6 +1,6 @@
 # API_Starter_Kit
 
-This repository includes some examples of how to use Quant-Insight API. 
+This repository includes some examples of how to use Quant-Insight's API. 
 
 ## What do you need to start using the API?
 
@@ -13,7 +13,7 @@ This repository includes some examples of how to use Quant-Insight API.
 
   * If you still don't have an API key, you can contact Quant-Insight. 
   
-  * If you already have an API key, you just need to add this part of the code at the beginning with your API key instead of 'ADD-YOUR-       API-KEY-HERE': 
+  * If you already have an API key, insert the following at the start of your script, with your API key instead of 'ADD-YOUR-API-KEY-HERE': 
 
           import pandas
           import qi_client
