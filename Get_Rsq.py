@@ -24,7 +24,7 @@
 #######################################################################################################################################
 
 
-def get_rsq_long(model, start, end, term):
+def get_Rsq(model, start, end, term):
 # Note that this may be more than 1 year of data, so need to split requests
     year_start = int(start[:4])
     year_end = int(end[:4])
