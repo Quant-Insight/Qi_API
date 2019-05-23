@@ -1,7 +1,7 @@
     
 #######################################################################################################################################
 # 
-# get_bucket(bucket, numeric_id) is a QI API function to retrieve the id and the name of a given bucket from out API.  
+# get_bucket(bucket, numeric_id) is a QI API function to retrieve the id and the name of a given bucket from our API.  
 # 
 # Inputs:
 #               * bucket - numeric id or name of the bucket (e.g. 'Corp credit')
