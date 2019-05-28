@@ -2,7 +2,10 @@
 # 
 # This function creates a table with the FVG, Rsq, Model Value, Percentage Gap, Absolute Gap and Spot Price of a given model. Note that
 # we have data from Monday to Friday. 
-# 
+#
+# Requirements:
+#         import pandas
+#
 # Inputs: 
 #         model - model (e.g. 'AAPL')
 #         start - starting date (e.g. '2009-01-01')
