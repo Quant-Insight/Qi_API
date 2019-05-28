@@ -3,6 +3,9 @@
 # This function creates a table with the Rsq values of a given model, for a given period of time. Note that we have data from Monday to 
 # Friday. 
 # 
+# Requirements:
+#         import pandas
+#
 # Inputs: 
 #         model - model (e.g. 'AAPL')
 #         start - starting date (e.g. '2018-05-21')
