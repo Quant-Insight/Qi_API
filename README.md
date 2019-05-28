@@ -2,6 +2,11 @@
 
 This repository includes some examples of how to use Quant-Insight's API. 
 
+It contains two main folders:
+
+  * Main_API_functions: contains QI's API functions.
+  * Use_Cases_Functions: contains useful examples of how to get the most of QI's API functions. 
+
 ## What do you need to start using the API?
 
 
