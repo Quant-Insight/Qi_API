@@ -1,13 +1,17 @@
 #######################################################################################################################################
 # 
-# This module allows you to call all Qi use-case functions. Simply follow these steps:
+# This module allows you to call all Qi use-case functions. 
+#
 #
 # Download this script and save in your working directory. 
+# Set your API Key as an environment variable.
+# Import API_Functions_Module
 #
-# For Jupyter Notebooks, use:
+#
+# For Jupyter Notebooks use:
 #
 # %set_env QI_API_KEY = YOUR_API_KEY
-# import API_Functions
+# import API_Functions_Module
 #
 #
 # For other Python development environments:
