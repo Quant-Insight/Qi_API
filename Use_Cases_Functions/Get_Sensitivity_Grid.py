@@ -2,7 +2,10 @@
 # 
 # This function creates a table with the sensitivities of a given model on a factor level, for a given period of time. Note that we have
 # data from Monday to Friday. 
-# 
+#
+# Requirements:
+#         import pandas
+#
 # Inputs: 
 #         model - model (e.g. 'AAPL')
 #         start - starting date (e.g. '2009-01-01')
