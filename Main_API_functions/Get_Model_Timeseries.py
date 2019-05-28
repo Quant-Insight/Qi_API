@@ -7,7 +7,7 @@
 #               * model - numeric id or name of the model (e.g. 'AAPL')
 #               * term (optional - we recommend to use 'Long Term'): 
 #                                 * 'Long Term' is defined as 250 day lookback period.
-#                                 * 'Short Term' is defined as 83 dat lookback period.
+#                                 * 'Short Term' is defined as 83 day lookback period.
 #               * version (optional) - version of the model in the API. 
 #               * numeric_id (optional) - True to consider driver as a numeric id. False to consider driver as a name (False by default).
 #
