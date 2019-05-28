@@ -6,7 +6,7 @@
 #
 # For Jupyter Notebooks, use:
 #
-# %set_env QI_API_KEY = 'YOUR_API_KEY'
+# %set_env QI_API_KEY = YOUR_API_KEY
 # import API_Functions
 #
 #
