@@ -9,7 +9,7 @@
 #               * date_to (optional) - end of the period we want to retrieve (e.g. '2016-01-01')
 #               * term (optional - we recommend to use 'Long Term'): 
 #                                 * 'Long Term' is defined as 250 day lookback period.
-#                                 * 'Short Term' is defined as 83 dat lookback period.
+#                                 * 'Short Term' is defined as 83 day lookback period.
 #               * numeric_id (optional) - True to consider driver as a numeric id. False to consider driver as a name (False by default).
 #               * version (optional) - version of the model in the API. 
 #
