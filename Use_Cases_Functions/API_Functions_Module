@@ -1,3 +1,26 @@
+#######################################################################################################################################
+# 
+# This module allows you to call all Qi use case functions. Simply follow these steps:
+#
+# Download this script and save in your working directory. 
+#
+# For Jupyter Notebooks, use:
+#
+# %set_env QI_API_KEY = 'YOUR_API_KEY'
+# import API_Functions
+#
+#
+# For other Python development environments:
+#
+#
+#
+# 
+# 
+#
+#
+
+
+
 from __future__ import print_function 
 import time
 import qi_client
