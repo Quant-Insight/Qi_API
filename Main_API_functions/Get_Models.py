@@ -7,7 +7,7 @@
 # Inputs:
 #               * tags (optional) - comma delimited list of tags to filter results with (e.g. 'S&P 1500') 
 #               * asset_class (optional) - comma delimited list of asset classes to filter results with. Results must contain all asset
-#                                          classes specified. 
+#                                          classes specified (e.g. 'Equity'). 
 #
 # Output: A list with all the models filtered by tags (optional) and asset classes (optional).
 #               * e.g.
@@ -53,9 +53,11 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 # Datatype: str
 tags = 'S&P 1500'
 
+asset_classes = 'Equity'
+
 try:
     # Get list of all defined models on the system
-    api_response = api_instance.get_models(tags=tags))
+    api_response = api_instance.get_models(tags=tags, asset_classes=asset_classes))
     pprint(api_response)
     
 except ApiException as e:
