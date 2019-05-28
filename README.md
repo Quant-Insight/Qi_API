@@ -44,9 +44,9 @@ It contains two main folders:
                 api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
 
-## How to use QI Use Case Wrapper?
+## How to use QI Use-Case Wrapper?
 
-* Download the API_Functions.py file and save it in the same folder your Python files are usually saved. 
+* Download the API_Functions_Module.py file and save it in the same folder your Python files are usually saved. 
 
 * As we did it previously, it is necessary to declare your API Key to use our functions. However, when using the wrapper you will need to declare it just before importing it as follows:
 
