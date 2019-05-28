@@ -1,7 +1,10 @@
 #######################################################################################################################################
 # 
 # This function creates a table with the n top factors of a given model. 
-# 
+#
+# Requirements:
+#         import pandas
+#
 # Inputs: 
 #         model - 'model' (e.g. 'AAPL')
 #         number - number of drivers we want to show in the table (e.g. 10)
