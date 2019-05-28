@@ -1,6 +1,9 @@
 ########################################################################################################################################################################################################################################################################
 # 
 # This function creates a table with the sensitivities values of a specific model within a period of time.  
+#
+# Requirements:
+#         import pandas
 # 
 # Inputs: 
 #         model - model (e.g. 'AAPL')
