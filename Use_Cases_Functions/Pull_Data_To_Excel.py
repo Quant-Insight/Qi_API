@@ -2,7 +2,10 @@
 #######################################################################################################################################
 # 
 # The following code allows pull data to an excel file. 
-# 
+#
+# Requirements:
+#         import pandas
+#
 #######################################################################################################################################
 #
 #######################################################################################################################################
@@ -27,15 +30,8 @@ def get_sensitivity_grid(model,start,end,term):
         else:
             date_to = end
     
-#         print("Gathering data for %s from %s to %s..." % (model,
-#         date_from,
-#         date_to))
-    
         sensitivity.update(
         api_instance.get_model_sensitivities(model=model,date_from=date_from,date_to=date_to,term=term))
-
-
-    #sensitivity = api_instance.get_model_sensitivities(model=model,date_from=start_date,date_to=end_date,term=term)
     
     
     df_sensitivities = pandas.DataFrame()
