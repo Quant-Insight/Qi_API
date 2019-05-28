@@ -52,7 +52,7 @@ It contains two main folders:
 
   * If you are using Jupyter Notebooks:
   
-         %set_env QI_API_KEY = 'YOUR-API-KEY' 
+         %set_env QI_API_KEY = 'ADD-YOUR-API-KEY-HERE' 
          import API_Functions
        
   * If you are using Visual Studio: 
@@ -61,7 +61,7 @@ It contains two main folders:
          import subprocess
          import sys
 
-         os.environ['QI_API_KEY'] = "YOUR-API-KEY"
+         os.environ['QI_API_KEY'] = 'ADD-YOUR-API-KEY-HERE'
 
          import API_Functions
 
