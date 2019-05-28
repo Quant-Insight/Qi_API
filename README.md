@@ -20,8 +20,8 @@ It contains two main folders:
   
   * If you already have an API key:
           
-          * Install QI client, with your TOKEN instead of DLTOKEN (Note that to install packages on Jupyter Notebooks you need to use 
-          !pip install instead of pip install):
+          * Install QI client, with your TOKEN instead of DLTOKEN (Note that to install packages on 
+          Jupyter Notebooks you need to use !pip install instead of pip install):
 
                 !pip install matplotlib pandas
 
@@ -30,7 +30,8 @@ It contains two main folders:
                 --extra-index-url=https://dl.cloudsmith.io/DLTOKEN/quant-insight/python/python/index/ \
                 qi-client
                
-           * Insert the following piece of code at the start of your script, with your API key instead of 'ADD-YOUR-API-KEY-HERE': 
+           * Insert the following piece of code at the start of your script, with your API key instead 
+           of 'ADD-YOUR-API-KEY-HERE': 
 
                 import pandas
                 import qi_client
@@ -43,7 +44,7 @@ It contains two main folders:
                 api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
 
-## How to use QI use cases wrapper?
+## How to use QI Use Case Wrapper?
 
 * Download the API_Functions.py file and save it in the same folder your Python files are usually saved. 
 
