@@ -8,20 +8,23 @@
 # Import API_Functions_Module
 #
 #
-# For Jupyter Notebooks use:
+# For Jupyter Notebooks use (API Key needs to be declared without ''):
 #
-# %set_env QI_API_KEY = YOUR_API_KEY
-# import API_Functions_Module
-#
-#
-# For other Python development environments:
+#         %set_env QI_API_KEY = YOUR_API_KEY
+#         import API_Functions_Module
 #
 #
+# For other Python development environments (API Key needs to be declared as a string ''):
 #
-# 
-# 
+#         import os
+#         import subprocess
+#         import sys
 #
+#         os.environ['QI_API_KEY'] = 'YOUR_API_KEY'
 #
+#         import API_Functions 
+#
+#######################################################################################################################################
 
 
 
