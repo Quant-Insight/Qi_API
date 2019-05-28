@@ -1,6 +1,9 @@
 #######################################################################################################################################
 # 
 # This function creates a portfolio of European stocks based on sensitivities to a given factor. 
+#
+# Requirements:
+#         import pandas
 # 
 # Inputs: 
 #         factor - 'factor' (e.g. 'ADXY')
