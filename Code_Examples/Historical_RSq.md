@@ -86,7 +86,7 @@ def get_rsq(model, start, end, term):
 
     return df
     
-# This function will call get_rsq() function to retrieve the historical RSq data for SPX between 2015-01-01 and 
+# This function calls get_rsq() function to retrieve the historical RSq data for SPX between 2015-01-01 and 
 # 2019-01-10 and will create a line chart with those values. 
 def example_historical_rsq():
     
