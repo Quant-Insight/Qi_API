@@ -222,4 +222,4 @@ example_valuation_gaps()
 
 * Candle chart representing the top valuation gaps for a given date:
 
-![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Code_Examples/img/Valuation_Gaps.png "Top 10 Valuation Gaps")
+![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Top_10_Valuation_Gaps.png "Top 10 Valuation Gaps")
