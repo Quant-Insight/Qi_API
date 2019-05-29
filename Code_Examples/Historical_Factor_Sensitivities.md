@@ -20,7 +20,7 @@ This piece of code retrieves the historical factor sensitivities for a given mod
         ```
 
 
-**Inputs:** For the purpose of this example, the model, the factors, the period of time and the temr are already defined in 
+**Inputs:** For the purpose of this example, the model, the factors, the period of time and the term are already defined in 
 example_historical_factor_sensitivities() function. 
                
 **Output:** A line chart representing 1y1y Rate Diff., 2y2y Rate Diff. and 5y5y Rate Diff. long term historical sensitivities 
