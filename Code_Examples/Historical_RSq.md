@@ -48,7 +48,7 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 #                                                      Functions
 #################################################################################################################
 
-# This function will retrieve the historical RSq data for a given model and a given period of time. 
+# This function retrieves the historical RSq data for a given model and a given period of time. 
 def get_rsq(model, start, end, term):
     
     # Note that this may be more than 1 year of data, so need to split requests
@@ -87,7 +87,7 @@ def get_rsq(model, start, end, term):
     return df
     
 # This function calls get_rsq() function to retrieve the historical RSq data for SPX between 2015-01-01 and 
-# 2019-01-10 and will create a line chart with those values. 
+# 2019-01-10 and creates a line chart with those values. 
 def example_historical_rsq():
     
     import matplotlib.pyplot as plt
