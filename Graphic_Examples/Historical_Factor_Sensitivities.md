@@ -190,4 +190,4 @@ Tracking USDJPY’s sensitivity to interest rate differentials across different 
 was highly sensitive to changes in interest rates. Since the start of 2018 however, this relationship has deteriorated,
 and spot FX is currently indifferent to interest rate differentials.
 
-![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Code_Examples/img/Factor_Sensitivity_Output_USDJPY.png "Historical Factor Sensitivities")
+![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Factor_Sensitivity_Output_USDJPY.png "Historical Factor Sensitivities")
