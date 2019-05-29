@@ -78,7 +78,7 @@ def get_rsq(model, start, end, term):
 
     return df
     
-# This function will call get_rsq()   
+# This function will call get_rsq()    
 def example_historical_rsq():
     
     import matplotlib.pyplot as plt
@@ -96,10 +96,27 @@ def example_historical_rsq():
     
     plt.plot(df.index.values, df['Rsq'], color='#53B2FF')
     
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    
+    plt.ylabel("Rsq %", fontsize=18)
+    plt.xlabel('Date', fontsize=18)
+    plt.xticks(fontsize=12)
+    plt.yticks(fontsize=12)
+    
+    plt.title('SPX Index LT Model Confidence', fontsize=20)
+    
+    ax.axhline(65, lw=1, linestyle='--', color='k')
+    
+    plt.show()
+    
+    fig.savefig('Qi_API_Rsq_Graph_Example_(SPX_Index)',
+                bbox_inches="tight",
+                facecolor=fig.get_facecolor())
+    
 #######################################################################################################################################
 #                                                           Main Code
 #######################################################################################################################################
 
 example_historical_rsq()
 
-    
