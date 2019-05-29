@@ -122,9 +122,9 @@ def get_top_valuation_gaps(date, models):
     
     return top_gaps
 
-# This function calls get_top_valuation_gaps() function to retrieve the top ten valuation gaps of all the models 
-# within Stoxx 600 and creates a cvs file with a summary of the values obtained, and a candle chart representing
-# the top ten valuation gaps. 
+# This function calls get_top_valuation_gaps() function to retrieve the top ten valuation gaps of all the 
+# models within Stoxx 600 and creates a cvs file with a summary of the values obtained, and a candle chart
+# representing the top ten valuation gaps. 
 def example_valuation_gaps():
     
     # To obtain the top ten valuation gaps of another model(s), please modify the input of 
