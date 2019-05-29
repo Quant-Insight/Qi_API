@@ -129,7 +129,7 @@ def get_sensitivities(model, factors, start, end, term):
     
     return df
 
-# This function will call get_sensitivities() function to retrieve 1y1y Rate Diff., 2y2y Rate Diff. and 5y5y Rate
+# This function calls get_sensitivities() function to retrieve 1y1y Rate Diff., 2y2y Rate Diff. and 5y5y Rate
 # Diff. long term sensitivities for USDJPY, between 2018-01-01 and 2019-01-10. 
 def example_historical_factor_sensitivities():
     
