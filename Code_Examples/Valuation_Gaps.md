@@ -127,8 +127,9 @@ def get_top_valuation_gaps(date, models):
 # the top ten valuation gaps. 
 def example_valuation_gaps():
     
-    # To obtain the top ten valuation gaps of another model(s), please modify the input of get_top_valuation_gaps()
-    # function. 
+    # To obtain the top ten valuation gaps of another model(s), please modify the input of 
+    # get_top_valuation_gaps() function. 
+    
     stoxx_600 = list(set([
             model.name for model in api_instance.get_models(tags='STOXX Europe 600')
     ]))
