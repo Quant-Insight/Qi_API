@@ -40,7 +40,6 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 #######################################################################################################################################
 
 # This function will retrieve the historical RSq data for a given model and a given period of time. 
-#
 def get_rsq(model, start, end, term):
     
     # Note that this may be more than 1 year of data, so need to split requests
