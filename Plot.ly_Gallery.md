@@ -1,28 +1,27 @@
 ## Plot.ly Dashboard Gallery
 
-<table>
-  <tr>
-    <th>Plot.ly Dashboard</th>
-    <th>Description</th>
-  </tr>
-  
-  <tr>
-    <td>
-    <a href="https://plot.ly/dashboard/quant-insight:276/view?share_key=Vbn0xjkUf43ROPnugIkfkZ">
-    <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Macro_micro_regime.PNG" width="300" height="350" title="Equity Use Cases" alt="Equity Use Cases">
-    </a>
-    </td>
-    <td>Equity Use Cases</td>
-  </tr>
-  
-  <tr>
-    <td>
-    <a href="https://plot.ly/dashboard/quant-insight:492/view?share_key=C8ngAhbMpqYIMckXKzHkNz#/">
-    <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Asset_Allocation.PNG" width="300" height="350" title="ETF Universe - Asset Allocation" alt="ETF Universe - Asset Allocation">
-    </a>
-    </td>
-    <td>ETF Universe - Asset Allocation</td>
-  </tr>
+<div>
+  <table align="center">
+    <tr>
+      <th>Plot.ly Dashboard</th>
+      <th>Description</th>
+    </tr>
+    <tr>
+      <td>
+      <a href="https://plot.ly/dashboard/quant-insight:276/view?share_key=Vbn0xjkUf43ROPnugIkfkZ">
+      <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Macro_micro_regime.PNG" width="300" height="350" title="Equity Use Cases" alt="Equity Use Cases">
+      </a>
+      </td>
+      <td>Equity Use Cases</td>
+    </tr>
+    <tr>
+      <td>
+      <a href="https://plot.ly/dashboard/quant-insight:492/view?share_key=C8ngAhbMpqYIMckXKzHkNz#/">
+      <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Asset_Allocation.PNG" width="300" height="350" title="ETF Universe - Asset Allocation" alt="ETF Universe - Asset Allocation">
+      </a>
+      </td>
+      <td>ETF Universe - Asset Allocation</td>
+    </tr>
   
   <tr>
     <td>
@@ -69,3 +68,5 @@
     <td>Multi-Asset</td>
   </tr>
 </table>
+
+</div>
