@@ -8,8 +8,8 @@
   
   <tr>
     <td>
-    <a href="https://plot.ly/dashboard/quant-insight:265/view?share_key=qQmHQLn5aIyk7JUJlJgqFe#/">
-    <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Stock_Picking.PNG" width="300" height="350" title="Equity Use Cases" alt="Equity Use Cases">
+    <a href="https://plot.ly/dashboard/quant-insight:276/view?share_key=Vbn0xjkUf43ROPnugIkfkZ">
+    <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Macro_micro_regime.PNG" width="300" height="350" title="Equity Use Cases" alt="Equity Use Cases">
     </a>
     </td>
     <td>Equity Use Cases</td>
