@@ -74,3 +74,95 @@
   </table>
   </div>
   
+  
+  ### Optimise trade selection
+  
+  <div>
+  <table>
+    <tr>
+    </tr>
+    <tr>
+      <td width = "200">
+        <a href="https://plot.ly/dashboard/quant-insight:705/view?share_key=jhrZWVFbFUguRKbbLF1a77">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Crude_Oil_Prices.PNG" width="300" height="150" title="Crude Oil & FX" alt="Crude Oil & FX">
+        </a>
+      </td>
+      <td align="justify" width = "660"><b>Worried about a spike in crude oil prices?</b> </br></br>
+         Qi identifes EURNOK as in robust macro regime, 0.8 sigma rich to macro-warranted fair value and the most sensitive to crude oil prices</br>
+       </td>
+    </tr>
+    <tr>
+      <td width = "200">
+        <a href="https://plot.ly/~quant-insight/854.embed?share_key=0JGKYb0tw0T1AfD1TLp5Tm">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Optimise_Trade_Selection.PNG" width="300" height="100" title="Macro" alt="Macro">
+        </a>
+      </td>
+      <td align="justify" width = "660"><b>Global equity mandate and concerned about a stronger USD?</b> </br></br>
+          • Which index, sector or ETF is most sensitive to DXY and is it rich or cheap to its prevailing macro regime? </br>
+          • Italian equities are most vulnerable to a resurgent USD (weaker EUR) - they are sensitive to DXY & screen as rich to Qi model value</br>
+       </td>
+    </tr>
+    
+  </table>
+  </div>
+  
+  ### View top trades
+  
+  <div>
+  <table>
+    <tr>
+    </tr>
+    <tr>
+      <td width = "200">
+        <a href="https://www.quant-insight.com/request-a-demo/">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/TradeWatch.PNG" width="300" height="150" title="Trade Watch" alt="Trade Watch">
+        </a>
+      </td>
+      <td align="justify" width = "660"><b>The 10 biggest valuation gaps across asset classes</b> </br></br>
+         Subject to a range of further flters capturing strength of regime, consistency of signal, momentum and key drivers</br>
+       </td>
+    </tr>
+    <tr>
+      <td width = "200">
+        <a href="https://www.quant-insight.com/request-a-demo/">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/3_sigma.PNG" width="300" height="100" title="3 Sigma Report" alt="3 Sigma Report">
+        </a>
+      </td>
+      <td align="justify" width = "660"><b>Screen for assets experiencing capitulation.</b> </br></br>
+          Qi’s momentum metrics capture securities undergoing a blow-out top or a sell-off that is close to exhaustion.</br>
+       </td>
+    </tr>
+    
+  </table>
+  </div>
+  
+  ### Unserstand Risk
+  
+  <div>
+  <table>
+    <tr>
+    </tr>
+    <tr>
+      <td width = "200">
+        <a href="https://www.quant-insight.com/request-a-demo/">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/macro_Cash_Exposures.PNG" width="300" height="100" title="3 Sigma Report" alt="3 Sigma Report">
+        </a>
+      </td>
+      <td align="justify" width = "660"><b>Screen for assets experiencing capitulation.</b> </br></br>
+          Qi’s momentum metrics capture securities undergoing a blow-out top or a sell-off that is close to exhaustion.</br>
+       </td>
+    </tr>
+    <tr>
+      <td width = "200">
+        <a href="https://plot.ly/dashboard/quant-insight:183/view?share_key=56g83Lb2VDTvfCNaQIP9zT#/">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/macro_exposures_vs_benchmark.PNG" width="300" height="150" title="Macro Exposures vs Benchmark" alt="Macro Exposures vs Benchmark">
+        </a>
+      </td>
+      <td align="justify" width = "660"><b>Distil key macro exposures into cash PNL terms.</b> </br></br>
+         A European equity portfolio – biggest 6 holdings – sensitivity in EUR terms to the biggest macro drivers</br>
+       </td>
+    </tr>
+    
+    
+  </table>
+  </div>
