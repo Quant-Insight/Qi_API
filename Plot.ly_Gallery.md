@@ -1,4 +1,6 @@
-## Plot.ly Dashboard Gallery
+## Quant Insight Dashboard Gallery
+
+<p align="justify"> • These dashboards have been created using Quant Insight API and Plot.ly. </br> • To visualise the entire dashboard, click on the images.</p>
 
 ### Analyse a trade
 
