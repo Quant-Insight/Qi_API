@@ -138,7 +138,7 @@
   </table>
   </div>
   
-  ### Unserstand Risk
+  ### Understand Risk
   
   <div>
   <table>
