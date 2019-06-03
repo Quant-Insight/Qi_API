@@ -1,7 +1,7 @@
     
 #######################################################################################################################################
 # 
-# The following code allows pull data to an excel file. 
+# The following code allows you to pull data to an excel file. 
 #
 # Requirements:
 #         import pandas
@@ -100,7 +100,7 @@ def get_model_data(model,start,end,term):
 sp1500_names =  [x.name for x in api_instance.get_models(tags="S&P 1500")][::2]
 stocks = sp1500_names
 # Change the address where the file will be saved and the name of the Excel file. 
-writer = pandas.ExcelWriter('C:/Users/field/OneDrive/QI/S&P1500 api data (5 years).xlsx', engine='openpyxl')
+writer = pandas.ExcelWriter('C:/Users/EXAMPLE_ADDRESS.xlsx', engine='openpyxl')
 
 for stock in stocks:
     model_data = get_model_data(stock,'2015-01-01','2019-04-02','Long Term')
