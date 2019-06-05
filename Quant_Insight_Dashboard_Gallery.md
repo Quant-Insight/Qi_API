@@ -24,7 +24,7 @@
     <tr>
       <td width = "200">
         <a href="https://plot.ly/dashboard/quant-insight:80/view?share_key=3IdhEGUrYpytacUyf6BuAi#/">
-          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Renault_Horizonal_Bars.PNG" width="300" height="200" title="Renault" alt="Renault">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Renault_Horizonal_Bars2.PNG" width="300" height="100" title="Renault" alt="Renault">
         </a>
       </td>
       <td align="justify" width = "660"><b>How does the Renault regime differ from its peers? </b> </br></br>
@@ -55,7 +55,7 @@
     <tr>
       <td width = "200">
         <a href="https://plot.ly/dashboard/quant-insight:276/view?share_key=Vbn0xjkUf43ROPnugIkfkZ#/">
-          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Macro_micro_regime.PNG" width="300" height="150" title="Macro or Micro Regime" alt="Macro or Micro Regime">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Macro_micro_regime2.PNG" width="300" height="100" title="Macro or Micro Regime" alt="Macro or Micro Regime">
         </a>
       </td>
       <td align="justify" width = "660"><b>Observe when your stock is in a macro or micro regime.</b> </br></br>
@@ -85,8 +85,18 @@
     </tr>
     <tr>
       <td width = "200">
+        <a href="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Scenario_Analysis.PNG">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Scenario_Analysis.PNG" width="300" height="100" title="Scenario analysis" alt="Scenario Analysis">
+        </a>
+      </td>
+      <td align="justify" width = "660"><b>Scenario Analysis</b> </br></br>
+         Isolate how combinations of macro factors can impact your target asset. For example, we show how moves in HY credit spreads and infation expectations impact the S&P500</br>
+       </td>
+    </tr>
+    <tr>
+      <td width = "200">
         <a href="https://plot.ly/dashboard/quant-insight:705/view?share_key=jhrZWVFbFUguRKbbLF1a77">
-          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Crude_Oil_Prices.PNG" width="300" height="150" title="Crude Oil & FX" alt="Crude Oil & FX">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Crude_Oil_Prices2.PNG" width="300" height="100" title="Crude Oil & FX" alt="Crude Oil & FX">
         </a>
       </td>
       <td align="justify" width = "660"><b>Worried about a spike in crude oil prices?</b> </br></br>
@@ -146,7 +156,7 @@
     </tr>
     <tr>
       <td width = "200">
-        <a href="https://www.quant-insight.com/request-a-demo/">
+        <a href="https://plot.ly/dashboard/quant-insight:183/view?share_key=56g83Lb2VDTvfCNaQIP9zT#/">
           <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/macro_Cash_Exposures.PNG" width="300" height="100" title="3 Sigma Report" alt="3 Sigma Report">
         </a>
       </td>
