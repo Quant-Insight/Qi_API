@@ -24,7 +24,7 @@
     <tr>
       <td width = "200">
         <a href="https://plot.ly/dashboard/quant-insight:80/view?share_key=3IdhEGUrYpytacUyf6BuAi#/">
-          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Renault_Horizonal_Bars2.PNG" width="300" height="100" title="Renault" alt="Renault">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Renault_Horizonal_Bars2_2.png" width="300" height="100" title="Renault" alt="Renault">
         </a>
       </td>
       <td align="justify" width = "660"><b>How does the Renault regime differ from its peers? </b> </br></br>
@@ -96,7 +96,10 @@
     <tr>
       <td width = "200">
         <a href="https://plot.ly/dashboard/quant-insight:705/view?share_key=jhrZWVFbFUguRKbbLF1a77">
-          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Crude_Oil_Prices.PNG" width="300" height="150" title="Crude Oil & FX" alt="Crude Oil & FX">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Crude_Oil_Prices_1_1.png" width="300" height="80" title="Crude Oil & FX 1" alt="Crude Oil & FX 1"></br>
+        </a>
+        <a href="https://plot.ly/dashboard/quant-insight:705/view?share_key=jhrZWVFbFUguRKbbLF1a77">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Crude_Oil_Prices_2.png" width="300" height="80" title="Crude Oil & FX 2" alt="Crude Oil & FX 2">
         </a>
       </td>
       <td align="justify" width = "660"><b>Worried about a spike in crude oil prices?</b> </br></br>
@@ -167,7 +170,7 @@
     <tr>
       <td width = "200">
         <a href="https://plot.ly/dashboard/quant-insight:183/view?share_key=56g83Lb2VDTvfCNaQIP9zT#/">
-          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/macro_exposures_vs_benchmark.PNG" width="300" height="150" title="Macro Exposures vs Benchmark" alt="Macro Exposures vs Benchmark">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/macro_exposures_vs_benchmark_2.png" width="300" height="100" title="Macro Exposures vs Benchmark" alt="Macro Exposures vs Benchmark">
         </a>
       </td>
       <td align="justify" width = "660"><b>Distil key macro exposures into cash PNL terms.</b> </br></br>
