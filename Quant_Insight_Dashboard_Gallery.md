@@ -85,7 +85,7 @@
     </tr>
     <tr>
       <td width = "200">
-        <a href="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Scenario_Analysis.PNG">
+        <a href="https://content.screencast.com/users/xanina85/folders/Default/media/33655750-0f77-4523-8d42-28fa436ce11d/Scenario_Analysis.PNG">
           <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Scenario_Analysis.PNG" width="300" height="100" title="Scenario analysis" alt="Scenario Analysis">
         </a>
       </td>
