@@ -11,7 +11,7 @@
     <tr>
       <td width = "200">
         <a href="https://plot.ly/dashboard/quant-insight:757/view?share_key=BOSySS4HIHC3TJsZp3Q0IV">
-          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Microsoft_vs_S5INFT_new_2_2.png" width="300" height="100" title="Microsoft" alt="Microsoft">
+          <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Microsoft_vs_S5INFT_new_3.png" width="300" height="100" title="Microsoft" alt="Microsoft">
         </a>
       </td>
       <td align="justify" width = "660"><b>To predict price, first you have to understand what is driving price </b> </br></br>
