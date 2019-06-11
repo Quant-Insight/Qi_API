@@ -1,6 +1,6 @@
 #######################################################################################################################################
 # 
-# This function retuns the top stocks based on sensitivities (in absolute terms) to a given list of factors. 
+# This function returns the top stocks based on sensitivities (in absolute terms) to a given list of factors. 
 #
 # Requirements:
 #         import pandas
