@@ -15,7 +15,6 @@
 #
 # Output: 
 #         dataframe with the following columns:
-#               * Position - dataframe index. 
 #               * Name - top factor drivers' names (10 for our example). 
 #               * Factor Sensitivities - one column per factor with the sensitivities values. 
 #               * Total Sensitivities (Abs) - Total sum of the sensitivities per model, in absolute terms. 
