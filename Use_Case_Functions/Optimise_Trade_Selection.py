@@ -35,7 +35,7 @@
 #######################################################################################################################################
 
 
-def optimise_trade_selection(factors,universe_tag,universe_asset_classes,size,date,term):
+def optimise_trade_selection(factors, universe_asset_classes, universe_tag, size, date, term):
 
     FACTOR_sensitivity = []
     names = []
@@ -45,13 +45,11 @@ def optimise_trade_selection(factors,universe_tag,universe_asset_classes,size,da
     if len(factors) > 3:
         print('The number of factors need to be less than 3.')
     else:   
-        # Get ID's of the Euro Stoxx 600 Stocks.
-        # Stocks can be changed by specifying another stock's tag. 
-        euro_stoxx_600 = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes, tags=universe_tag)][::2]
+        models = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes, tags=universe_tag)][::2]
         
         df_result = pandas.DataFrame(columns = factors + ['Total Sensitivity (Abs)'])
         
-        for asset in euro_stoxx_600:
+        for asset in models:
             factor_sensitivities = []
             sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
 
@@ -70,8 +68,9 @@ def optimise_trade_selection(factors,universe_tag,universe_asset_classes,size,da
                 
                 df_result.loc[asset] = factor_sensitivities + [total]
 
-        
-        result = df_result.nlargest(size,'Total Sensitivity (Abs)')
+         if len(df_result) > 0:
+            result = df_result.nlargest(size,'Total Sensitivity (Abs)')
+            return result
+        else:
+            print('There are no models which satisfies the universe asset classes ' + universe_asset_classes + ' and the universe tag ' + universe_tag)
 
-
-        return result
