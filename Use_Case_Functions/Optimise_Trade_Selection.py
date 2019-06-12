@@ -7,11 +7,11 @@
 # 
 # Inputs: 
 #         factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['ADXY', 'US GDP', 'Brent'])
-#         universe_tag - universe tag (e.g. 'STOXX Europe 600') - The list of the tags can be retrieved using api_instance.get_tags()
 #         universe_asset_classes - universe asset class (e.g. 'Equity')
 #         size - number of models to be in the result (e.g. 10)
 #         date - 'date' (e.g. '2019-05-17')
 #         term - 'term' (e.g. 'Long Term')
+#         universe_tag (optional) - universe tag (e.g. 'STOXX Europe 600') - The list of the tags can be retrieved using api_instance.get_tags()
 #
 # Output: 
 #         dataframe with the following columns:
@@ -35,20 +35,27 @@
 #######################################################################################################################################
 
 
-def optimise_trade_selection(factors, universe_asset_classes, universe_tag, size, date, term):
+def optimise_trade_selection(factors,universe_asset_classes,size,date,term, **kwargs):
 
     FACTOR_sensitivity = []
     names = []
     POSITION = []
+
+    universe_tag = kwargs.get('universe_tag', None)
     
-    # We recommend to use a maximum of 3 factors.
     if len(factors) > 3:
         print('The number of factors need to be less than 3.')
     else:   
-        models = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes, tags=universe_tag)][::2]
-        
+ 
+        if (universe_tag is not None):
+            models = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes, tags=universe_tag)][::2]
+        else:
+            models = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes)][::2]
+
         df_result = pandas.DataFrame(columns = factors + ['Total Sensitivity (Abs)'])
         
+        print('Gathering data for all the models in the universe (it can take a while depending on the universe chosen)')
+
         for asset in models:
             factor_sensitivities = []
             sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
@@ -60,7 +67,8 @@ def optimise_trade_selection(factors, universe_asset_classes, universe_tag, size
 
                 for data in sensitivity[date]:
                     df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
-
+                
+                
                 total = 0
                 for factor in factors:
                     total += abs(df_sensitivities[factor][0])
@@ -68,9 +76,13 @@ def optimise_trade_selection(factors, universe_asset_classes, universe_tag, size
                 
                 df_result.loc[asset] = factor_sensitivities + [total]
 
-         if len(df_result) > 0:
+        if len(df_result) > 0:
             result = df_result.nlargest(size,'Total Sensitivity (Abs)')
             return result
         else:
-            print('There are no models which satisfies the universe asset classes ' + universe_asset_classes + ' and the universe tag ' + universe_tag)
+            if universe_tag is not None:
+                print('There are no models which satisfies the universe asset classes ' + universe_asset_classes + ' and the universe tag ' + universe_tag)
+            else:
+                print('There are no models which satisfies the universe asset classes ' + universe_asset_classes)
 
+        
