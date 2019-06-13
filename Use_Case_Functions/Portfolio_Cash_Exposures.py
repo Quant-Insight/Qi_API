@@ -12,7 +12,7 @@
 #             The portfolio has to be in the following format:
 #
 #               portfolio = pandas.DataFrame({'Name':[stock a, stock b, stock c],
-#                              'Position':[100000, -100000, 100000]})
+#                              'Position':[1000000, -1000000, 1000000]})
 #                              
 #                              
 #               stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, FB
@@ -31,9 +31,9 @@
 #               The Excel/csv file must be in the following format:
 #
 #                   | Name | Position  |
-#                   | AAPL |   100000  |
-#                   | MSFT |  -100000  |
-#                   | FB   |   100000  |
+#                   | AAPL |   1000000 |
+#                   | MSFT |  -1000000 |
+#                   | FB   |   1000000 |
 
 #           * date - portfolio date (e.g. '2019-05-20') 
 #
