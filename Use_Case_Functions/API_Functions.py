@@ -7,6 +7,9 @@
 # Set your API Key as an environment variable.
 # Import API_Functions_Module
 #
+# Requirements:
+#
+# !pip install retrying
 #
 # For Jupyter Notebooks use (API Key needs to be declared without ''):
 #
@@ -36,6 +39,7 @@ from pprint import pprint
 import os
 import pandas
 from datetime import datetime
+from retrying import retry
 
 
 
