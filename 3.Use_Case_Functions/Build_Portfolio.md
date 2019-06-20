@@ -21,12 +21,14 @@ This function creates a portfolio of European stocks based on sensitivities to a
         ```
 
 
-**Inputs:** factor - 'factor' (e.g. 'ADXY')
+**Inputs:** 
+            factor - 'factor' (e.g. 'ADXY')
             size - number of stocks to be in resulting portfolio (e.g. 10)
             date - 'date' (e.g. '2019-05-17')
             term - 'term' (e.g. 'Long Term')
                
-**Output:** dataframe with the following columns:
+**Output:** 
+            dataframe with the following columns:
             * Position - dataframe index. 
             * Name - top 5 factor drivers' names. 
             * Weight - weights of the top 5 factor drivers.
