@@ -1,3 +1,5 @@
+# Use-Case Functions
+
 ## Description
 
 This function creates a portfolio of European stocks based on sensitivities to a given factor. 
@@ -106,9 +108,16 @@ get_portfolio(factor = 'ADXY', size = 10, date = '2019-05-17', term = 'Long Term
 
 ## Output
 
-                |   Name | Weight    | ADXY Sensitivity |
-                |------- | ---------:| ----------------:| 
-                | 2	LAND | 0.203390  | 0.09368          |
-                | 1	KGH  | 0.237288  | 0.07690          |
-                | 0	GPOR | 0.203390  | 0.05345          |
-                | 3	TIT  | 0.355932  | 0.04598          |
+|    | Name | Weight    | ADXY Sensitivity |
+|----|:----:|:---------:|:----------------:| 
+| 18 | ENEL | 0.108527  | 0.12556          |
+| 27 | GET  | 0.077519  | 0.12079          |
+| 71 | VIE  | 0.108527  | 0.11375          |
+| 67 | TEL  | 0.090439  | 0.11198          |
+| 5  | ATL  | 0.108527  | 0.10966          |
+| 2  | ALT  | 0.108527  | 0.10409          |
+| 53 | RHM  | 0.090439  | 0.10178          |
+| 1  | AENA | 0.108527  | 0.10067          |
+| 62 | SGRE | 0.090439  | 0.10050          |
+| 40 | LOOMB| 0.108527  | 0.09925          |
+
