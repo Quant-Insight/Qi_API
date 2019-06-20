@@ -163,8 +163,8 @@
           <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/3.Visual_Examples/img/macro_Cash_Exposures.PNG" width="300" height="100" title="3 Sigma Report" alt="3 Sigma Report">
         </a>
       </td>
-      <td align="justify" width = "660"><b>Screen for assets experiencing capitulation.</b> </br></br>
-          Qi’s momentum metrics capture securities undergoing a blow-out top or a sell-off that is close to exhaustion.</br>
+      <td align="justify" width = "660"><b>Distil key macro exposures into cash PNL terms.</b> </br></br>
+          A European equity portfolio – biggest 6 holdings – sensitivity in EUR terms to the biggest macro drivers</br>
        </td>
     </tr>
     <tr>
@@ -173,8 +173,11 @@
           <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/3.Visual_Examples/img/macro_exposures_vs_benchmark_2.png" width="300" height="100" title="Macro Exposures vs Benchmark" alt="Macro Exposures vs Benchmark">
         </a>
       </td>
-      <td align="justify" width = "660"><b>Distil key macro exposures into cash PNL terms.</b> </br></br>
-         A European equity portfolio – biggest 6 holdings – sensitivity in EUR terms to the biggest macro drivers</br>
+      <td align="justify" width = "660"><b>View your key macro exposures versus your benchmark</b> </br></br>
+          • Quickly identify your fund’s net overweight or underweight to each macro factor relative to benchmark</br>
+          • Versus benchmark, the fund is even more reliant on rising inflation (plus energy and metal prices) & growth
+            expectations; wants credit spreads to tighten. Its positioning has clear reflation bias versus Stoxx600
+         </br>
        </td>
     </tr>
     
