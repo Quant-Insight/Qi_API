@@ -4,8 +4,10 @@ This repository includes some examples of how to use Quant-Insight's API.
 
 It contains two main folders:
 
-  * Main_API_functions: contains QI's API functions.
-  * Use_Cases_Functions: contains useful examples of how to get the most of QI's API functions. 
+  * 1.Built_In_Functions: contains QI's API functions.
+  * 2.Pull_Data: contains useful examples of how to get the most of QI's API functions. 
+  * 3.Visual_Examples: contains examples of how to create plots to visualise the data obtained using QI's API functions. 
+  * 4.Use_Case_Functions: contains examples to 
 
 ## What do you need to start using the API?
 
@@ -46,14 +48,14 @@ It contains two main folders:
 
 ## How to use QI Use-Case Wrapper?
 
-* Download the API_Functions_Module.py file and save it in the same folder your Python files are usually saved. 
+* Download the QI_API_Library.py file and save it in the same folder your Python files are usually saved. 
 
 * As we did it previously, it is necessary to declare your API Key to use our functions. However, when using the wrapper you will need to declare it just before importing it as follows:
 
   * If you are using Jupyter Notebooks:
   
          %set_env QI_API_KEY = 'ADD-YOUR-API-KEY-HERE' 
-         import API_Functions
+         import QI_API_Library
        
   * If you are using Visual Studio: 
   
@@ -63,9 +65,9 @@ It contains two main folders:
 
          os.environ['QI_API_KEY'] = 'ADD-YOUR-API-KEY-HERE'
 
-         import API_Functions
+         import QI_API_Library
 
   * Now you can use all our use case functions as follows: 
                         <br>
-                        <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/api_wrapper_functions.png" alt="QI Use Case Functions"/>
+                        <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/3.Visual_Examples/img/api_wrapper_functions.png" alt="QI Use Case Functions"/>
                         </br>
