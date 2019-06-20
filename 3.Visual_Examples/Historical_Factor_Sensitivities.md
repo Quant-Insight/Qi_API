@@ -1,4 +1,4 @@
-## Description
+﻿## Description
 
 This piece of code retrieves the historical factor sensitivities for a given model (USDJPY), a given period of time (between
 2015-01-01 and 2019-01-10), given factors (1y1y Rate Diff., 2y2y Rate Diff. and 5y5y Rate Diff.), and a given term (Long Term). 
@@ -190,4 +190,4 @@ Tracking USDJPY’s sensitivity to interest rate differentials across different 
 was highly sensitive to changes in interest rates. Since the start of 2018 however, this relationship has deteriorated,
 and spot FX is currently indifferent to interest rate differentials.
 
-![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Factor_Sensitivity_Output_USDJPY.png "Historical Factor Sensitivities")
+![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/3.Visual_Examples/img/Factor_Sensitivity_Output_USDJPY.png "Historical Factor Sensitivities")

@@ -138,5 +138,5 @@ had strong explanatory power for US equities. The sharp fall in R-Squared in the
 non-macro factors became more significant; these could potentially include momentum, sentiment, positioning,
 geopolitics etc. More recently the power of macro has re-asserted itself.
 
-![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Historical_RSq_Output_SPX_Index.png "Historical RSq")
+![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/3.Visual_Examples/img/Historical_RSq_Output_SPX_Index.png "Historical RSq")
 

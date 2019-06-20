@@ -153,4 +153,4 @@ example_bucket_driver_sensitivities()
 
 ## Output
 
-![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/Graphic_Examples/img/Bucket_Drivers_Pie_Chart_BMW.png "Bucket Driver Sensitivities")
+![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/3.Visual_Examples/img/Bucket_Drivers_Pie_Chart_BMW.png "Bucket Driver Sensitivities")
