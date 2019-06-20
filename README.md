@@ -69,5 +69,5 @@ It contains two main folders:
 
   * Now you can use all our use case functions as follows: 
                         <br>
-                        <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/3.Visual_Examples/img/api_wrapper_functions.png" alt="QI Use Case Functions"/>
+                        <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/api_wrapper_functions.png" alt="QI Use Case Functions"/>
                         </br>
