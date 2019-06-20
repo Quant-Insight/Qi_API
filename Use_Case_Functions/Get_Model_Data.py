@@ -1,6 +1,6 @@
 #######################################################################################################################################
 # 
-# This function creates a table with the FVG, Rsq, Model Value, Percentage Gap, Absolute Gap and Spot Price of a given model. Note that
+# This function creates a table with the FVG, Rsq, Model Value, Percentage Gap, Absolute Gap of a given model. Note that
 # we have data from Monday to Friday. 
 #
 # Requirements:
@@ -19,8 +19,7 @@
 #               * Rsq - model Rsq values for each day requested.
 #               * Model Value - model fair value for each day requested.
 #               * Percentage Gap - model percentage gap value for each day requested. 
-#               * Alsolute Gap - model absolute gap value for each day requested. 
-#               * Spot Price- model spot price for each day requested (spot price = z-score * stdev + mean)
+#               * Absolute Gap - model absolute gap value for each day requested. 
 #               * e.g.
 #
 #                            | FVG      | Rsq      | Model Value | Percentage Gap | Absolute Gap
@@ -58,11 +57,10 @@ def get_model_data(model, start, end, term):
     model_value = [data.fair_value for data in time_series]
     percentage_gap = [data.percentage_gap for data in time_series]
     absolute_gap = [data.absolute_gap for data in time_series]
-    spot_price = [data.target_zscore*data.target_stdev + data.target_mean for data in time_series]
 
 
     df_ = pandas.DataFrame({'FVG':FVG, 'Rsq':Rsq, 'Model Value':model_value, 'Percentage Gap':percentage_gap,
-                            'Absolute Gap':absolute_gap, 'Spot Price': spot_price})
+                            'Absolute Gap':absolute_gap})
     
     df_.index = dates
     
