@@ -24,10 +24,11 @@ This function creates a portfolio of European stocks based on sensitivities to a
 
 
 **Inputs:** 
-factor - 'factor' (e.g. 'ADXY')
-size - number of stocks to be in resulting portfolio (e.g. 10)
-date - 'date' (e.g. '2019-05-17')
-term - 'term' (e.g. 'Long Term')
+
+* factor - 'factor' (e.g. 'ADXY')
+* size - number of stocks to be in resulting portfolio (e.g. 10)
+* date - 'date' (e.g. '2019-05-17')
+* term - 'term' (e.g. 'Long Term')
                
 **Output:** 
 Dataframe with the following columns:
@@ -150,12 +151,13 @@ This function returns the top stocks based on sensitivities (in absolute terms) 
 
 
 **Inputs:** 
-factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['ADXY', 'US GDP', 'Brent'])
-universe_asset_classes - universe asset class (e.g. 'Equity')
-size - number of models to be in the result (e.g. 10)
-date - 'date' (e.g. '2019-05-17')
-term - 'term' (e.g. 'Long Term')
-universe_tag (optional) - universe tag (e.g. 'STOXX Europe 600') - The list of the tags can be retrieved using api_instance.get_tags()
+
+* factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['ADXY', 'US GDP', 'Brent'])
+* universe_asset_classes - universe asset class (e.g. 'Equity')
+* size - number of models to be in the result (e.g. 10)
+* date - 'date' (e.g. '2019-05-17')
+* term - 'term' (e.g. 'Long Term')
+* universe_tag (optional) - universe tag (e.g. 'STOXX Europe 600') - The list of the tags can be retrieved using api_instance.get_tags()
                
 **Output:** 
 Dataframe with the following columns:
@@ -565,7 +567,8 @@ This function creates a table comparing how much 2 factors move depending on the
 * term - term (e.g. 'Long Term')
                
 **Output:** 
-Dataframe representing how much both factors move depending on their standard deviation values. 
+
+* Dataframe representing how much both factors move depending on their standard deviation values. 
 
 ### Code
 
