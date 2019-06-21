@@ -538,7 +538,7 @@ get_portfolio_cash_exposures_bucket(portfolio,date)
 
 ### Description
 
-This function creates a table with the cash exposures of a given portfolio on a bucket level, for a given period of time for each stock in the portfolio. It also provides the portfolio total cash exposures per bucket.
+This function creates a table comparing how much 2 factors move depending on their standard deviation values.
 
 **#Requirements:** 
 
@@ -565,9 +565,189 @@ This function creates a table with the cash exposures of a given portfolio on a 
 * term - term (e.g. 'Long Term')
                
 **Output:** 
-Dataframe with the following columns:
-
-* Column with all the portfolio stock names plus the 'Total' row - dataframe index.
-* A column per Bucket with its chash sensitivities associated to each stock in the portfolio.
+Dataframe representing how much both factors move depending on their standard deviation values. 
 
 ### Code
+
+```python
+
+def get_sens_matrix(model,factors,date,term):
+
+    drivers = get_factor_drivers(model,date,term)
+
+    stdevs = get_factor_stdevs(model,date,term)
+
+    both_moves = []
+    both_results = []
+    for factor in factors:
+        
+        if float(stdevs.loc[factor]) > 5:
+            move_c = int(round(float(stdevs.loc[factor]),-1))
+            intervals = int(round(move_c/2,0))
+            moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
+
+        elif float(stdevs.loc[factor]) > 2:
+            move_c = int(round(float(stdevs.loc[factor]),0))
+            intervals = int(round(move_c/2,0))
+            moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
+            
+        elif float(stdevs.loc[factor]) < 0.05:
+            move_c = round(float(stdevs.loc[factor]),2)
+            intervals = int((move_c/2)*100)
+            move_c = int(100*move_c)
+            moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
+            moves = [round(x/100,2) for x in moves]
+
+        else:
+            move_c = round(float(stdevs.loc[factor]),1)
+            intervals = int((move_c/2)*100)
+            move_c = int(100*move_c)
+            moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
+            
+            if intervals < 10:
+                moves = [round(x/100,2) for x in moves]
+                
+            else:
+                moves = [round(x/100,1) for x in moves]
+
+        both_moves.append(moves)
+        sens = float(drivers.loc[factor])
+        stdev = float(stdevs.loc[factor])
+        move_results = [(move/stdev)*sens for move in moves]
+        both_results.append(move_results)
+
+    total_moves = []
+    for x in both_results[0]:
+        total_moves.append([x+y for y in both_results[1]])
+
+    final_df = pandas.DataFrame(total_moves, columns=both_moves[1], index=both_moves[0])
+    final_df = round(final_df,2)
+    
+    return final_df
+
+#################################################################################################################
+#                                                  Main Code
+#################################################################################################################
+
+get_sens_matrix(model = 'AAPL', factors = ['Brent', 'Copper'], date  = '2019-05-17', term = 'Long Term')
+
+```
+
+### Output
+
+
+|     | -15   |	-10   | -5    | 0     | 5     | 10    | 15    |
+|:---:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|:-----:|
+| -15 |	-0.22 |	-0.25 | -0.27 | -0.29 | -0.31 | -0.34 | -0.36 | 
+| -10 |	-0.13 |	-0.15 | -0.17 | -0.19 | -0.22 | -0.24 | -0.26 | 
+| -5  |	-0.03 | -0.05 | -0.07 | -0.10 | -0.12 | -0.14 | -0.16 |
+| 0   | 0.07  | 0.04  | 0.02  | 0.00  | -0.02 | -0.04 | -0.07 |
+| 5   | 0.16  | 0.14  | 0.12  | 0.10  | 0.07  | 0.05  | 0.03  | 
+| 10  | 0.26  | 0.24  | 0.22  | 0.19  | 0.17  | 0.15  | 0.13  | 
+| 15  | 0.36  | 0.34  | 0.31  | 0.29  | 0.27  | 0.25  | 0.22  |
+
+
+## Top RSq
+
+### Description
+
+This function creates a table with the top RSq changes of a given list of models. 
+
+**#Requirements:** 
+
+* Install matplotlib and pandas:
+
+    * Jupyter Notebooks:
+    
+        ```  
+        !pip install matplotlib pandas
+        ```
+        
+    * Command line:
+        
+        ```
+        $ pip install matplotlib pandas
+        ```
+
+
+**Inputs:** 
+
+* models - list of models (e.g. ['AAPL', 'FB', 'MSFT'])
+* number - number of results to be shown in the result (e.g. 10) 
+
+               
+**Output:** 
+Dataframe with the following columns:
+
+* Name: name of the top models. 
+* RSq: RSq most recent values (yesterday's values) for each of the top models.
+* RSq - 1M: RSq values (from a month before) for each of the top models. 
+* Change: Change between the RSq values obtained.   
+
+### Code
+
+```python
+
+def Top_RSq_Changes(models, number):
+
+    from datetime import datetime, timedelta
+    import pandas
+
+    date_datetime = datetime.now().date() - timedelta(days=1)
+    date_1m_datetime = datetime.now().date() - timedelta(days=30)
+    
+    date = datetime.strftime(date_datetime,'%Y-%m-%d')
+    date_1m = datetime.strftime(date_1m_datetime,'%Y-%m-%d')
+
+    Rsq_s = []
+    Rsq_1m = []
+    asset_names = []
+
+    for asset in models:
+
+        rsq_now = get_rsq(asset,date,date,'Long Term')
+        rsq_past = get_rsq(asset,date_1m,date_1m,'Long Term')
+    
+        if (len(rsq_now) > 0) and (len(rsq_past) > 0):
+            
+            Rsq_s.append(float(rsq_now['Rsq']))
+            Rsq_1m.append(float(rsq_past['Rsq']))
+            
+            name = api_instance.get_model(asset).security_name
+            asset_names.append(asset)
+
+    df_RSq = pandas.DataFrame({'Name':asset_names,'RSq':Rsq_s,'RSq - 1M':Rsq_1m,
+                               'Change':[x-y for x,y in zip(Rsq_s,Rsq_1m)]})
+    
+    df_top_RSq = df_RSq.loc[abs(df_RSq['Change']).nlargest(number).index]
+    
+    return df_top_RSq
+
+
+#################################################################################################################
+#                                                  Main Code
+#################################################################################################################
+
+models = [x.name for x in api_instance.get_models(tags = 'STOXX Europe 600')]
+
+Top_RSq_Changes(models = models, number = 10)
+
+```
+
+### Output
+
+
+
+|      | Name | RSq      | RSq - 1M   | Change    |
+|:----:|:----:|:--------:|:----------:|:---------:|
+| 776  | ORK  | 73.27132 | 19.66844   | 53.60288  |
+| 777  | ORK  | 73.27132 | 19.66844   | 53.60288  |
+| 812  | PPB  | 4.03500  | 57.20913   | -53.17413 |
+| 813  | PPB  | 4.03500  | 57.20913   | -53.17413 | 
+| 832  | PUM  | 27.46805 | 76.37296   | -48.90491 |
+| 833  | PUM  | 27.46805 | 76.37296   | -48.90491 | 
+| 402  | EZJ  | 16.41328 | 61.80937   | -45.39609 | 
+| 403  | EZJ  | 16.41328 | 61.80937   | -45.39609 |
+| 1122 | UTDI | 72.93542 | 31.84294   | 41.09248  |
+| 1123 | UTDI | 72.93542 | 31.84294   | 41.09248  |
+
