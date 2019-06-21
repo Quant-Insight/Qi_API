@@ -474,6 +474,7 @@ Dataframe with the following columns:
 
 ### Code
 
+```python
 def get_portfolio_cash_exposures_bucket(portfolio,date):
 
     stock_names = portfolio['Name']
