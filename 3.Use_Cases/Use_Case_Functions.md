@@ -728,7 +728,7 @@ def Top_RSq_Changes(models, number):
 #                                                  Main Code
 #################################################################################################################
 
-models = [x.name for x in api_instance.get_models(tags = 'STOXX Europe 600')]
+models = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
 
 Top_RSq_Changes(models = models, number = 10)
 
