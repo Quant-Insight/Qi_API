@@ -402,8 +402,8 @@ get_portfolio_sens_exposures_bucket(portfolio,date)
 
 ### Output
 
-|       | Corp      | DM FX     | EM FX     | EM Sov   | Energy    | Est.      | ... |
-|       | credit    |           |           | Risk     |           | Earnings  | ... |
+        | Corp      | DM FX     | EM FX     | EM Sov   | Energy    | Est.      | ... |
+        | credit    |           |           | Risk     |           | Earnings  | ... |
 |:-----:|:---------:|:---------:|:---------:|:--------:|:---------:|:---------:| ... |
 | AAPL  | -0.062982 | -0.001827 | -0.022824 | 0.010242 | 0.046779  | 0.032241  | ... |
 | MSFT  | 0.037995  | -0.000489 | 0.002154  | 0.006750 | -0.018942 | -0.000282 | ... |
@@ -528,8 +528,8 @@ get_portfolio_cash_exposures_bucket(portfolio,date)
 ### Output
 
 
-|       | Corp    | DM FX | EM FX  | EM Sov | Energy | Est.     | ... |
-|       | credit  |       |        | Risk   |        | Earnings | ... |
+        | Corp    | DM FX | EM FX  | EM Sov | Energy | Est.     | ... |
+        | credit  |       |        | Risk   |        | Earnings | ... |
 |:-----:|:-------:|:-----:|:------:|:------:|:------:|:--------:| ... |
 | AAPL  | -2099.4 | -60.9 | -760.8 | 341.4  | 1559.3 | 1074.7   | ... |
 | MSFT  | 1266.5  | -16.3 | 71.8   | 225.0  | -631.4 | -9.4     | ... |
