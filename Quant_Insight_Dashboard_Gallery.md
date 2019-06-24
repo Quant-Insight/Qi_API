@@ -18,7 +18,7 @@
          • What is driving Microsoft currently? </br>
          • Macro currently explains 62% of the variance in the MSFT stock price </br>
          • Infation expectations are the dominant driver. </br></br>
-         MSFT bulls need higher US infation expectations </br>
+         MSFT bulls need higher US inflation expectations </br>
        </td>
     </tr>
     <tr>
