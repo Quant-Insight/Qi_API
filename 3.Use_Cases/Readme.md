@@ -250,7 +250,7 @@ optimise_trade_selection(factors = ['ADXY', 'US GDP', 'Brent'], universe_asset_c
 
 ### Output
 
-|Name |	ADXY     | US GDP   | Brent Total | Sensitivity |
+|Name |	ADXY     | US GDP   | Brent | Total Sensitivity |
 |:---:|:--------:|:--------:|:-----------:|:-----------:|
 |AGS  | -0.09107 | -0.00024 | 0.22146     | 0.31277     |
 |ASRNL|	-0.11486 | -0.00086 | 0.19477     | 0.31049     |
@@ -540,7 +540,7 @@ get_portfolio_cash_exposures_bucket(portfolio,date)
 
 ### Description
 
-This function creates a table comparing how much 2 factors move depending on their standard deviation values.
+This function creates a table showing the % change of an asset due to various combinations of movements in two factors.
 
 **#Requirements:** 
 
@@ -568,8 +568,7 @@ This function creates a table comparing how much 2 factors move depending on the
                
 **Output:** 
 
-* Dataframe representing how much both factors move depending on their standard deviation values. 
-
+* Dataframe representing the % change of an asset as a result of certain movements in two factors.
 ### Code
 
 ```python
