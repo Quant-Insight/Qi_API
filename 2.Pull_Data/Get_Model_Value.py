@@ -1,7 +1,7 @@
 #######################################################################################################################################
 # 
-# This function creates a table with the model fair values of a given model within a given period of time. Note that we have data from Monday 
-# to Friday. 
+# This function creates a table with the model fair values of a given model within a given period of time. Note that we have data from 
+# Monday  to Friday. 
 #
 # Requirements:
 #         import pandas
