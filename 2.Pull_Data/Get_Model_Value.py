@@ -26,7 +26,7 @@
 #######################################################################################################################################
 
 
-def get_model_fair_value(model, start, end, term):
+def get_model_value(model, start, end, term):
     
     #Note that we only have data from Monday to Friday.
     start_date = datetime.strptime(start, '%Y-%m-%d')
