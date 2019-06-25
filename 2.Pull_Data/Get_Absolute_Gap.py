@@ -27,7 +27,7 @@
 #######################################################################################################################################
 
 
-def get_model_data(model, start, end, term):
+def get_Absolute_Gap(model, start, end, term):
     
     #Note that we only have data from Monday to Friday.
     start_date = datetime.strptime(start, '%Y-%m-%d')
@@ -36,6 +36,7 @@ def get_model_data(model, start, end, term):
     if (start_date.weekday() == 5 or start_date.weekday() == 6) and (end_date.weekday() == 5 or end_date.weekday() == 6) and ((end_date - start_date).days == 1):
         print('Please choose a period of time which includes days between Monday and Friday.')
     else: 
+    
         # Note that the periods of time can be longer than a year. We need to divide them in one-year periods.   
         year_start = int(start[:4])
         year_end = int(end[:4])
@@ -55,17 +56,10 @@ def get_model_data(model, start, end, term):
 
             time_series += api_instance.get_model_timeseries(model=model,date_from=date_from,date_to=date_to,term=term)
 
-        FVG = [data.sigma for data in time_series]
-        Rsq = [data.rsquare for data in time_series]
+        absolute_gap = [data.absolute_gap for data in time_series]
         dates = [data._date for data in time_series]
 
-        model_value = [data.fair_value for data in time_series]
-        percentage_gap = [data.percentage_gap for data in time_series]
-        absolute_gap = [data.absolute_gap for data in time_series]
-
-
-        df_ = pandas.DataFrame({'FVG':FVG, 'Rsq':Rsq, 'Model Value':model_value, 'Percentage Gap':percentage_gap,
-                                'Absolute Gap':absolute_gap})
+        df_ = pandas.DataFrame({'Absolute Gap':absolute_gap})
 
         df_.index = dates
 
