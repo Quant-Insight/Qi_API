@@ -27,7 +27,7 @@
 #######################################################################################################################################
 
 
-def get_Absolute_Gap(model, start, end, term):
+def get_absolute_gap(model, start, end, term):
     
     #Note that we only have data from Monday to Friday.
     start_date = datetime.strptime(start, '%Y-%m-%d')
