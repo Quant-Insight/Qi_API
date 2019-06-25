@@ -16,7 +16,7 @@
 #               * Date - dataframe index. 
 #               * A column by Bucket with its sensitivity associated to the model by date.  
 #               * e.g.
-#                    	Corp credit | Country Growth | DM FX   | EM FX   | EM Sov Risk | Energy  | Est. Earnings | 	Global Growth | Global QE | Global Real Rates | Infl. Expec. | Metals  | Peripheral EU Sov Risk | Risk Aversion | Systemic liquidity
+#                    	Corp credit | Country Growth | DM FX   | EM FX   | EM Sov Risk | Energy  | Est. Earnings |  Global Growth | Global QE | Global Real Rates | Infl. Expec. | Metals  | Peripheral EU Sov Risk | Risk Aversion | Systemic liquidity
 #           2015-05-18| -0.07700    | 0.00094        | 0.00599 | 0.01637 | -0.02062    | 0.01144 | -0.00126      | -0.00007       | -0.00685  | -0.01369          | 0.03434      | 0.00850 | 0.03064                | -0.05779      | -0.01515
 #           2015-05-19| -0.07763    | 0.00094        | 0.00669 | 0.01638 | -0.02066    | 0.01014 | -0.00129      | -0.00005       | -0.00621  | -0.01319          | 0.03265      | 0.00848 | 0.03089                | -0.05818      | -0.01558
 #           2015-05-20| -0.07837    | 0.00087        | 0.00740 | 0.01636 | -0.02044    | 0.00882 | -0.00132      | -0.00005       | -0.00550  | -0.01266          | 0.03097      | 0.00833 | 0.03117                | -0.05843      | -0.01613
