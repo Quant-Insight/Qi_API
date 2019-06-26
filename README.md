@@ -6,7 +6,7 @@ It contains three main folders:
 
   * 1.Built_In_Functions: contains QI's API functions.
   * 2.Pull_Data: contains useful examples of how to pull the data of QI's database. 
-  * 3.Use_Case_Functions: contains examples of some of the tasks our users need to do on their jobs. 
+  * 3.Use_Case_Functions: contains useful examples to use at your work. 
 
 ## What do you need to start using the API?
 
