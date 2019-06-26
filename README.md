@@ -46,6 +46,10 @@ It contains three main folders:
 
 ## How to use QI Use-Case Wrapper?
 
+* You need to have the library retrying installed:
+
+         !pip install retrying
+ 
 * Download the QI_API_Library.py file and save it in the same folder your Python files are usually saved. 
 
 * As we did it previously, it is necessary to declare your API Key to use our functions. However, when using the wrapper you will need to declare it just before importing it as follows:
