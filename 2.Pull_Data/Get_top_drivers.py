@@ -35,7 +35,7 @@ def get_top_drivers(model,number,date,term):
     date_formated = datetime.strptime(date, '%Y-%m-%d')
     
     if (date_formated.weekday() == 5 or date_formated.weekday() == 6):
-        print('Please choose a date between Monday and Friday.')
+        print('Please choose a day between Monday and Friday.')
         
     else:
 
