@@ -61,47 +61,55 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 #                                                      Function
 #################################################################################################################
 # 
+
 def get_portfolio(factor,size,date,term):
 
-    FACTOR_sensitivity = []
-    names = []
-    POSITION = []
-
-    # Get ID's of the Euro Stoxx 600 Stocks.
-    # Stocks can be changed by specifying another stock's tag. 
-    euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
-
-    for asset in euro_stoxx_600:
-
-        sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
-
-        df_sensitivities = pandas.DataFrame()
-
-        if len(sensitivity) > 0:
-            date = [x for x in sensitivity][0]
-
-            for data in sensitivity[date]:
-                df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
-            # We want the top 5 drivers in absolute terms. 
-            top5 = abs(df_sensitivities).T.nlargest(5,0)
-            Factor_sens = float(df_sensitivities[factor])
-
-            if factor in top5.index:
-                FACTOR_sensitivity.append(Factor_sens)
-                names.append(asset)
-                position = top5.index.tolist().index(factor)+1
-                POSITION.append(position)
-
-    df_factor_sensit = pandas.DataFrame({'Name':names,'Position':POSITION,factor+' Sensitivity':FACTOR_sensitivity})
-    portfolio = df_factor_sensit.nlargest(size,str(factor)+' Sensitivity')
-
-    sw = 1/(portfolio['Position']+2)
-    Weights = sw/sw.sum()
-
-    portfolio = portfolio.drop(['Position'], axis=1)
-    portfolio.insert(1,'Weight',Weights)
+    date_formated = datetime.strptime(date, '%Y-%m-%d')
     
-    return portfolio
+    if (date_formated.weekday() == 5 or date_formated.weekday() == 6):
+        print('Please choose a day between Monday and Friday.')
+        
+    else:
+        
+        FACTOR_sensitivity = []
+        names = []
+        POSITION = []
+
+        # Get ID's of the Euro Stoxx 600 Stocks.
+        # Stocks can be changed by specifying another stock's tag. 
+        euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
+
+        for asset in euro_stoxx_600:
+
+            sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
+
+            df_sensitivities = pandas.DataFrame()
+
+            if len(sensitivity) > 0:
+                date = [x for x in sensitivity][0]
+
+                for data in sensitivity[date]:
+                    df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
+                # We want the top 5 drivers in absolute terms. 
+                top5 = abs(df_sensitivities).T.nlargest(5,0)
+                Factor_sens = float(df_sensitivities[factor])
+
+                if factor in top5.index:
+                    FACTOR_sensitivity.append(Factor_sens)
+                    names.append(asset)
+                    position = top5.index.tolist().index(factor)+1
+                    POSITION.append(position)
+
+        df_factor_sensit = pandas.DataFrame({'Name':names,'Position':POSITION,factor+' Sensitivity':FACTOR_sensitivity})
+        portfolio = df_factor_sensit.nlargest(size,str(factor)+' Sensitivity')
+
+        sw = 1/(portfolio['Position']+2)
+        Weights = sw/sw.sum()
+
+        portfolio = portfolio.drop(['Position'], axis=1)
+        portfolio.insert(1,'Weight',Weights)
+
+        return portfolio
     
     
 #################################################################################################################
@@ -191,54 +199,61 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 #################################################################################################################
 # 
 def optimise_trade_selection(factors,universe_asset_classes,size,date,term, **kwargs):
-
-    FACTOR_sensitivity = []
-    names = []
-    POSITION = []
-
-    universe_tag = kwargs.get('universe_tag', None)
     
-    if len(factors) > 3:
-        print('The number of factors need to be less than 3.')
-    else:   
- 
-        if (universe_tag is not None):
-            models = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes, tags=universe_tag)][::2]
-        else:
-            models = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes)][::2]
-
-        df_result = pandas.DataFrame(columns = factors + ['Total Sensitivity (Abs)'])
+    date_formated = datetime.strptime(date, '%Y-%m-%d')
+    
+    if (date_formated.weekday() == 5 or date_formated.weekday() == 6):
+        print('Please choose a day between Monday and Friday.')
         
-        print('Gathering data for all the models in the universe (it can take a while depending on the universe chosen)')
+    else:
+        
+        FACTOR_sensitivity = []
+        names = []
+        POSITION = []
 
-        for asset in models:
-            factor_sensitivities = []
-            sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
+        universe_tag = kwargs.get('universe_tag', None)
 
-            df_sensitivities = pandas.DataFrame()
+        if len(factors) > 3:
+            print('The number of factors need to be less than 3.')
+        else:   
 
-            if len(sensitivity) > 0:
-                date = [x for x in sensitivity][0]
-
-                for data in sensitivity[date]:
-                    df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
-                
-                
-                total = 0
-                for factor in factors:
-                    total += abs(df_sensitivities[factor][0])
-                    factor_sensitivities.append(df_sensitivities[factor][0])
-                
-                df_result.loc[asset] = factor_sensitivities + [total]
-
-        if len(df_result) > 0:
-            result = df_result.nlargest(size,'Total Sensitivity (Abs)')
-            return result
-        else:
-            if universe_tag is not None:
-                print('There are no models which satisfies the universe asset classes ' + universe_asset_classes + ' and the universe tag ' + universe_tag)
+            if (universe_tag is not None):
+                models = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes, tags=universe_tag)][::2]
             else:
-                print('There are no models which satisfies the universe asset classes ' + universe_asset_classes)
+                models = [x.name for x in api_instance.get_models(asset_classes = universe_asset_classes)][::2]
+
+            df_result = pandas.DataFrame(columns = factors + ['Total Sensitivity (Abs)'])
+
+            print('Gathering data for all the models in the universe (it can take a while depending on the universe chosen)')
+
+            for asset in models:
+                factor_sensitivities = []
+                sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
+
+                df_sensitivities = pandas.DataFrame()
+
+                if len(sensitivity) > 0:
+                    date = [x for x in sensitivity][0]
+
+                    for data in sensitivity[date]:
+                        df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
+
+
+                    total = 0
+                    for factor in factors:
+                        total += abs(df_sensitivities[factor][0])
+                        factor_sensitivities.append(df_sensitivities[factor][0])
+
+                    df_result.loc[asset] = factor_sensitivities + [total]
+
+            if len(df_result) > 0:
+                result = df_result.nlargest(size,'Total Sensitivity (Abs)')
+                return result
+            else:
+                if universe_tag is not None:
+                    print('There are no models which satisfies the universe asset classes ' + universe_asset_classes + ' and the universe tag ' + universe_tag)
+                else:
+                    print('There are no models which satisfies the universe asset classes ' + universe_asset_classes)
     
     
 #################################################################################################################
@@ -350,44 +365,51 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 #################################################################################################################
 # 
 def get_portfolio_sens_exposures_bucket(portfolio,date):
-
-    stock_names = portfolio['Name']
-    df_tot = pandas.DataFrame()
-
-    for stock in stock_names:
-
-        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term='Long Term')
-        df_sensitivities = pandas.DataFrame()
-        date = [x for x in sensitivity.keys()][0]
-
+    
+    date_formated = datetime.strptime(date, '%Y-%m-%d')
+    
+    if (date_formated.weekday() == 5 or date_formated.weekday() == 6):
+        print('Please choose a day between Monday and Friday.')
         
-        for data in sensitivity[date]:
+    else:
 
-            if data['bucket_name'] in df_sensitivities.columns:
-                df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+        stock_names = portfolio['Name']
+        df_tot = pandas.DataFrame()
 
+        for stock in stock_names:
+
+            sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term='Long Term')
+            df_sensitivities = pandas.DataFrame()
+            date = [x for x in sensitivity.keys()][0]
+
+
+            for data in sensitivity[date]:
+
+                if data['bucket_name'] in df_sensitivities.columns:
+                    df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+
+                else:
+                    df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
+
+            df_sensitivities = df_sensitivities.rename(index={0:stock})
+            df_sensitivities = df_sensitivities.sort_index(axis=1)
+            if df_tot.empty:
+                df_tot = df_sensitivities
             else:
-                df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
+                df_tot = df_tot.append(df_sensitivities)
 
-        df_sensitivities = df_sensitivities.rename(index={0:stock})
-        df_sensitivities = df_sensitivities.sort_index(axis=1)
-        if df_tot.empty:
-            df_tot = df_sensitivities
-        else:
-            df_tot = df_tot.append(df_sensitivities)
-            
-            
-    portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
-    
-    for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
+        portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
 
-    portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
-    
-    portfolio_exposures = portfolio_sensitivities.loc[['Total']]
-    
-    return portfolio_sensitivities
+        for stock in stock_names:
+
+            portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
+
+        portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
+
+        portfolio_exposures = portfolio_sensitivities.loc[['Total']]
+
+        return portfolio_sensitivities
 
     
 #################################################################################################################
@@ -476,44 +498,51 @@ Dataframe with the following columns:
 ### Code
 
 ```python
-def get_portfolio_cash_exposures_bucket(portfolio,date):
+def get_portfolio_cash_exposures_bucket(portfolio,date):    
+    
+    date_formated = datetime.strptime(date, '%Y-%m-%d')
+    
+    if (date_formated.weekday() == 5 or date_formated.weekday() == 6):
+        print('Please choose a day between Monday and Friday.')
+        
+    else:
 
-    stock_names = portfolio['Name']
-    df_tot = pandas.DataFrame()
+        stock_names = portfolio['Name']
+        df_tot = pandas.DataFrame()
 
-    for stock in stock_names:
+        for stock in stock_names:
 
-        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term='Long Term')
-        df_sensitivities = pandas.DataFrame()
-        date = [x for x in sensitivity.keys()][0]
+            sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term='Long Term')
+            df_sensitivities = pandas.DataFrame()
+            date = [x for x in sensitivity.keys()][0]
 
-        for data in sensitivity[date]:
+            for data in sensitivity[date]:
 
-            if data['bucket_name'] in df_sensitivities.columns:
-                df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+                if data['bucket_name'] in df_sensitivities.columns:
+                    df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
 
+                else:
+                    df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
+
+            df_sensitivities = df_sensitivities.rename(index={0:stock})
+            df_sensitivities = df_sensitivities.sort_index(axis=1)
+            if df_tot.empty:
+                df_tot = df_sensitivities
             else:
-                df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
+                df_tot = df_tot.append(df_sensitivities)
 
-        df_sensitivities = df_sensitivities.rename(index={0:stock})
-        df_sensitivities = df_sensitivities.sort_index(axis=1)
-        if df_tot.empty:
-            df_tot = df_sensitivities
-        else:
-            df_tot = df_tot.append(df_sensitivities)
-            
-            
-    portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
-    
-    for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
+        portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
 
-    portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
-    
-    portfolio_exposures = portfolio_sensitivities.loc[['Total']]
-    
-    return portfolio_sensitivities
+        for stock in stock_names:
+
+            portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
+
+        portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
+
+        portfolio_exposures = portfolio_sensitivities.loc[['Total']]
+
+        return portfolio_sensitivities
 
 #################################################################################################################
 #                                                  Main Code
@@ -573,59 +602,66 @@ This function creates a table showing the % change of an asset due to various co
 
 ```python
 
-def get_sens_matrix(model,factors,date,term):
-
-    drivers = get_factor_drivers(model,date,term)
-
-    stdevs = get_factor_stdevs(model,date,term)
-
-    both_moves = []
-    both_results = []
-    for factor in factors:
-        
-        if float(stdevs.loc[factor]) > 5:
-            move_c = int(round(float(stdevs.loc[factor]),-1))
-            intervals = int(round(move_c/2,0))
-            moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
-
-        elif float(stdevs.loc[factor]) > 2:
-            move_c = int(round(float(stdevs.loc[factor]),0))
-            intervals = int(round(move_c/2,0))
-            moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
-            
-        elif float(stdevs.loc[factor]) < 0.05:
-            move_c = round(float(stdevs.loc[factor]),2)
-            intervals = int((move_c/2)*100)
-            move_c = int(100*move_c)
-            moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
-            moves = [round(x/100,2) for x in moves]
-
-        else:
-            move_c = round(float(stdevs.loc[factor]),1)
-            intervals = int((move_c/2)*100)
-            move_c = int(100*move_c)
-            moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
-            
-            if intervals < 10:
-                moves = [round(x/100,2) for x in moves]
-                
-            else:
-                moves = [round(x/100,1) for x in moves]
-
-        both_moves.append(moves)
-        sens = float(drivers.loc[factor])
-        stdev = float(stdevs.loc[factor])
-        move_results = [(move/stdev)*sens for move in moves]
-        both_results.append(move_results)
-
-    total_moves = []
-    for x in both_results[0]:
-        total_moves.append([x+y for y in both_results[1]])
-
-    final_df = pandas.DataFrame(total_moves, columns=both_moves[1], index=both_moves[0])
-    final_df = round(final_df,2)
+def get_sens_matrix(model,factors,date,term):    
     
-    return final_df
+    date_formated = datetime.strptime(date, '%Y-%m-%d')
+    
+    if (date_formated.weekday() == 5 or date_formated.weekday() == 6):
+        print('Please choose a day between Monday and Friday.')
+        
+    else:
+
+        drivers = get_factor_drivers(model,date,term)
+
+        stdevs = get_factor_stdevs(model,date,term)
+
+        both_moves = []
+        both_results = []
+        for factor in factors:
+
+            if float(stdevs.loc[factor]) > 5:
+                move_c = int(round(float(stdevs.loc[factor]),-1))
+                intervals = int(round(move_c/2,0))
+                moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
+
+            elif float(stdevs.loc[factor]) > 2:
+                move_c = int(round(float(stdevs.loc[factor]),0))
+                intervals = int(round(move_c/2,0))
+                moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
+
+            elif float(stdevs.loc[factor]) < 0.05:
+                move_c = round(float(stdevs.loc[factor]),2)
+                intervals = int((move_c/2)*100)
+                move_c = int(100*move_c)
+                moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
+                moves = [round(x/100,2) for x in moves]
+
+            else:
+                move_c = round(float(stdevs.loc[factor]),1)
+                intervals = int((move_c/2)*100)
+                move_c = int(100*move_c)
+                moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
+
+                if intervals < 10:
+                    moves = [round(x/100,2) for x in moves]
+
+                else:
+                    moves = [round(x/100,1) for x in moves]
+
+            both_moves.append(moves)
+            sens = float(drivers.loc[factor])
+            stdev = float(stdevs.loc[factor])
+            move_results = [(move/stdev)*sens for move in moves]
+            both_results.append(move_results)
+
+        total_moves = []
+        for x in both_results[0]:
+            total_moves.append([x+y for y in both_results[1]])
+
+        final_df = pandas.DataFrame(total_moves, columns=both_moves[1], index=both_moves[0])
+        final_df = round(final_df,2)
+
+        return final_df
 
 #################################################################################################################
 #                                                  Main Code
