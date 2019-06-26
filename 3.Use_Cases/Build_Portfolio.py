@@ -28,42 +28,49 @@
 
 def get_portfolio(factor,size,date,term):
 
-    FACTOR_sensitivity = []
-    names = []
-    POSITION = []
-
-    # Get ID's of the Euro Stoxx 600 Stocks.
-    # Stocks can be changed by specifying another stock's tag. 
-    euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
-
-    for asset in euro_stoxx_600:
-
-        sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
-
-        df_sensitivities = pandas.DataFrame()
-
-        if len(sensitivity) > 0:
-            date = [x for x in sensitivity][0]
-
-            for data in sensitivity[date]:
-                df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
-            # We want the top 5 drivers in absolute terms. 
-            top5 = abs(df_sensitivities).T.nlargest(5,0)
-            Factor_sens = float(df_sensitivities[factor])
-
-            if factor in top5.index:
-                FACTOR_sensitivity.append(Factor_sens)
-                names.append(asset)
-                position = top5.index.tolist().index(factor)+1
-                POSITION.append(position)
-
-    df_factor_sensit = pandas.DataFrame({'Name':names,'Position':POSITION,factor+' Sensitivity':FACTOR_sensitivity})
-    portfolio = df_factor_sensit.nlargest(size,str(factor)+' Sensitivity')
-
-    sw = 1/(portfolio['Position']+2)
-    Weights = sw/sw.sum()
-
-    portfolio = portfolio.drop(['Position'], axis=1)
-    portfolio.insert(1,'Weight',Weights)
+    date_formated = datetime.strptime(date, '%Y-%m-%d')
     
-    return portfolio
+    if (date_formated.weekday() == 5 or date_formated.weekday() == 6):
+        print('Please choose a day between Monday and Friday.')
+        
+    else:
+        
+        FACTOR_sensitivity = []
+        names = []
+        POSITION = []
+
+        # Get ID's of the Euro Stoxx 600 Stocks.
+        # Stocks can be changed by specifying another stock's tag. 
+        euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
+
+        for asset in euro_stoxx_600:
+
+            sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
+
+            df_sensitivities = pandas.DataFrame()
+
+            if len(sensitivity) > 0:
+                date = [x for x in sensitivity][0]
+
+                for data in sensitivity[date]:
+                    df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
+                # We want the top 5 drivers in absolute terms. 
+                top5 = abs(df_sensitivities).T.nlargest(5,0)
+                Factor_sens = float(df_sensitivities[factor])
+
+                if factor in top5.index:
+                    FACTOR_sensitivity.append(Factor_sens)
+                    names.append(asset)
+                    position = top5.index.tolist().index(factor)+1
+                    POSITION.append(position)
+
+        df_factor_sensit = pandas.DataFrame({'Name':names,'Position':POSITION,factor+' Sensitivity':FACTOR_sensitivity})
+        portfolio = df_factor_sensit.nlargest(size,str(factor)+' Sensitivity')
+
+        sw = 1/(portfolio['Position']+2)
+        Weights = sw/sw.sum()
+
+        portfolio = portfolio.drop(['Position'], axis=1)
+        portfolio.insert(1,'Weight',Weights)
+
+        return portfolio
