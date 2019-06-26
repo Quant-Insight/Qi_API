@@ -1,3 +1,33 @@
+#######################################################################################################################################
+# 
+# This function creates a table showing the % change of an asset due to various combinations of movements in two factors.
+#
+# Requirements:
+#         import pandas
+# 
+# Inputs: 
+#         model - model ticker (e.g. 'AAPL')
+#         factors - 2 factors you want to compare (e.g. ['Brent', 'Copper'])
+#         date - date (e.g. '2019-05-17')
+#         term - term (e.g. 'Long Term')
+#
+# Output: 
+#         Dataframe representing the % change of an asset as a result of certain movements in two factors.
+#               
+#               * e.g.
+#                      |  -15  |  -10  |   -5  |   0   |   5   |   10  |   15  |
+#                | -15 | -0.22 | -0.25 | -0.27 | -0.29 | -0.31 | -0.34 | -0.36 |
+#                | -10 | -0.13 | -0.15 | -0.17 | -0.19 | -0.22 | -0.24 | -0.26 |
+#                |  -5 | -0.03 | -0.05 | -0.07 | -0.10 | -0.12 | -0.14 | -0.16 | 
+#                |   0 |  0.07 |  0.04 |  0.02 |  0.00 | -0.02 | -0.04 | -0.07 | 
+#                |   5 |  0.16 |  0.14 |  0.12 |  0.10 | 0.07  |  0.05 |  0.03 |
+#                |  10 |  0.26 |  0.24 |  0.22 |  0.19 | 0.17  |  0.15 |  0.13 |
+#                |  15 |  0.36 |  0.34 |  0.31 |  0.29 | 0.27  |  0.25 |  0.22 |
+#
+#######################################################################################################################################
+
+
+
 def get_sens_matrix(model,factors,date,term):    
     
     date_formated = datetime.strptime(date, '%Y-%m-%d')
