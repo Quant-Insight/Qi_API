@@ -56,7 +56,7 @@ It contains three main folders:
 
   * If you are using Jupyter Notebooks:
   
-         %set_env QI_API_KEY = ADD-YOUR-API-KEY-HERE (Make sure the API key is written withoud '') 
+         %set_env QI_API_KEY = ADD-YOUR-API-KEY-HERE (Make sure the API key is written without '') 
          import QI_API_Library
        
   * If you are using Visual Studio: 
