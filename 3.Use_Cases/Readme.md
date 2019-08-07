@@ -26,6 +26,7 @@ This function creates a portfolio of European stocks based on sensitivities to a
 **Inputs:** 
 
 * factor - 'factor' (e.g. 'ADXY')
+* universe - universe of stocks to choose from (e.g. ['BMW','VIE','ATL'....])
 * size - number of stocks to be in resulting portfolio (e.g. 10)
 * date - 'date' (e.g. '2019-05-17')
 * term - 'term' (e.g. 'Long Term')
@@ -57,12 +58,16 @@ configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
 # create an instance of the API class
 api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
+# Get stock universe
+universe = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
+
+
 #################################################################################################################
 #                                                      Function
 #################################################################################################################
 # 
 
-def get_portfolio(factor,size,date,term):
+def get_portfolio(factor,universe,size,date,term):
 
     date_formated = datetime.strptime(date, '%Y-%m-%d')
     
@@ -75,11 +80,7 @@ def get_portfolio(factor,size,date,term):
         names = []
         POSITION = []
 
-        # Get ID's of the Euro Stoxx 600 Stocks.
-        # Stocks can be changed by specifying another stock's tag. 
-        euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
-
-        for asset in euro_stoxx_600:
+        for asset in universe:
 
             sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
 
