@@ -474,17 +474,13 @@ def get_model_data(model,start,end,term):
 
 
 
-def get_portfolio(factor,size,date,term):
+def get_portfolio(factor,universe,size,date,term):
 
     FACTOR_sensitivity = []
     names = []
     POSITION = []
 
-    # Get ID's of the Euro Stoxx 600 Stocks.
-    # Stocks can be changed by specifying another stock's tag. 
-    euro_stoxx_600 = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::20]
-
-    for asset in euro_stoxx_600:
+    for asset in universe:
 
         sensitivity = api_instance.get_model_sensitivities(model=asset,date_from=date,date_to=date,term = term)
 
