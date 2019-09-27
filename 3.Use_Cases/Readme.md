@@ -117,24 +117,23 @@ def get_portfolio(factor,universe,size,date,term):
 #                                                           Main Code
 #################################################################################################################
 
-get_portfolio(factor = 'ADXY', size = 10, date = '2019-05-17', term = 'Long Term')
+get_portfolio(factor = 'USDCNH', universe = universe, size = 10, date = '2019-05-17', term = 'Long Term')
 ```
 
 ### Output
 
-|    | Name | Weight    | ADXY Sensitivity |
-|----|:----:|:---------:|:----------------:| 
-| 18 | ENEL | 0.108527  | 0.12556          |
-| 27 | GET  | 0.077519  | 0.12079          |
-| 71 | VIE  | 0.108527  | 0.11375          |
-| 67 | TEL  | 0.090439  | 0.11198          |
-| 5  | ATL  | 0.108527  | 0.10966          |
-| 2  | ALT  | 0.108527  | 0.10409          |
-| 53 | RHM  | 0.090439  | 0.10178          |
-| 1  | AENA | 0.108527  | 0.10067          |
-| 62 | SGRE | 0.090439  | 0.10050          |
-| 40 | LOOMB| 0.108527  | 0.09925          |
-
+|     | Name   | Weight   | USDCNH Sensitivity |
+|-----|:------:|:--------:|:------------------:| 
+| 163 | WG/    | 0.077720 | 2.63019            |
+| 145 | SWEDA  | 0.077720 | 2.47043            |
+| 53  | ETL    | 0.108808 | 2.33411            |
+| 123 | SAABB  | 0.136010 | 2.12093            |
+| 35  | CNA    | 0.108808 | 1.80070            |
+| 126 | SCHA   | 0.136010 | 1.55903            |  
+| 10  | ANDR   | 0.077720 | 1.53357            |
+| 30  | CABK   | 0.090674 | 1.49853            |  
+| 66  | HAS    | 0.077720 | 1.41999            |
+| 137 | SPM    | 0.108808 | 1.32387            |
 
 ## Optimise Trade Selection
 
@@ -161,7 +160,7 @@ This function returns the top stocks based on sensitivities (in absolute terms) 
 
 **Inputs:** 
 
-* factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['ADXY', 'US GDP', 'Brent'])
+* factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['USDCNH', 'China 5y CDS', 'JPY 1y Basis Swap'])
 * universe_asset_classes - universe asset class (e.g. 'Equity')
 * size - number of models to be in the result (e.g. 10)
 * date - 'date' (e.g. '2019-05-17')
