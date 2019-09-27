@@ -160,7 +160,7 @@ This function returns the top stocks based on sensitivities (in absolute terms) 
 
 **Inputs:** 
 
-* factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['USDCNH', 'China 5y CDS', 'JPY 1y Basis Swap'])
+* factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['USDCNH', 'US GDP', 'Brent'])
 * universe_asset_classes - universe asset class (e.g. 'Equity')
 * size - number of models to be in the result (e.g. 10)
 * date - 'date' (e.g. '2019-05-17')
@@ -260,23 +260,23 @@ def optimise_trade_selection(factors,universe_asset_classes,size,date,term, **kw
 #                                                           Main Code
 #################################################################################################################
 
-optimise_trade_selection(factors = ['ADXY', 'US GDP', 'Brent'], universe_asset_classes = 'Equity', size = 10, date = '2019-05-17', term = 'Long Term', universe_tag = 'STOXX Europe 600')
+optimise_trade_selection(factors = ['USDCNH', 'US GDP', 'Brent'], universe_asset_classes = 'Equity', size = 10, date = '2019-05-17', term = 'Long Term', universe_tag = 'STOXX Europe 600')
 ```
 
 ### Output
 
-|Name |	ADXY     | US GDP   | Brent | Total Sensitivity |
-|:---:|:--------:|:--------:|:-----------:|:-----------:|
-|AGS  | -0.09107 | -0.00024 | 0.22146     | 0.31277     |
-|ASRNL|	-0.11486 | -0.00086 | 0.19477     | 0.31049     |
-|STB  |	-0.10449 | -0.00068 | 0.20225     | 0.30742     |
-|ETL  |	-0.15895 | -0.00156 | 0.14606     | 0.30657     |
-|BC8  |	-0.10468 | -0.00068 | 0.19653     | 0.30189     |
-|SAABB|	-0.14782 | -0.00172 | 0.15073     | 0.30027     |
-|UPM  |	-0.08579 | -0.00010 | 0.21040     | 0.29629     |
-|FPE3 |	-0.11327 | -0.00138 | 0.18078     | 0.29543     |
-|ENEL |	0.12556  | 0.00070  | -0.16881    | 0.29507     |
-|GALE |	-0.08880 | -0.00004 | 0.19907     | 0.28791     |
+|Name | USDCNH    | US GDP   | Brent       | Total Sensitivity |
+|:---:|:---------:|:--------:|:-----------:|:-----------------:|
+|AGS  | -0.09107  | -0.00024 | 0.22146     | 0.31277           |
+|ASRNL|	-0.11486 | -0.00086 | 0.19477     | 0.31049           |
+|STB  |	-0.10449 | -0.00068 | 0.20225     | 0.30742           |
+|ETL  |	-0.15895 | -0.00156 | 0.14606     | 0.30657           |
+|BC8  |	-0.10468 | -0.00068 | 0.19653     | 0.30189           |
+|SAABB|	-0.14782 | -0.00172 | 0.15073     | 0.30027           |
+|UPM  |	-0.08579 | -0.00010 | 0.21040     | 0.29629           |
+|FPE3 |	-0.11327 | -0.00138 | 0.18078     | 0.29543           |
+|ENEL |	0.12556  | 0.00070  | -0.16881    | 0.29507           |
+|GALE |	-0.08880 | -0.00004 | 0.19907     | 0.28791           |
 
 
 
