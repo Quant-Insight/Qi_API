@@ -17,16 +17,17 @@
 #               * Model sensitivities per factor
 #               * e.g.
 #                                                | AAPL     | 
-#                      | 2y Infl. Expec.         | 0.13866  | 
-#                      | 5y Infl. Expec.         | 0.13150  | 
-#                      | 10y Infl. Expec.        | 0.12872  | 
-#                      | USD 10y Real Rate       | 0.11439  |
-#                      | Equity 1y Fwd Earnings  | 0.10622  |
-#                      | WTI                     | 0.10467  |
-#                      | Country 5s30s Swap      | -0.10147 |
-#                      | Brent                   | 0.09379  | 
-#                      | JPY 10y Real Rate       | 0.08489  | 
-#                      | EUR 1y Basis Swap       | -0.07571 |
+#                      | US 2y Infl. Expec.      | 2.02430  | 
+#                      | Brent                   | 0.13150  | 
+#                      | US 5y Infl. Expec.      | 1.91968  | 
+#                      | US 10y Infl. Expec.     | 1.87902  |
+#                      | US 5s30s Swap           | -1.52207 |
+#                      | Equity 1y Fwd Earnings  | 1.37810  |
+#                      | USD 10y Real Rate       | 1.23497  |
+#                      | USDCNH                  | 1.05474  | 
+#                      | JPY 10y Real Rate       | 0.91887  | 
+#                      | Italian Sov. Confidence | -0.77165 |
+#
 #
 #######################################################################################################################################
 
