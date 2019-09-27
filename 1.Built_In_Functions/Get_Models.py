@@ -57,7 +57,7 @@ asset_classes = 'Equity'
 
 try:
     # Get list of all defined models on the system
-    api_response = api_instance.get_models(tags=tags, asset_classes=asset_classes))
+    api_response = api_instance.get_models(tags=tags, asset_classes=asset_classes)
     pprint(api_response)
     
 except ApiException as e:
