@@ -6,7 +6,7 @@
 #         import pandas
 # 
 # Inputs: 
-#         factor - 'factor' (e.g. 'ADXY')
+#         factor - 'factor' (e.g. 'USDCNH')
 #         universe - universe of stocks to choose from (e.g. ['BMW','VIE','ATL'])
 #         size - number of stocks to be in resulting portfolio (e.g. 10)
 #         date - 'date' (e.g. '2019-05-17')
@@ -19,11 +19,19 @@
 #               * Weight - weights of the top 5 factor drivers.
 #               * Factor Sensitivity - Factor top 5 drivers' sensitivity.
 #               * e.g.
-#                       Name | Weight   | ADXY Sensitivity
-#                  2	LAND | 0.203390 | 0.09368
-#                  1	KGH  | 0.237288 | 0.07690
-#                  0	GPOR | 0.203390 | 0.05345
-#                  3	TIT  | 0.355932 | 0.04598
+#
+#                |     | Name   | Weight   | USDCNH Sensitivity |
+#                |-----|:------:|:--------:|:------------------:| 
+#                | 163 | WG/    | 0.077720 | 2.63019            |
+#                | 145 | SWEDA  | 0.077720 | 2.47043            |
+#                | 53  | ETL    | 0.108808 | 2.33411            |
+#                | 123 | SAABB  | 0.136010 | 2.12093            |
+#                | 35  | CNA    | 0.108808 | 1.80070            |
+#                | 126 | SCHA   | 0.136010 | 1.55903            |  
+#                | 10  | ANDR   | 0.077720 | 1.53357            |
+#                | 30  | CABK   | 0.090674 | 1.49853            |  
+#                | 66  | HAS    | 0.077720 | 1.41999            |
+#                | 137 | SPM    | 0.108808 | 1.32387            |
 #
 #######################################################################################################################################
 
