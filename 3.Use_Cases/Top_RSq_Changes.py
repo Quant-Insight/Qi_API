@@ -60,8 +60,8 @@ def Top_RSq_Changes(models, number):
 
     for asset in models:
 
-        rsq_now = get_rsq(asset,date,date,'Long Term')
-        rsq_past = get_rsq(asset,date_1m,date_1m,'Long Term')
+        rsq_now = get_Rsq(asset,date,date,'Long Term')
+        rsq_past = get_Rsq(asset,date_1m,date_1m,'Long Term')
 
         if (len(rsq_now) > 0) and (len(rsq_past) > 0):
             
