@@ -580,11 +580,9 @@ def get_portfolio(factor,universe,size,date,term):
 
 
 
-def get_factor_stdevs(model,date,term):
-    
-# model = 'AAPL'
-# date = '2019-04-26'
-# term = 'Long Term'
+def get_factor_stdevs(model,date):
+
+    term = 'Long Term'
 
     sensitivity = api_instance.get_model_sensitivities(model=model,date_from=date,date_to=date,term=term)
     date = [x for x in sensitivity][0]
@@ -595,11 +593,10 @@ def get_factor_stdevs(model,date,term):
         df_sensitivities[str(data['driver_short_name'])]=[value]
 
     df_sensitivities = df_sensitivities.transpose()
-    top10_names = abs(df_sensitivities).nlargest(40,0).index
-    top10 = df_sensitivities.loc[top10_names]
-    top10 = top10.rename(columns={0:model})
+    df_sensitivities.rename(columns={0:'1 Std'}, inplace=True)
             
-    return top10
+
+    return df_sensitivities
 
 
 
