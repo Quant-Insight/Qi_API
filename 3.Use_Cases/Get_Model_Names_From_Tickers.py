@@ -1,3 +1,27 @@
+#######################################################################################################################################
+# 
+# This function finds the Qi model names associated with your Bloomberg tickers.
+#
+# Requirements:
+#         import pandas
+# 
+# Inputs: 
+#         tickers - e.g. ['AAPL US Equity', 'FB US Equity', 'GOOG US Equity']
+#
+# Output: 
+#         dataframe with the following columns:
+#               * Tickers - dataframe index. 
+#               * Qi Model Name. 
+#               * e.g.
+#
+#                |                | Qi Model Name |
+#                | AAPL US Equity |        AAPL   | 
+#                | FB US Equity   |          FB   | 
+#                | GOOG US Equity |        GOOG   | 
+#
+#######################################################################################################################################
+
+
 def get_model_names_from_tickers(tickers):
 
     ### Load US Equities from API
