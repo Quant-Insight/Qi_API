@@ -34,7 +34,9 @@ def get_model_names_from_tickers(tickers):
     API_other = [x.name for x in api_instance.get_models(asset_classes='Equity')][::2]
     [API_other.remove(model) for model in API_US]
 
-
+    potential_models = [model for model in API_other if model.split(' ')[0] in [x.split(' ')[0] for x in tickers]]
+    potential_tickers = [api_instance.get_model(model).definition.instrument1.ticker for model in potential_models]
+    
     model_names = []
 
     for ticker in tickers:
@@ -59,9 +61,6 @@ def get_model_names_from_tickers(tickers):
         ### Check other tickers
 
         else:
-
-            potential_models = [model for model in API_other if model.split(' ')[0] in [x.split(' ')[0] for x in tickers]]
-            potential_tickers = [api_instance.get_model(model).definition.instrument1.ticker for model in potential_models]
 
             if ticker in potential_tickers:
                 idx = potential_tickers.index(ticker)
