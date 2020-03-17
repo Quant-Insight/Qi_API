@@ -15,9 +15,9 @@ Here we showcase how Qi uses the API to produce a Portfolio Macro Risk report.
       term = 'Long Term'
       
       ### Create portfolio (alternatively import a csv with the same format)
-      portfolio = pandas.DataFrame({'Name':['MSFT','GOOG','PG','JPM','NESN','SIE','WMT','CAT','AAPL','AZN'],
-            'Position':[194300000,142000000,122440000,122440000,113940000,109690000,106290000,102040000,102040000,99060000]})
-                  
+      portfolio = pandas.DataFrame({'Name':['MSFT','GOOG','PG','JPM','AAPL','FB','GS','MRO','DEI','SO'],
+                  'Position':[194300000,142000000,122440000,122440000,113940000,109690000,106290000,102040000,102040000,99060000]})
+
       portfolio['Weight'] = [abs(x)/sum(abs(portfolio.Position)) for x in portfolio.Position]
       portfolio['L/S'] = [1]*len(portfolio)
       
@@ -27,14 +27,16 @@ Portfolio:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio table.png" alt="Case Study 1"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio table.png" alt="Portfolio Table"/>
    </p>
    </br>
 
 
 ## Calculate cash exposures
 
-      QI_API_Library.get_portfolio_cash_exposures_bucket(portfolio,date)
+Factor cash exposures are derived by multiplying individual stock's notional amounts to their factor sensitivities. For example in the table below, if energy prices were to rise by 1 standard deviation, the value of your position in Microsoft (MSFT) would increase by $288,963, and the value of your portfolio as a whole would increase by $2,744,827. These values are calculated on the bucket level, where each bucket can contain up to 4 individual macro factors, e.g. the bucket 'Metals' contains the factors copper and iron ore.
+
+      Qi_wrapper.get_portfolio_cash_exposures_bucket(portfolio,date)
       
 <br>
 Output:
@@ -42,38 +44,80 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/cash exposures.png" alt="Case Study 1"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/cash exposures.png" alt="Cash table"/>
+   </p>
+   </br>
+   
+   
+## Get Portfolio sensitivities to top 10 individual macro factors
+   
+Compute the expected % change in value of a portfolio for a 1 standard devation move in each of the top 10 macro factors.
+   
+      sens = Qi_wrapper.get_portfolio_sens_exposures_factor(portfolio,date)
+      sens[abs(sens.loc['Total']).nlargest(10).index].loc[['Total']]
+      
+   
+<br>
+Output:
+<br>
+
+   <br>
+   <p align="center">
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio sens.png" alt="Sens table"/>
+   </p>
+   </br>
+   
+   
+## Get the standard deviations of each of the top 10 individual macro factors
+   
+      Qi_wrapper.get_factor_stdevs(benchmark_name,date,term).T[abs(sens.loc['Total']).nlargest(10).index]
+      
+   
+<br>
+Output:
+<br>
+
+   <br>
+   <p align="center">
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/factor stds.png" alt="Sens table"/>
+   </p>
+   </br>
+   
+   
+   ## Get the standard deviations of each of the top 10 individual macro factors
+   
+      ### Create pie chart data  
+      import numpy as np
+
+      sens_buckets = Qi_wrapper.get_portfolio_sens_exposures_bucket(portfolio,date)
+      pie_data = sens_buckets.loc[['Total']].T.sort_values(by='Total')[::-1]
+      pie_data.Total = [abs(x)/abs(pie_data).Total.sum() for x in pie_data.Total]
+      
+      
+      ### Plot pie chart
+
+      import matplotlib.pyplot as plt
+
+      labels = pie_data.index
+      sizes = pie_data.Total
+      fig1, ax1 = plt.subplots(figsize=(15, 12))
+
+      ax1.pie(sizes, labels=labels, autopct='%1.1f%%',
+              shadow=False, startangle=90)
+      ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+      plt.show()
+      
+   
+<br>
+Output:
+<br>
+
+   <br>
+   <p align="center">
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/factor pie.png" alt="Sens table"/>
    </p>
    </br>
 
-      ### Variables ###
-      universe = [x.name for x in api_instance.get_models(tags='Stoxx Europe 600')][::2]
-      date = '2020-02-17'
-      term = 'Long Term'
-      driver_rank = 7   # The factor has to feature in the top 7 factors for an asset for it to be considered
-      no_of_stocks = 10
-      factor = 'Euro 5y Infl. Expec.'
 
-      df = pandas.DataFrame()
-
-      for asset in universe:
-
-          try:
-
-              df_temp = get_factor_drivers(stock,date,term).T
-              df_temp.index = [asset]        
-
-              if factor in abs(df_temp.loc[asset]).nlargest(driver_rank).index:
-
-                  df = df.append(df_temp)
-
-          except IndexError:
-
-              pass
-
-      df_factor = df[[factor]]
-      df_factor['RSq'] = [float(get_model_data(asset,date,date,'Long Term')['Rsq']) for asset in df_factor.index]
-      df_top_sensitivite = df_factor[df_factor['RSq']>65].nlargest(no_of_stocks,factor)
-      df_top_sensitivite['Name'] = [api_instance.get_model(model).security_name for model in df_top_sensitivite.index]   
-      
-      
+    
