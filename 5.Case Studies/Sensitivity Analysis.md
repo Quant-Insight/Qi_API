@@ -51,5 +51,7 @@ Here we showcase how Qi uses the API to find assets sensitive to a key theme.
 *Output:
 
   <br>
+  <p align="center">
   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/EU stocks table - infl (Mar 2020).png" alt="Case Study 1 Table"/>
+  </p>
   </br>
