@@ -42,9 +42,9 @@ Here we showcase how Qi uses the API to find value behind the data.
               pass
 
       df_factor = df[[factor]]
-      df_factor['RSq'] = [float(get_model_data(asset,date,date,'Long Term')['Rsq']) for asset in new_df.index]
+      df_factor['RSq'] = [float(get_model_data(asset,date,date,'Long Term')['Rsq']) for asset in df_factor.index]
       df_top_sensitivite = df_factor[df_factor['RSq']>65].nlargest(no_of_stocks,factor)
-      df_top_sensitivite['Name'] = [api_instance.get_model(model).security_name for model in new_df.index]   
+      df_top_sensitivite['Name'] = [api_instance.get_model(model).security_name for model in df_top_sensitivite.index]   
       
       
 
