@@ -1,11 +1,12 @@
 # Built-in Functions
 
-Our collection of built-in functions for the Qi_API. All of the output is in basic strucutres and requires unpacking in order to begin retrieving more specifc items of data such as timeseries or sensitivity matrices. 
+Our collection of built-in functions for the Qi_API. All of the output is in basic structures and requires unpacking in order to begin retrieving more specific items of data such as timeseries or sensitivity matrices. 
 
 These are our basic API calls which are the building blocks for more complex analysis and data retrieval.
 
 
-e.g for a specific model you can retrive timeseries data but will require further unpacking to pull just the timeseries values for specific parameters:
+e.g for a specific model you can retrieve timeseries data but will require further unpacking to pull just the timeseries values for specific parameters:
+
 
 
 e.g. 
