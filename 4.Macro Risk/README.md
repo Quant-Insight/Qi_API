@@ -79,12 +79,12 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/factor stds.png" alt="Sens table"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/factor stds.png" alt="std table"/>
    </p>
    </br>
    
    
-   ## Get the standard deviations of each of the top 10 individual macro factors
+   ## Plot pie chart of portfolio's macro factor breakdown
    
       ### Create pie chart data  
       import numpy as np
@@ -94,7 +94,7 @@ Output:
       pie_data.Total = [abs(x)/abs(pie_data).Total.sum() for x in pie_data.Total]
       
       
-      ### Plot pie chart
+      ### Create plot
 
       import matplotlib.pyplot as plt
 
@@ -115,9 +115,39 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/factor pie.png" alt="Sens table"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/factor pie.png" alt="pie chart"/>
    </p>
    </br>
 
 
-    
+ ## Plot portfolio sensitivities relative to benchmark
+   
+      ### Creates data for plot
+      sens_buckets = Qi_wrapper.get_portfolio_sens_exposures_bucket(portfolio,date)
+      bar_plot_data = sens_buckets.loc[['Total']].T.sort_values(by='Total')[::-1]
+      benchmark = Qi_wrapper.get_bucket_drivers(benchmark_name,date,term)
+      idxs = bar_plot_data.index.tolist()
+      bar_plot_data[benchmark_name] = benchmark[idxs].T.Sensitivity
+   
+      ### Create plot
+      fig = plt.figure(figsize=(15, 8))
+      ax = fig.add_subplot(111)
+      ax.spines["top"].set_visible(False)  
+      ax.spines["right"].set_visible(False)
+      ax.bar(bar_plot_data.index,bar_plot_data.Total,zorder=1)
+      ax.scatter(bar_plot_data.index,bar_plot_data.SPX,zorder=2,color='red')
+      plt.xticks(rotation='vertical')
+      plt.ylabel('% Chng in Portfolio for a 1std move in Factor',size=12)
+      plt.legend([benchmark_name,'Fund'])
+      plt.show()
+      
+   
+<br>
+Output:
+<br>
+
+   <br>
+   <p align="center">
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio vs benchmark.png" alt="portfolio vs benchmark"/>
+   </p>
+   </br>
