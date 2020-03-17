@@ -5,7 +5,7 @@
 #
 # Download this script and save in your working directory. 
 # Set your API Key as an environment variable.
-# Import QI_API_Library
+# Import Qi_wrapper
 #
 # Requirements:
 #
@@ -14,7 +14,7 @@
 # For Jupyter Notebooks use (API Key needs to be declared without ''):
 #
 #         %set_env QI_API_KEY = YOUR_API_KEY
-#         import QI_API_Library
+#         import Qi_wrapper
 #
 #
 # For other Python development environments (API Key needs to be declared as a string ''):
@@ -25,7 +25,7 @@
 #
 #         os.environ['QI_API_KEY'] = 'YOUR_API_KEY'
 #
-#         import QI_API_Library 
+#         import Qi_wrapper 
 #
 #######################################################################################################################################
 
