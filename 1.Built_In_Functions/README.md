@@ -12,27 +12,16 @@ e.g.
 
       api_instance.get_model_timeseries('aapl')
 
-  'zscore': 0.69048}, {'_date': datetime.datetime(2020, 3, 16, 0, 0),
-  'absolute_gap': -1.59068,
-  'constant': 1.63222,
-  'fair_value': 243.80068,
-  'percentage_gap': -0.65674,
-  'rsquare': 84.47174,
-  'sensitivities': None,
-  'sigma': -0.03708,
-  'target_mean': 250.21928,
-  'target_stdev': 42.90124,
-  'target_zscore': -0.18669,
-  'zscore': -0.14961}, {'_date': datetime.datetime(2020, 3, 17, 0, 0),
-  'absolute_gap': -20.20668,
-  'constant': 1.6259,
-  'fair_value': 262.41668,
-  'percentage_gap': -8.34263,
-  'rsquare': 84.6299,
-  'sensitivities': None,
-  'sigma': -0.47296,
-  'target_mean': 250.45627,
-  'target_stdev': 42.72416,
-  'target_zscore': -0.19301,
-  'zscore': 0.27995}]
+   {'_date': datetime.datetime(2020, 3, 16, 0, 0), <br>
+  'absolute_gap': -1.59068, <br>
+  'constant': 1.63222, <br>
+  'fair_value': 243.80068, <br>
+  'percentage_gap': -0.65674, <br>
+  'rsquare': 84.47174, <br>
+  'sensitivities': None, <br>
+  'sigma': -0.03708, <br>
+  'target_mean': 250.21928, <br>
+  'target_stdev': 42.90124, <br>
+  'target_zscore': -0.18669, <br>
+  'zscore': -0.14961}
 
