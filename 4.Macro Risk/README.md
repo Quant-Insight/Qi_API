@@ -3,8 +3,9 @@
 Here we showcase how Qi uses the API to produce a Portfolio Macro Risk report.
 
 * Requirements:
+
       %set_env QI_API_KEY = YOUR_API_KEY
-      import QI_API_Library
+      import Qi_wrapper
       import pandas
       import numpy as np 
       
@@ -31,19 +32,19 @@ Portfolio:
    </br>
 
 
-## Case Study 1: '10 EU Stocks Vulnerable to deflation' - Mar 2020
+## Calculate cash exposures
 
-* Back in mid February with Western equity markets seemingly immune, the key question facing a European long/short equity fund was which stocks are most vulnerable should Covid-19 spread and unleash a deflationary shock in this time zone? 
-
-* On February 17th , the last week of complacency before the virus reached these shores, we screened the Stoxx 600 universe for those single names most sensitive to European inflation expectations, 
-
-* The 10 stocks Qi identified as most sensitive to inflation fell 43% from February 17th to yesterday’s close. Over the same period, the Euro Stoxx 600 fell 34%.
-
+      QI_API_Library.get_portfolio_cash_exposures_bucket(portfolio,date)
+      
 <br>
-<img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/EU stocks - infl (Mar 2020).png" alt="Case Study 1"/>
-</br>
+Output:
+<br>
 
-* Code:
+   <br>
+   <p align="center">
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/cash exposures.png" alt="Case Study 1"/>
+   </p>
+   </br>
 
       ### Variables ###
       universe = [x.name for x in api_instance.get_models(tags='Stoxx Europe 600')][::2]
@@ -76,9 +77,3 @@ Portfolio:
       df_top_sensitivite['Name'] = [api_instance.get_model(model).security_name for model in df_top_sensitivite.index]   
       
       
-<br>
-*Output:
-
-  <br>
-  <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/EU stocks table - infl (Mar 2020).png" alt="Case Study 1 Table"/>
-  </br>
