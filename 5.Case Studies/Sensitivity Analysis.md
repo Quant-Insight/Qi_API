@@ -1,6 +1,6 @@
 # Sensitivity Analysis
 
-Here we showcase how Qi uses the API to find assets sensitivie to a key theme.
+Here we showcase how Qi uses the API to find assets sensitive to a key theme.
 
 ## Case Study 1: '10 EU Stocks Vulnerable to deflation' - Mar 2020
 
