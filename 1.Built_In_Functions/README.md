@@ -10,7 +10,7 @@ e.g for a specific model you can retrive timeseries data but will require furthe
 
 e.g. 
 
-api_instance.get_model_timeseries('aapl')
+      api_instance.get_model_timeseries('aapl')
 
   'zscore': 0.69048}, {'_date': datetime.datetime(2020, 3, 16, 0, 0),
   'absolute_gap': -1.59068,
