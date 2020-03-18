@@ -8,7 +8,7 @@ But this kind of search could be replicated across multiple asset classes & for 
 
 The code below provides an example for quants looking to manipulate the data. The chart / bullet point summary is one suggestion of how to present the results for a portfolio manager looking for optimal trade selection, or a risk manager searching for visibility on their macro exposures.
 
-## Case Study 1: '10 EU Stocks Vulnerable to deflation' - Mar 2020
+## Case Study 1: '10 EU Stocks Vulnerable to deflation' - March 2020
 
 * Back in mid February with Western equity markets seemingly immune, the key question facing a European long/short equity fund was which stocks are most vulnerable should Covid-19 spread and unleash a deflationary shock in this time zone? 
 
