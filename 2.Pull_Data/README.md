@@ -3,7 +3,7 @@
 These are examples of directly pulling all of the Qi timeseries data across all Asset classes. There are multiple pre-defined functions which will allow the user to pull timeseries data.
 
 e.g
-  One example is our 'get_model_data' function which will allow output a dataframe with the following columns:
+  One example is our 'get_model_data' function which will allow you to output a dataframe with the following columns:
 
               * Dates - dataframe index. 
               * FVG - model FVG values for each day requested. 
