@@ -1,6 +1,12 @@
 # Sensitivity Analysis
 
-Here we showcase how Qi uses the API to find assets sensitive to a key theme.
+The example below details how clients can use Qi data via our API to run scenario analysis. In this instance European single stocks sensitive to European inflation expectations.
+
+
+But this kind of search could be replicated across multiple asset classes & for numerous macro factors.
+
+
+The code below provides an example for quants looking to manipulate the data. The chart / bullet point summary is one suggestion of how to present the results for a portfolio manager looking for optimal trade selection, or a risk manager searching for visibility on their macro exposures.
 
 ## Case Study 1: '10 EU Stocks Vulnerable to deflation' - Mar 2020
 
