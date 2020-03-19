@@ -9,11 +9,12 @@ These incude:
 <br>
 Requirements:
 <br>
+
       %set_env QI_API_KEY = YOUR_API_KEY
       import Qi_wrapper
       import pandas
       import numpy as np 
-      
+
       ### Set Variables
       benchmark_name = 'SPX'
       date = '2020-03-16'
