@@ -1,9 +1,14 @@
 # Macro Risk
 
-Here we showcase how Qi uses the API to produce a Portfolio Macro Risk report.
+Qi enables users to identify their exposure to critical macro factors. Below we identify some of the key functions Qi Macro Risk can provide. We show examples of code to help quants run their own analysis; and ideas of how to best present the data for risk managers.
 
-* Requirements:
-
+These incude:
+* Exposure to macro factors, on a line-by-line basis across holdings, in both standard deviation and cash terms.
+* Attribution analysis.
+* Relative performance versus a chosen benchmark.
+<br>
+Requirements:
+<br>
       %set_env QI_API_KEY = YOUR_API_KEY
       import Qi_wrapper
       import pandas
