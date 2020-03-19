@@ -55,7 +55,7 @@ Output:
    </br>
    
    
-## Get Portfolio sensitivities to top 10 individual macro factors
+## Get portfolio sensitivities to top 10 individual macro factors
    
 Compute the expected % change in value of a portfolio for a 1 standard devation move in each of the top 10 macro factors.
    
@@ -126,7 +126,7 @@ Output:
    </br>
 
 
- ## Plot portfolio sensitivities relative to benchmark
+ ## Plot portfolio sensitivities relative to a benchmark
    
       ### Creates data for plot
       sens_buckets = Qi_wrapper.get_portfolio_sens_exposures_bucket(portfolio,date)
