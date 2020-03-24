@@ -15,9 +15,9 @@
 # Output: 
 #         dataframe with the following columns:
 #               * Position - dataframe index. 
-#               * Name - top 5 factor drivers' names. 
-#               * Weight - weights of the top 5 factor drivers.
-#               * Factor Sensitivity - Factor top 5 drivers' sensitivity.
+#               * Name - asset model name. 
+#               * Weight - weight of each position in the portfolio.
+#               * Factor Sensitivity - % move in asset for a 1 std move higher in the factor.
 #               * e.g.
 #
 #                |     | Name   | Weight   | USDCNH Sensitivity |
