@@ -42,7 +42,7 @@ Portfolio:
 
 Factor cash exposures are derived by multiplying individual stock's notional amounts to their factor sensitivities. For example in the table below, if energy prices were to rise by 1 standard deviation, the value of your position in Microsoft (MSFT) would increase by $288,963, and the value of your portfolio as a whole would increase by $2,744,827. These values are calculated on the bucket level, where each bucket can contain up to 4 individual macro factors, e.g. the bucket 'Metals' contains the factors copper and iron ore.
 
-      Qi_wrapper.get_portfolio_cash_exposures_bucket(portfolio,date)
+      Qi_wrapper.get_portfolio_cash_exposures_bucket(portfolio,date,term)
       
 <br>
 Output:
@@ -59,7 +59,7 @@ Output:
    
 Compute the expected % change in value of a portfolio for a 1 standard devation move in each of the top 10 macro factors.
    
-      sens = Qi_wrapper.get_portfolio_sens_exposures_factor(portfolio,date)
+      sens = Qi_wrapper.get_portfolio_sens_exposures_factor(portfolio,date,term)
       sens[abs(sens.loc['Total']).nlargest(10).index].loc[['Total']]
       
    
@@ -95,7 +95,7 @@ Output:
       ### Create pie chart data  
       import numpy as np
 
-      sens_buckets = Qi_wrapper.get_portfolio_sens_exposures_bucket(portfolio,date)
+      sens_buckets = Qi_wrapper.get_portfolio_sens_exposures_bucket(portfolio,date,term)
       pie_data = sens_buckets.loc[['Total']].T.sort_values(by='Total')[::-1]
       pie_data.Total = [abs(x)/abs(pie_data).Total.sum() for x in pie_data.Total]
       
@@ -129,7 +129,7 @@ Output:
  ## Plot portfolio sensitivities relative to a benchmark
    
       ### Creates data for plot
-      sens_buckets = Qi_wrapper.get_portfolio_sens_exposures_bucket(portfolio,date)
+      sens_buckets = Qi_wrapper.get_portfolio_sens_exposures_bucket(portfolio,date,term)
       bar_plot_data = sens_buckets.loc[['Total']].T.sort_values(by='Total')[::-1]
       benchmark = Qi_wrapper.get_bucket_drivers(benchmark_name,date,term)
       idxs = bar_plot_data.index.tolist()
