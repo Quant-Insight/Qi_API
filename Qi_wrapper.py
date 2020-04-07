@@ -108,14 +108,14 @@ def get_bucket_drivers(model,date,term):
 
     return df_sensitivities
 
-def get_portfolio_sens_exposures_factor(portfolio,date):
+def get_portfolio_sens_exposures_factor(portfolio,date,term):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
 
     for stock in stock_names:
 
-        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date, term='Long Term')
+        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date, term=term)
         df_sensitivities = pandas.DataFrame()
         date = [x for x in sensitivity.keys()][0]
 
@@ -142,14 +142,14 @@ def get_portfolio_sens_exposures_factor(portfolio,date):
     return portfolio_sensitivities
 
 
-def get_portfolio_cash_exposures_factor(portfolio,date):
+def get_portfolio_cash_exposures_factor(portfolio,date,term):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
 
     for stock in stock_names:
 
-        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date, term='Long Term')
+        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date, term=term)
         df_sensitivities = pandas.DataFrame()
         date = [x for x in sensitivity.keys()][0]
 
@@ -176,14 +176,14 @@ def get_portfolio_cash_exposures_factor(portfolio,date):
     return portfolio_sensitivities
 
 
-def get_portfolio_sens_exposures_bucket(portfolio,date):
+def get_portfolio_sens_exposures_bucket(portfolio,date,term):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
 
     for stock in stock_names:
 
-        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term='Long Term')
+        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term=term)
         df_sensitivities = pandas.DataFrame()
         date = [x for x in sensitivity.keys()][0]
 
@@ -218,14 +218,14 @@ def get_portfolio_sens_exposures_bucket(portfolio,date):
 
 
 
-def get_portfolio_cash_exposures_bucket(portfolio,date):
+def get_portfolio_cash_exposures_bucket(portfolio,date,term):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
 
     for stock in stock_names:
 
-        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term='Long Term')
+        sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term=term)
         df_sensitivities = pandas.DataFrame()
         date = [x for x in sensitivity.keys()][0]
 
