@@ -113,4 +113,4 @@ for stock in stocks:
     df_final.to_excel(writer, sheet_name = stock)
     writer.save()
     
-    print(sp1500_names.tolist().index(stock))
+    print(stocks.index(stock))
