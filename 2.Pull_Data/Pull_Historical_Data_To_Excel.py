@@ -99,12 +99,17 @@ def get_model_data(model,start,end,term):
 # Define your stocks here.  
 sp1500_names =  [x.name for x in api_instance.get_models(tags="S&P 1500")][::2]
 stocks = sp1500_names
+
 # Change the address where the file will be saved and the name of the Excel file. 
 writer = pandas.ExcelWriter('C:/Users/EXAMPLE_ADDRESS.xlsx', engine='openpyxl')
 
+# Chose start and end date
+start = '2015-01-01'
+end = '2020-04-01'
+
 for stock in stocks:
-    model_data = get_model_data(stock,'2015-01-01','2019-04-02','Long Term')
-    sens_data = get_sensitivity_grid(stock,'2015-01-1','2019-04-02','Long Term')
+    model_data = get_model_data(stock,start,end,'Long Term')
+    sens_data = get_sensitivity_grid(stock,start,end,'Long Term')
 
     model_data.index = [str(x).split(' ')[0] for x in model_data.index]
 
