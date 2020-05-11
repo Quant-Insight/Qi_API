@@ -36,7 +36,7 @@ The code below provides an example for quants looking to manipulate the data. Th
 
           try:
 
-              df_temp = get_factor_drivers(stock,date,term).T
+              df_temp = get_factor_drivers(asset,date,term).T
               df_temp.index = [asset]        
 
               if factor in abs(df_temp.loc[asset]).nlargest(driver_rank).index:
