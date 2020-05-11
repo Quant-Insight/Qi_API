@@ -24,14 +24,14 @@
 
 def get_model_names_from_tickers(tickers):
 
-    ### Load US Equities from API
+    ### Load US models from API
 
-    API_US = [x.name for x in api_instance.get_models(asset_classes='Equity',tags='USD')][::2]
+    API_US = [x.name for x in api_instance.get_models(tags='USD')][::2]
 
 
-    ### Load other Equities from API
+    ### Load other models from API
 
-    API_other = [x.name for x in api_instance.get_models(asset_classes='Equity')][::2]
+    API_other = [x.name for x in api_instance.get_models()][::2]
     [API_other.remove(model) for model in API_US]
 
     potential_models = [model for model in API_other if model.split(' ')[0] in [x.split(' ')[0] for x in tickers]]
@@ -52,6 +52,10 @@ def get_model_names_from_tickers(tickers):
 
             elif temp_model + ' US' in API_US:
                 model_names.append(temp_model + ' US')
+                
+            elif ticker in potential_tickers:
+                idx = potential_tickers.index(ticker)
+                model_names.append(potential_models[idx])
 
             else:
                 model_names.append(None)
