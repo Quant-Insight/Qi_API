@@ -5,6 +5,7 @@
 #
 # Requirements:
 #         import pandas
+#         from datetime import datetime
 #
 # Inputs: 
 #         model - model (e.g. 'AAPL')
