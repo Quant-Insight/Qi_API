@@ -1,6 +1,6 @@
 # Sensitivity Analysis
 
-The example below details how clients can use Qi data via our API to run scenario analysis. In this instance European single stocks sensitive to European inflation expectations.
+The example below details how clients can use Qi data via our API to run scenario analysis. In this instance European single stocks sensitive to European inflation expectations, see artlcle: https://www.quant-insight.com/10-eu-stocks-vulnerable-to-deflation/ .
 
 
 But this kind of search could be replicated across multiple asset classes & for numerous macro factors.
