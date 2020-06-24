@@ -24,6 +24,7 @@ The code below provides an example for quants looking to manipulate the data. Th
 
       # Requirements - make sure you've set environment variable QI_API_KEY = YOUR_API_KEY
       import Qi_wrapper
+      import pandas
 
       # Set varialbles and universe 
       factor = 'USDCNH'
