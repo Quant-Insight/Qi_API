@@ -25,10 +25,9 @@ The code below provides an example of how to retrieve this data from the API. Th
       import Qi_wrapper
 
       # Set varialbles
-      factor = 'GBP TWI'
+      asset = 'SPX'
       start = '2020-01-01'
       end = '2020-05-18'
       term = 'Long Term'
-      asset = 'SPX'
 
       model_values = Qi_wrapper.get_model_data(asset,start,end,term)['Model Value']
