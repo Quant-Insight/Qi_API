@@ -1,4 +1,4 @@
-# Model versus sport price.
+# Model versus spot price.
 
 The example below details how clients can use Qi data via our API to view asset's model value. In this instance we look at the S&P500 and see how the historical model value compares to spot, see the article: https://www.quant-insight.com/fed-policy-trumps-covid-19/ .
 
