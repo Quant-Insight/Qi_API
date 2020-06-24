@@ -61,7 +61,7 @@ It contains five main folders:
          %set_env QI_API_KEY = ADD-YOUR-API-KEY-HERE (Make sure the API key is written without '') 
          import Qi_wrapper
        
-  * If you are using Visual Studio: 
+  * If you are using regular python IDE: 
   
          import os
          import subprocess
