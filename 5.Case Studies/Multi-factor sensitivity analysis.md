@@ -2,7 +2,7 @@
 
 Portfolio managers will often identify potential scenarios which could potentially impact their risk. Using Qi data, a quant can arm his PMs with an empirical stress test for a number of different macro scenarios.
 
-In this instance we look at US equity markets (the S&P500) in the aftermath of the Covid-19 shock to the US economy. A key dilemma facing equity managers was ascertaining which was the dominant driver of markets – the huge deflationary shock from the pandemic versus the massive policy response from authorities.
+In this instance we look at US equity markets (the S&P500) in the aftermath of the Covid-19 shock to the US economy, see article: https://www.quant-insight.com/growth-vs-sensitivity-whats-driving-spoos/. A key dilemma facing equity managers was ascertaining which was the dominant driver of markets – the huge deflationary shock from the pandemic versus the massive policy response from authorities.
 
 Qi can show the independent impact of different factors on an asset & here we constructed a measure of that growth vs liquidity trade-off. However this analysis could be run for a number of factors – wider credit spreads, higher crude oil prices, spikes in VIX – and on a range of different assets around the globe.
 
