@@ -46,7 +46,7 @@
 ########################################################################################################################################################################################################################################################
 
 
-def FVG_Back_Test(assets,price_data,open_arg,close_arg,RSq_arg,L_S,start_date,end_date,term):
+def fvg_back_test(assets,price_data,open_arg,close_arg,rsq_arg,l_s,start_date,end_date,term):
 
 
     Holding_Times = []
@@ -75,7 +75,7 @@ def FVG_Back_Test(assets,price_data,open_arg,close_arg,RSq_arg,L_S,start_date,en
 
         while i < (len(FVG)):
 
-            if 'Long' in L_S and FVG[i] < -1*open_arg and (FVG_closelong[i:] == True).sum() > 0 and Rsq[i] > RSq_arg:
+            if 'Long' in l_s and FVG[i] < -1*open_arg and (FVG_closelong[i:] == True).sum() > 0 and Rsq[i] > rsq_arg:
 
                 new_price_index = FVG_closelong.tolist().index(True,i,len(FVG))
                 close_date = str(FVG.index[new_price_index])[:10]
@@ -95,7 +95,7 @@ def FVG_Back_Test(assets,price_data,open_arg,close_arg,RSq_arg,L_S,start_date,en
                 i = new_price_index + 1
 
 
-            elif 'Short' in L_S and FVG[i] > open_arg and (FVG_closeshort[i:] == True).sum() > 0 and Rsq[i] > RSq_arg:
+            elif 'Short' in l_s and FVG[i] > open_arg and (FVG_closeshort[i:] == True).sum() > 0 and Rsq[i] > rsq_arg:
 
                 new_price_index = FVG_closeshort.tolist().index(True,i,len(FVG))
                 close_date = str(FVG.index[new_price_index])[:10]
