@@ -4,9 +4,11 @@ The difference between macro-warranted model value & the spot price of any asset
 
 In this example we look at US health care stocks, of which Qi has 173, and test trading these under the following conditions:
 
-* Long only
+* Long only since 2009
 * Open trade at FVG > 1.5 & RSq > 65
 * Close trade at FVG < 0.5
+
+Moreover, here we focus exclusively on hit rates. There any many more issues to be taken into account. Probably the most important of all is the need for the Qi signal to offer diversity versus existing signals you are already using. Your back-tests will ascertain that. Here we simply use high hit rates to demonstrate that there is value in the Qi signal.
 
 
 <br>
