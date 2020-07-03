@@ -57,66 +57,74 @@ def fvg_back_test(assets,price_data,open_arg,close_arg,rsq_arg,l_s,start_date,en
     RSQ = []
     CloseDate = []
     
+    model_names = Qi_wrapper.get_model_names_from_tickers(assets)
+    
 
     for asset in assets:    
 
-        temp_asset = Qi_wrapper.get_model_names_from_tickers([asset])['Qi Model Name'][asset]
-        data = Qi_wrapper.get_model_data(temp_asset,start_date,end_date,term)
-        price = price_data[asset]
-        FVG = data['FVG']
-        Rsq = data['Rsq']
+        model_name = model_names['Qi Model Name'][asset]
+        
+        if model_name == None:
+            print(asset + ': Ticker not found in any Qi Model')
+            
+        else:
+        
+            data = Qi_wrapper.get_model_data(model_name,start_date,end_date,term)
+            price = price_data[model_name]
+            FVG = data['FVG']
+            Rsq = data['Rsq']
 
-        FVG_closelong = FVG>-1*close_arg
-        FVG_closeshort = FVG<close_arg
-
-
-
-        i = 0
-
-        while i < (len(FVG)):
-
-            if 'Long' in l_s and FVG[i] < -1*open_arg and (FVG_closelong[i:] == True).sum() > 0 and Rsq[i] > rsq_arg:
-
-                new_price_index = FVG_closelong.tolist().index(True,i,len(FVG))
-                close_date = str(FVG.index[new_price_index])[:10]
-                open_date = str(FVG.index[i])[:10]
-
-                returns = ((price[close_date] - price[open_date])/price[open_date])*100   
-                TradeLength = new_price_index - i
-                Holding_Times.append(TradeLength)
-
-                Name.append(asset)
-                Date.append(open_date)   
-                ALL_returns.append(returns)
-                LongShort.append('Long')
-                CloseDate.append(close_date)
-                RSQ.append(Rsq[i])
-
-                i = new_price_index + 1
+            FVG_closelong = FVG>-1*close_arg
+            FVG_closeshort = FVG<close_arg
 
 
-            elif 'Short' in l_s and FVG[i] > open_arg and (FVG_closeshort[i:] == True).sum() > 0 and Rsq[i] > rsq_arg:
 
-                new_price_index = FVG_closeshort.tolist().index(True,i,len(FVG))
-                close_date = str(FVG.index[new_price_index])[:10]
-                open_date = str(FVG.index[i])[:10]
+            i = 0
 
-                returns = (-(price[close_date] - price[open_date])/price[open_date])*100   
-                TradeLength = new_price_index - i
-                Holding_Times.append(TradeLength)
+            while i < (len(FVG)):
 
-                Name.append(asset)
-                Date.append(open_date)   
-                ALL_returns.append(returns)
-                LongShort.append('Short')
-                CloseDate.append(close_date)
-                RSQ.append(Rsq[i])
+                if 'Long' in l_s and FVG[i] < -1*open_arg and (FVG_closelong[i:] == True).sum() > 0 and Rsq[i] > rsq_arg:
+
+                    new_price_index = FVG_closelong.tolist().index(True,i,len(FVG))
+                    close_date = str(FVG.index[new_price_index])[:10]
+                    open_date = str(FVG.index[i])[:10]
+
+                    returns = ((price[close_date] - price[open_date])/price[open_date])*100   
+                    TradeLength = new_price_index - i
+                    Holding_Times.append(TradeLength)
+
+                    Name.append(asset)
+                    Date.append(open_date)   
+                    ALL_returns.append(returns)
+                    LongShort.append('Long')
+                    CloseDate.append(close_date)
+                    RSQ.append(Rsq[i])
+
+                    i = new_price_index + 1
 
 
-                i = new_price_index + 1
+                elif 'Short' in l_s and FVG[i] > open_arg and (FVG_closeshort[i:] == True).sum() > 0 and Rsq[i] > rsq_arg:
 
-            else:            
-                i = i + 1
+                    new_price_index = FVG_closeshort.tolist().index(True,i,len(FVG))
+                    close_date = str(FVG.index[new_price_index])[:10]
+                    open_date = str(FVG.index[i])[:10]
+
+                    returns = (-(price[close_date] - price[open_date])/price[open_date])*100   
+                    TradeLength = new_price_index - i
+                    Holding_Times.append(TradeLength)
+
+                    Name.append(asset)
+                    Date.append(open_date)   
+                    ALL_returns.append(returns)
+                    LongShort.append('Short')
+                    CloseDate.append(close_date)
+                    RSQ.append(Rsq[i])
+
+
+                    i = new_price_index + 1
+
+                else:            
+                    i = i + 1
 
 
 
