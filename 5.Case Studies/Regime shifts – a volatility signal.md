@@ -20,16 +20,16 @@ Major equity indices around the globe saw a sharp fall in model confidence in Ja
 
 Macro’s ability to explain shifts in all assets fell sharply at the end of 2017. When equity, bond & currency markets are all moving independent of economic fundamentals, financial conditions and risk appetite that is a warning that markets have divorced themselves from ‘reality’. 
 
-Testing the idea that sharp falls in Qi RSq could be used as a vol signal, the chart below, the blue line shows the % of Qi models for major, cross asset benchmarks (equities, rates, FX, credit, cmdties, DM & EM) with RSq below our 65% threshold.
+Testing the idea that sharp falls in Qi RSq could be used as a vol signal, the chart below, the blue line shows the % of Qi models for major, cross asset benchmarks (equities, rates, FX) with short term RSq below our 65% threshold.
  
 A sharp move up in the blue line signals a large proportion of major markets are dropping below the 65% RSq threshold. We overlaid with VIX.
  
-It works on the way up, but VIX moves back down much faster that RSq’s go back up.
+It works on the way up, but VIX tends to move back down faster that RSq’s go back up.
  
 We concluded, a sharp & broad RSq drop is useful in flagging upcoming vol events. However, RSq is too slow to signal the end of the vol episode; VIX moves down well before RSqs gets back above 65%.
 
 <br>
-<img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/vix and RSq.png" alt="Case Study"/>
+<img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/vix and RSq_2.png" alt="Case Study"/>
 </br>
 
 * Code:
@@ -58,3 +58,11 @@ We concluded, a sharp & broad RSq drop is useful in flagging upcoming vol events
       # Case study 2
       models_2 = ['SPX', 'SXXP', 'EURUSD', 'USDJPY', 'USD 10Y', 'EUR 10Y']
       results_2 = get_asset_rsqs(models_2,'2017-10-02','2018-01-09','Long Term')
+      
+      
+      # Back-testing RSqs & VIX
+      models_3 = ['SPX', 'SXXP', 'EURUSD', 'USDJPY', 'USD 10Y', 'EUR 10Y']
+      results_3 = get_asset_rsqs(models_3,'2015-01-01','2020-04-01','Short Term')
+      
+      # Calculate a daily timeseries for the number of models with an RSq of less than 65
+      vol_indicator = [np.sum([y<65 for y in results_3.loc[x]])/len(models_3) for x in results_3.index]
