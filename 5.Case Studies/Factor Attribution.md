@@ -16,7 +16,7 @@ https://www.quant-insight.com/stress-testing-covid-19-macro-explains-market-move
 
 Updating this since the original March analysis produces similar results. 
 
-1.)	Macro does a very good of explaining price action in both the initial Covid-19 shock, & in the subsequent recovery.
+1.)	Macro does a very good job of explaining price action in both the initial Covid-19 shock, & in the subsequent recovery.
 
 2.)	The key drivers for now remain largely the same – credit spreads, risk aversion & inflation are the macro themes every investor, across asset classes, needs visibility on.
 
