@@ -70,7 +70,7 @@ def fvg_back_test(assets,price_data,open_arg,close_arg,rsq_arg,l_s,start_date,en
         else:
         
             data = Qi_wrapper.get_model_data(model_name,start_date,end_date,term)
-            price = price_data[model_name]
+            price = price_data[asset]
             FVG = data['FVG']
             Rsq = data['Rsq']
 
