@@ -24,19 +24,19 @@
 
 def get_model_names_from_tickers(tickers):
 
-    ### Load US models from API
+    ### Load US Models from API
 
     API_US = [x.name for x in api_instance.get_models(tags='USD')][::2]
 
 
-    ### Load other models from API
+    ### Load other Models from API
 
     API_other = [x.name for x in api_instance.get_models()][::2]
-    [API_other.remove(model) for model in API_US]
-
+    [API_other.remove(model) for model in API_US if model in API_other]
+    
     potential_models = [model for model in API_other if model.split(' ')[0] in [x.split(' ')[0] for x in tickers]]
     potential_tickers = [api_instance.get_model(model).definition.instrument1.ticker for model in potential_models]
-    
+
     model_names = []
 
     for ticker in tickers:
@@ -65,9 +65,21 @@ def get_model_names_from_tickers(tickers):
         ### Check other tickers
 
         else:
+            
+            ### Adjust German & Japan Tickers
+            
+            if ' GR ' in ticker:
+                temp_ticker = ticker.replace('GR','GY')
+                
+            elif ' JP ' in ticker:
+                temp_ticker = ticker.replace('JP','JT')
+                
+            else:
+                temp_ticker = ticker
 
-            if ticker in potential_tickers:
-                idx = potential_tickers.index(ticker)
+
+            if temp_ticker in potential_tickers:
+                idx = potential_tickers.index(temp_ticker)
                 model_names.append(potential_models[idx])
 
             else:
