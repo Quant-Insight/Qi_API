@@ -35,13 +35,13 @@
 # Output: 
 #
 #                       | Results |
-#   Hit Rate            |  75.0   |
+#   Hit Rate            |  72.5   |
 #   Avg. Rtrn           |  1.46   |  
 #   Avg. Holding Period |  25.7   |    
 #   No. of Trades       |   40    |    
-#   Avg. Win            |  4.55   |
+#   Avg. Win            |  4.70   |
 #   Avg. Loss           | -7.81   |
-#   Win/Loss            |  0.58   |
+#   Win/Loss            |  0.60   |
 #
 #
 #
