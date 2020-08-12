@@ -165,7 +165,7 @@ def fvg_back_test(assets,price_data,open_arg,close_arg,rsq_arg,l_s,start_date,en
     
     ### Uncomment below to return all individual trades
     
-#     df_results = pandas.DataFrame({'Entry Date':Date,'Exit Date':CloseDate,'Returns':ALL_returns,'Duration':Holding_Times,
+#     df_results = pandas.DataFrame({'Asset':Name,'Entry Date':Date,'Exit Date':CloseDate,'Returns':ALL_returns,'Duration':Holding_Times,
 #                                   'Type':LongShort,'FVG':trade_FVG,'RSq':trade_RSq})
     
     return df_results
