@@ -72,7 +72,7 @@ def get_top_drivers(model,number,date,term):
     return top
 
 
-def get_factor_drivers(model,date,term):
+def get_asset_drivers(model,date,term):
 
     sensitivity = api_instance.get_model_sensitivities(model=model,date_from=date,date_to=date,term=term)
     date = [x for x in sensitivity][0]
@@ -89,7 +89,7 @@ def get_factor_drivers(model,date,term):
 
 
 
-def get_bucket_drivers(model,date,term):
+def get_asset_bucket_drivers(model,date,term):
     
     sensitivity = api_instance.get_model_sensitivities(model=model,date_from=date,date_to=date,term=term)
 
