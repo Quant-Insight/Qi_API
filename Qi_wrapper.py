@@ -580,9 +580,8 @@ def get_portfolio(factor,universe,size,date,term):
 
 
 
-def get_factor_stdevs(model,date):
+def get_factor_stdevs(model,date,term):
 
-    term = 'Long Term'
 
     sensitivity = api_instance.get_model_sensitivities(model=model,date_from=date,date_to=date,term=term)
     date = [x for x in sensitivity][0]
