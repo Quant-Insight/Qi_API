@@ -613,7 +613,7 @@ def get_model_names_from_tickers(tickers):
     [API_other.remove(model) for model in API_US if model in API_other]
     
     potential_models = [model for model in API_other if model.split(' ')[0] in [x.split(' ')[0] for x in tickers]]
-    potential_tickers = [api_instance.get_model(model).definition.instrument1.ticker for model in potential_models]
+    potential_tickers = [api_instance.get_model(model).definition.timeseries_ety1.instrument.identifiers['BloombergTicker'] for model in potential_models]
 
     model_names = []
 
@@ -647,10 +647,10 @@ def get_model_names_from_tickers(tickers):
             ### Adjust German & Japan Tickers
             
             if ' GR ' in ticker:
-                temp_ticker = ticker.replace('GR','GY')
+                temp_ticker = ticker.replace(' GR ',' GY ')
                 
             elif ' JP ' in ticker:
-                temp_ticker = ticker.replace('JP','JT')
+                temp_ticker = ticker.replace(' JP ',' JT ')
                 
             else:
                 temp_ticker = ticker
@@ -665,4 +665,3 @@ def get_model_names_from_tickers(tickers):
                 model_names.append(None)
                 
     return pandas.DataFrame(model_names,tickers, columns = ['Qi Model Name'])
-
