@@ -4,11 +4,11 @@ This repository includes some examples of how to use Quant-Insight's API.
 
 It contains five main folders:
 
-  * 1.Built_In_Functions: contains Qi's API built-in functions.
-  * 2.Pull_Data: contains useful examples of how to pull the data of Qi's database. 
-  * 3.Use_Cases: contains useful examples to use at your work.
-  * 4.Macro Risk: a comprehensive guide on how to calculate your portfolio's macro risk
-  * 5.Case Studies: contains examples of how Qi uses the API
+  * 1.Built_In_Functions: contains the API's built-in functions.
+  * 2.Pull_Data: contains useful examples of how to pull the data from Qi's database. 
+  * 3.Use_Cases: examples of how Qi data is used.
+  * 4.Macro Risk: a comprehensive guide on how to calculate your portfolio's macro risk.
+  * 5.Case Studies: contains examples of how Qi uses the API.
 
 ## What do you need to start using the API?
 
