@@ -16,7 +16,7 @@ Requirements:
       import numpy as np 
 
       ### Set Variables
-      benchmark_name = 'SPX'
+      benchmark_name = 'S&P500'
       date = '2020-03-16'
       term = 'Long Term'
       
@@ -141,7 +141,7 @@ Output:
       ax.spines["top"].set_visible(False)  
       ax.spines["right"].set_visible(False)
       ax.bar(bar_plot_data.index,bar_plot_data.Total,zorder=1)
-      ax.scatter(bar_plot_data.index,bar_plot_data.SPX,zorder=2,color='red')
+      ax.scatter(bar_plot_data.index,bar_plot_data['S&P500],zorder=2,color='red')
       plt.xticks(rotation='vertical')
       plt.ylabel('% Chng in Portfolio for a 1std move in Factor',size=12)
       plt.legend([benchmark_name,'Fund'])
