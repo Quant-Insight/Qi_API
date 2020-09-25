@@ -116,6 +116,7 @@ for stock in stocks:
     df_final = pandas.concat([model_data,sens_data], axis=1, join = 'inner')
 
     df_final.to_excel(writer, sheet_name = stock)
-    writer.save()
     
-    print(stocks.index(stock))
+writer.save()
+
+print(stocks.index(stock))
