@@ -664,3 +664,19 @@ def get_model_names_from_tickers(tickers):
                 model_names.append(None)
                 
     return pandas.DataFrame(model_names,tickers, columns = ['Qi Model Name'])
+
+
+
+def get_factor_drivers(model,date,term):
+    
+    sensitivity = api_instance.get_model_sensitivities(model=model,date_from=date,date_to=date,term=term)
+    date = [x for x in sensitivity][0]
+    df_sensitivities = pandas.DataFrame()
+    
+    for data in sensitivity[date]:
+        df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
+        
+    df_sensitivities = df_sensitivities.T
+    df_sensitivities = df_sensitivities.rename(columns={0:model})
+    
+    return df_sensitivities
