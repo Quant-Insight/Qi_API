@@ -680,3 +680,22 @@ def get_factor_drivers(model,date,term):
     df_sensitivities = df_sensitivities.rename(columns={0:model})
     
     return df_sensitivities
+
+def get_bucket_drivers(model,date,term):
+
+    sensitivity = api_instance.get_model_sensitivities(model=model,date_from=date,date_to=date,term=term)
+
+    df_sensitivities = pandas.DataFrame()
+    date = [x for x in sensitivity.keys()][0]
+
+    for data in sensitivity[date]:
+
+        if data['bucket_name'] in df_sensitivities.columns:
+            df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+
+        else:
+            df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
+            
+    df_sensitivities.index = ['Sensitivity']
+
+    return df_sensitivities
