@@ -141,7 +141,7 @@ Output:
       ax.spines["top"].set_visible(False)  
       ax.spines["right"].set_visible(False)
       ax.bar(bar_plot_data.index,bar_plot_data.Total,zorder=1)
-      ax.scatter(bar_plot_data.index,bar_plot_data['S&P500],zorder=2,color='red')
+      ax.scatter(bar_plot_data.index,bar_plot_data['S&P500'],zorder=2,color='red')
       plt.xticks(rotation='vertical')
       plt.ylabel('% Chng in Portfolio for a 1std move in Factor',size=12)
       plt.legend([benchmark_name,'Fund'])
