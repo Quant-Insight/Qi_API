@@ -169,3 +169,117 @@ def fvg_back_test(assets,price_data,open_arg,close_arg,rsq_arg,l_s,start_date,en
 #                                   'Type':LongShort,'FVG':trade_FVG,'RSq':trade_RSq})
     
     return df_results
+
+
+
+#######################################################################################################################################################################################################################################################
+# 
+# This function back-tests Qi's FVGs for Rates and computes the profitability of their signals.
+#
+# Requirements:
+#         import pandas
+#         import Qi_wrapper
+#         import numpy as np
+#
+# Example of call: FVG_Back_Test_rates(['10Y UST-Bund'],price_data,1.0,0.25,65,['Long','Short'],'2009-01-02','2021-05-27','Long Term')
+#
+########################################################################################################################################################################################################################################################
+
+
+def FVG_Back_Test_rates(assets,price_data,open_arg,close_arg,RSq_arg,start_date,end_date,S_L,term):
+    
+    Holding_Times = []
+    ALL_returns = []
+    Name = []
+    Date = []
+    LongShort = []
+    RSQ = []
+    CloseDate = []
+    
+    # Convert tickers to Qi model names 
+    model_names = get_model_names_from_tickers(assets)
+    
+    for asset in assets:    
+        
+        model_name = model_names['Qi Model Name'][asset]
+        
+        # If no Qi model matches a ticker
+        if model_name == None:
+            print(asset + ': Ticker not found in any Qi Model')
+            
+        # Otherwise continue to test FVGs
+        else:
+            
+            # Pull model data from API and price data from your csv
+            data = get_model_data(model_name,start_date,end_date,term)
+            price = price_data[asset]
+
+            # Find common dates between the two data sets, and only consider those
+            common_dates = [date for date in data.index if date in price.index]
+            data = data.loc[common_dates]
+            price = price.loc[common_dates]
+
+            FVG = data['FVG']
+            Rsq = data['Rsq']
+
+            # Find potential times to close a trade
+            FVG_closelong = FVG>-1*close_arg
+            FVG_closeshort = FVG<close_arg
+
+            i = 0
+
+            while i < (len(FVG)):
+
+                # Longs
+                if 'Long' in S_L and FVG[i] < -1*open_arg and (FVG_closelong[i:] == True).sum() > 0 and Rsq[i] > RSq_arg:
+
+                    # Find open & close dates for the trade
+                    new_price_index = FVG_closelong.tolist().index(True,i,len(FVG))
+                    returns = (price[new_price_index] - price[i])   
+                    TradeLength = new_price_index - i
+                    Holding_Times.append(TradeLength)
+                    Name.append(asset)
+                    Date.append(FVG.index[i])   
+                    ALL_returns.append(returns)
+                    LongShort.append('Long')
+                    CloseDate.append(FVG.index[new_price_index])
+                    RSQ.append(Rsq[i])
+
+                    # Only open one trade in any asset at one time, so skip to end of trade
+                    i = new_price_index + 1
+
+                # Shorts
+                elif 'Short' in S_L and FVG[i] > open_arg and (FVG_closeshort[i:] == True).sum() > 0 and Rsq[i] > RSq_arg:
+
+                    new_price_index = FVG_closeshort.tolist().index(True,i,len(FVG))
+                    returns = (-price[new_price_index] + price[i])   
+                    TradeLength = new_price_index - i
+                    Holding_Times.append(TradeLength)
+
+                    Name.append(asset)
+                    Date.append(FVG.index[i])   
+                    ALL_returns.append(returns)
+                    LongShort.append('Short')
+                    CloseDate.append(FVG.index[new_price_index])
+                    RSQ.append(Rsq[i])
+
+                    i = new_price_index + 1
+
+                else:            
+                    i = i + 1
+    
+    # Calculate results metrics
+    HitRate = 100*sum([x > 0 for x in ALL_returns])/len(ALL_returns)
+    AverageProfit = np.mean(ALL_returns)
+    AverageHolding = np.mean(Holding_Times)
+    mean_win = np.mean([x for x in ALL_returns if x > 0])
+    mean_loss = np.mean([x for x in ALL_returns if x < 0])
+    mean_win_loss_ratio = mean_win/(-1*mean_loss)
+    # trades_per_day = len(ALL_returns)/len(FVG)
+    number_of_trades = len(ALL_returns)
+    
+    results = [HitRate,AverageProfit,AverageHolding,number_of_trades,mean_win,mean_loss,mean_win_loss_ratio]
+    
+    df_results = pd.DataFrame(results,index = ['Hit Rate','Avg. Rtrn','Avg. Holding Period','No. of Trades','Avg. Win',
+                                     'Avg. Loss','Win/Loss'], columns = ['Results'])
+    return df_results
