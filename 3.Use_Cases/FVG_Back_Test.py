@@ -188,7 +188,7 @@ def FVG_Back_Test_rates(assets,price_data,open_arg,close_arg,RSq_arg,start_date,
     for model_name in assets:    
             
         # Pull model data from API and price data from your csv
-        data = get_model_data(model_name,start_date,end_date,term)
+        data = Qi_wrapper.get_model_data(model_name,start_date,end_date,term)
         price = price_data[model_name]
 
         # Find common dates between the two data sets, and only consider those
