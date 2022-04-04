@@ -1,7 +1,7 @@
 #######################################################################################################################################################################################################################################################
 # 
 # This function creates a table with the cash exposures of a given portfolio on a bucket level, for a given period of time for each 
-# stock in the portfolio. It also provides the portfolio total cash exposures per bucket. 
+# stock in the portfolio, weighted by the asset's model confidence (RSq). It also provides the portfolio total cash exposures per bucket. 
 #
 # Requirements:
 #         import pandas
