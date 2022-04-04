@@ -112,6 +112,7 @@ def get_portfolio_sens_exposures_factor(portfolio,date,term):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
+    rsq = []
 
     for stock in stock_names:
 
@@ -128,12 +129,14 @@ def get_portfolio_sens_exposures_factor(portfolio,date,term):
             df_tot = df_sensitivities
         else:
             df_tot = df_tot.append(df_sensitivities)
+        rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
 
+    df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)  
     portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
     
     for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
@@ -146,6 +149,7 @@ def get_portfolio_cash_exposures_factor(portfolio,date,term):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
+    rsq = []
 
     for stock in stock_names:
 
@@ -162,12 +166,14 @@ def get_portfolio_cash_exposures_factor(portfolio,date,term):
             df_tot = df_sensitivities
         else:
             df_tot = df_tot.append(df_sensitivities)
-
+        rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
+    
+    df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)
     portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
     
     for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
@@ -180,7 +186,8 @@ def get_portfolio_sens_exposures_bucket(portfolio,date,term):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
-
+    rsq = []
+    
     for stock in stock_names:
 
         sensitivity = api_instance.get_model_sensitivities(model=stock,date_from=date,date_to=date,term=term)
@@ -201,27 +208,27 @@ def get_portfolio_sens_exposures_bucket(portfolio,date,term):
             df_tot = df_sensitivities
         else:
             df_tot = df_tot.append(df_sensitivities)
-            
-            
+        rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])  
+    
+    df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)  
     portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
     
     for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
     portfolio_exposures = portfolio_sensitivities.loc[['Total']]
     
     return portfolio_sensitivities
-
-
 
 
 def get_portfolio_cash_exposures_bucket(portfolio,date,term):
 
     stock_names = portfolio['Name']
     df_tot = pandas.DataFrame()
+    rsq = []
 
     for stock in stock_names:
 
@@ -243,21 +250,21 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
             df_tot = df_sensitivities
         else:
             df_tot = df_tot.append(df_sensitivities)
+        
+        rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
             
-            
+    df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)        
     portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
     
     for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
     portfolio_exposures = portfolio_sensitivities.loc[['Total']]
     
     return portfolio_sensitivities
-
-
 
 
 from retrying import retry
