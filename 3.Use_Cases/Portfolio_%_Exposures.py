@@ -53,6 +53,45 @@
 ########################################################################################################################################################################################################################################################
 
 
+def get_Rsq(model, start, end, term):
+    
+    #Note that we only have data from Monday to Friday.
+    start_date = datetime.strptime(start, '%Y-%m-%d')
+    end_date = datetime.strptime(end, '%Y-%m-%d')    
+    
+    if (start_date.weekday() == 5 or start_date.weekday() == 6) and (end_date.weekday() == 5 or end_date.weekday() == 6) and ((end_date - start_date).days == 1):
+        print('Please choose a period of time which includes days between Monday and Friday.')
+    else: 
+        # Note that this may be more than 1 year of data, so need to split requests
+        year_start = int(start[:4])
+        year_end = int(end[:4])
+        time_series = []
+    
+        for year in range(year_start, year_end + 1):
+            query_start = start
+            if year != year_start:
+                date_from = '%d-01-01' % year
+            else:
+                date_from = start
+            if year != year_end:
+                date_to = '%d-12-31' % year
+            else:
+                date_to = end
+
+            time_series += api_instance.get_model_timeseries(
+            model,
+            date_from=date_from,
+            date_to=date_to,
+            term=term)
+
+        rsq = [data.rsquare for data in time_series]
+        dates = [data._date for data in time_series]
+        df = pandas.DataFrame({'Dates': dates, 'Rsq': rsq})
+        df.set_index('Dates', inplace=True)
+
+        return df
+
+
 def get_portfolio_sens_exposures_bucket(portfolio,date):
     
     date_formated = datetime.strptime(date, '%Y-%m-%d')
@@ -64,6 +103,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date):
 
         stock_names = portfolio['Name']
         df_tot = pandas.DataFrame()
+        rsq = []
 
         for stock in stock_names:
 
@@ -86,13 +126,15 @@ def get_portfolio_sens_exposures_bucket(portfolio,date):
                 df_tot = df_sensitivities
             else:
                 df_tot = df_tot.append(df_sensitivities)
+                
+            rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
 
-
+        df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)
         portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
 
         for stock in stock_names:
 
-            portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
+            portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
 
         portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
 
