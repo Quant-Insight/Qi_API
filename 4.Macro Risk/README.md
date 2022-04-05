@@ -55,7 +55,7 @@ Output:
    </br>
    
    
-## Get portfolio sensitivities to top 10 individual macro factors
+## Get portfolio sensitivities to top 10 individual macro buckets
    
 Compute the expected % change in value of a portfolio for a 1 standard devation move in each of the top 10 macro factors.
    
@@ -70,22 +70,6 @@ Output:
    <br>
    <p align="center">
    <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio_sens.png" alt="Sens table"/>
-   </p>
-   </br>
-   
-   
-## Get the standard deviations of each of the top 10 individual macro factors
-   
-      Qi_wrapper.get_factor_stdevs(benchmark_name,date,term).T[abs(sens.loc['Total']).nlargest(10).index]
-      
-   
-<br>
-Output:
-<br>
-
-   <br>
-   <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/factor stds.png" alt="std table"/>
    </p>
    </br>
    
