@@ -130,11 +130,11 @@ def example_valuation_gaps():
     # To obtain the top ten valuation gaps of another model(s), please modify the input of 
     # get_top_valuation_gaps() function. 
     
-    stoxx_600 = list(set([
-            model.name for model in api_instance.get_models(tags='STOXX Europe 600')
+    sp500 = list(set([
+            model.name for model in api_instance.get_models(tags='S&P 500')
     ]))
     
-    df = get_top_valuation_gaps('2019-01-14', sorted(stoxx_600))
+    df = get_top_valuation_gaps('2019-01-14', sorted(sp500))
     
     import matplotlib
     import matplotlib.pyplot as plt
@@ -207,18 +207,20 @@ example_valuation_gaps()
 
 * cvs file with the top 10 valuation gaps summary: 
 
+
 | Model Name 	| Min	      | Max	        | FVG     |
 | ----------- | ---------:| -----------:| -------:|
-| SN/	        |-3.23599	  |3.25514	    |-1.9236  |
-| DRI       	|-3.0059	  |3.55695	    |-1.72316 |
-| BOKA	      |-4.0252	  |2.42816	    |-1.30109 |
-| VCT	        |-2.77558	  |2.20676	    |-1.23452 |
-| MC	        |-2.59204	  |3.78314	    |-1.19975 |
-| DPH	        |-4.7298	  |3.35004	    |1.15647  |
-| SPSN	      |-2.02701	  |2.31243	    |1.06449  |
-| DLN	        |-3.28985	  |2.52365	    |0.99048  |
-| ENGI	      |-2.15245	  |2.32512	    |0.91912  |
-| IGG	        |-5.74441	  |3.07249	    |0.85234  |
+| CBOE	        |-4.04112	  |2.67265	    |-1.96438  |
+| POOL	        |-2.64086	  |2.95494	    |-1.88752  |
+| PHM	        |-2.89102	  |2.32767	    |-1.86929  |
+| PVH	        |-3.56621	  |2.43804	    |-1.8517  |
+| FRC	        |-3.09681	  |1.88427	    |-1.72977  |
+| NLSN	        |-4.22266	  |3.6743	    |3.09275  |
+| PNW	        |-5.00716	  |2.6625	    |1.8462  |
+| KHC	        |-2.48645	  |4.18165	    |1.80759  |
+| NEM	        |-2.7226	  |3.43324	    |1.74196  |
+| AMGN	        |-2.91793	  |2.90618	    |1.66109  |
+
 
 * Candle chart representing the top valuation gaps for a given date:
 
