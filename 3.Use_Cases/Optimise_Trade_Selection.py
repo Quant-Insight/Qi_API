@@ -6,12 +6,12 @@
 #         import pandas
 # 
 # Inputs: 
-#         factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['USDCNH', 'US GDP', 'Brent'])
+#         factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['China GDP', 'US GDP', 'WTI'])
 #         universe_asset_classes - universe asset class (e.g. 'Equity')
 #         size - number of models to be in the result (e.g. 10)
-#         date - 'date' (e.g. '2019-05-17')
+#         date - 'date' (e.g. '2022-04-04')
 #         term - 'term' (e.g. 'Long Term')
-#         universe_tag (optional) - universe tag (e.g. 'STOXX Europe 600') - The list of the tags can be retrieved using api_instance.get_tags()
+#         universe_tag (optional) - universe tag (e.g. 'S&P 500') - The list of the tags can be retrieved using api_instance.get_tags()
 #
 # Output: 
 #         dataframe with the following columns:
@@ -19,19 +19,20 @@
 #               * Factor Sensitivities - one column per factor with the sensitivities values. 
 #               * Total Sensitivities (Abs) - Total sum of the sensitivities per model, in absolute terms. 
 #               * e.g.
+# 
 #
-#                 |         | USDCNH   | US GDP   | Brent   | Total Sensitivity (Abs) |
-#                 |:-------:|:--------:|:--------:|:-------:|:-----------------------:|
-#                 | PUM     | -8.89990 | 0.15558  | 2.61010 | 11.66558                | 
-#                 | NESTE   | 4.46399  | -0.22389 | 1.41901 | 6.10689                 | 
-#                 | ROCKB   | 1.55113  | 0.00471  | 4.26042 | 5.81626                 | 
-#                 | CYBG    | 1.00289  | 0.01039  | 4.46287 | 5.47615                 | 
-#                 | WG/     | 2.63019  | -0.03145 | 2.75359 | 5.41523                 | 
-#                 | NEM EU  | 1.18380  | 0.00282  | 4.13763 | 5.32425                 | 
-#                 | NEM GY  | 1.18380  | 0.00282  | 4.13763 | 5.32425                 | 
-#                 | WDI     | 1.81811  | -0.00554 | 3.01348 | 4.83713                 | 
-#                 | MTRO    | -2.76991 | 0.05251  | 1.53813 | 4.36055                 |
-#                 | GVC     | 0.44379  | 0.01903  | 3.78796 | 4.25078                 | 
+#                 |         | China GDP   | US GDP   | WTI     | Total Sensitivity (Abs) |
+#                 |:-------:|:-----------:|:--------:|:-------:|:-----------------------:|
+#                 | PYPL    |3.76613      |2.30806   |-1.38031 |7.4545                   |
+#                 | NFLX    |-3.17365     |-1.94496  |-1.15896 |6.27757                  |
+#                 | CDAY    |-2.43419     |-1.49178  |-1.17453 |5.1005                   |
+#                 | ETSY    |-2.27569     |-1.39465  |-0.64289 |4.31323                  |
+#                 | AMD     |-2.03337     |-1.24614  |-0.65696 |3.93647                  |
+#                 | PAYC    |-1.87699     |-1.15031  |-0.89898 |3.92628                  |
+#                 | MRNA    |0.11548      |0.07077   |-2.9552  |3.14145                  |
+#                 | GPN     |1.45564      |0.89208   |0.63261  |2.98033                  |
+#                 | CRM     |-1.40891     |-0.86344  |-0.57954 |2.85189                  |
+#                 | FIS     |1.46804      |0.89968   |0.45805  |2.82577                  |
 #
 #######################################################################################################################################
 
