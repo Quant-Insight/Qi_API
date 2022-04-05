@@ -85,7 +85,7 @@ Updating this since the original March analysis produces similar results.
 
 
       # Choose asset
-      asset = 'SPX'
+      asset = 'S&P500'
 
       # Enter price of asset
       start_date = '2020-01-01'
