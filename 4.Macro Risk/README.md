@@ -59,7 +59,7 @@ Output:
    
 Compute the expected % change in value of a portfolio for a 1 standard devation move in each of the top 10 macro factors.
    
-      sens = Qi_wrapper.get_portfolio_sens_exposures_factor(portfolio,date,term)
+      sens = Qi_wrapper.get_portfolio_sens_exposures_bucket(portfolio,date,term)
       sens[abs(sens.loc['Total']).nlargest(10).index].loc[['Total']]
       
    
@@ -69,7 +69,7 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio sens.png" alt="Sens table"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio_sens.png" alt="Sens table"/>
    </p>
    </br>
    
