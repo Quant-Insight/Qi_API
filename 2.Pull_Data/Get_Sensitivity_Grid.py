@@ -87,3 +87,17 @@ def get_sensitivity_grid(model,start,end,term):
 
 
         return sensitivity_grid
+    
+    
+* Code:
+
+      # Requirements - make sure you've set environment variable QI_API_KEY = YOUR_API_KEY
+      import Qi_wrapper
+
+      # Set varialbles
+      asset = 'S&P500'
+      start = '2020-01-01'
+      end = '2022-04-04'
+      term = 'Long Term'
+
+      model_values = Qi_wrapper.get_model_sensitivities(asset,start,end,term)[['FED QT Expectations', 'FED Rate Expectations', 'USD 10Y Real Rate']]
