@@ -27,7 +27,7 @@ The code below provides an example of how to retrieve this data from the API. Th
       # Set varialbles
       asset = 'S&P500'
       start = '2020-01-01'
-      end = '2022-04-04'
+      end = '2020-05-18'
       term = 'Long Term'
 
-      model_values = Qi_wrapper.get_FVG(asset,start,end,term)['FVG']
+      model_values = Qi_wrapper.get_model_data(asset,start,end,term)['Model Value']
