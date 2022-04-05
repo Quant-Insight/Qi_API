@@ -30,4 +30,4 @@ The code below provides an example of how to retrieve this data from the API. Th
       end = '2022-04-04'
       term = 'Long Term'
 
-      model_values = Qi_wrapper.get_Rsq(asset,start,end,term)['Rsq']
+      model_values = Qi_wrapper.get_FVG(asset,start,end,term)['Rsq']
