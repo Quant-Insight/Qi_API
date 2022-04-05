@@ -30,5 +30,4 @@ The code below provides an example of how to retrieve this data from the API. Th
       end = '2022-04-04'
       term = 'Long Term'
 
-      model_values = Qi_wrapper.get_model_sensitivities(asset,start,end,term)[['FED QT Expectations', 'FED Rate Expectations', 
-                                                                              'USD 10Y Real Rate']]
+      model_values = Qi_wrapper.get_model_data(asset,start,end,term)[['Model Value']]
