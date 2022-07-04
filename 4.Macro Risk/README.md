@@ -21,7 +21,7 @@ Requirements:
       term = 'Long Term'
       
       ### Create portfolio (alternatively import a csv with the same format)
-      portfolio = pandas.DataFrame({'Name':['MSFT','GOOG','PG','JPM','AAPL','FB','GS','MRO','DEI','SO'],
+      portfolio = pandas.DataFrame({'Name':['MSFT','GOOG','PG','JPM','AAPL','META','GS','MRO','DEI','SO'],
                   'Position':[194300000,142000000,122440000,122440000,113940000,109690000,106290000,102040000,102040000,99060000]})
 
       portfolio['Weight'] = [abs(x)/sum(abs(portfolio.Position)) for x in portfolio.Position]
