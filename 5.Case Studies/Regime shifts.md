@@ -103,6 +103,6 @@ The code below shows how Qi manipulated the data to generate these results, and 
           new_df.index = [asset]
 
           # after final iteration, top_3_buckets will contain the top 3 bucket sensitivities for the 10 assets with the largest R-Squared 1m change
-          top_3_buckets = top_3_buckets.append(new_df)
+          top_3_buckets = pandas.concat([top_3_buckets, new_df], axis = 0, join = 'outer')
       
       
