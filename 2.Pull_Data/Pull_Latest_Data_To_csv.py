@@ -120,7 +120,7 @@ def get_sensitivity_grid(model,start,end,term):
         if sensitivity_grid.empty:
             sensitivity_grid = df_sensitivities
         else:
-            sensitivity_grid = sensitivity_grid.append(df_sensitivities)
+            sensitivity_grid = pandas.concat([sensitivity_grid, df_sensitivities], axis = 0, join = 'outer')
 
             
     return sensitivity_grid
@@ -200,7 +200,7 @@ for term in ['Short Term','Long Term']:
                 final_df = combined_df
 
             else:
-                final_df = final_df.append(combined_df, sort=False)
+                final_df = pandas.concat([final_df, combined_df], axis = 0, join = 'outer')
 
             print(str(assets.index(asset)+1) + '/' + str(len(assets)) + ' ' + term)
 
