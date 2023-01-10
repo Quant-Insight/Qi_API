@@ -80,7 +80,7 @@ def get_factor_zscores(model,start,end,term):
             if zscore_grid.empty:
                 zscore_grid = df_zscore
             else:
-                zscore_grid = zscore_grid.append(df_zscore)
+                zscore_grid = pandas.concat([zscore_grid, df_zscore], axis = 0, join = 'outer')
 
 
         return zscore_grid
