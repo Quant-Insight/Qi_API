@@ -115,7 +115,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = df_tot.append(df_sensitivities)
+            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
         
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
             
