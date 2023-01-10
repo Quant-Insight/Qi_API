@@ -395,7 +395,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date):
             if df_tot.empty:
                 df_tot = df_sensitivities
             else:
-                df_tot = df_tot.append(df_sensitivities)
+                df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
 
 
         portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
@@ -528,7 +528,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date):
             if df_tot.empty:
                 df_tot = df_sensitivities
             else:
-                df_tot = df_tot.append(df_sensitivities)
+                df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
 
 
         portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
