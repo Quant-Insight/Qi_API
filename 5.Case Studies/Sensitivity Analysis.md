@@ -41,7 +41,7 @@ The code below provides an example for quants looking to manipulate the data. Th
 
               if factor in abs(df_temp.loc[asset]).nlargest(driver_rank).index:
 
-                  df = df.append(df_temp)
+                  df = pandas.concat([df, df_temp], axis = 0, join = 'outer')
 
           except IndexError:
 
