@@ -27,20 +27,22 @@
 #
 #######################################################################################################################################
 
+import Qi_wrapper
 
-
-def get_sens_matrix(model,factors,date,term):    
-    
+def get_sens_matrix(model,factors,date,term): 
     date_formated = datetime.strptime(date, '%Y-%m-%d')
-    
+
     if (date_formated.weekday() == 5 or date_formated.weekday() == 6):
         print('Please choose a day between Monday and Friday.')
         
     else:
 
-        drivers = get_factor_drivers(model,date,term)
+        drivers = Qi_wrapper.get_factor_drivers(model,date,term)
+        # print(drivers)
 
-        stdevs = get_factor_stdevs(model,date,term)
+        stdevs = Qi_wrapper.get_factor_stdevs(model,date,term)
+        
+        # print(stdevs)
 
         both_moves = []
         both_results = []
@@ -88,4 +90,4 @@ def get_sens_matrix(model,factors,date,term):
         final_df = pandas.DataFrame(total_moves, columns=both_moves[1], index=both_moves[0])
         final_df = round(final_df,2)
 
-        return final_df
+    return final_df
