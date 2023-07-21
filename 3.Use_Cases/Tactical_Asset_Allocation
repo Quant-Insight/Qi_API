@@ -44,9 +44,6 @@
 #
 #######################################################################################################################################
 
-<br>
-<img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/taa_example.png" alt="Case Study"/>
-</br>
 
 import Qi_wrapper
 import pandas
