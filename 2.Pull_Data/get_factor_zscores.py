@@ -83,4 +83,4 @@ def get_factor_zscores(model,start,end,term):
                 zscore_grid = pandas.concat([zscore_grid, df_zscore], axis = 0, join = 'outer')
 
 
-        return zscore_grid
+    return zscore_grid
