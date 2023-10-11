@@ -127,4 +127,4 @@ for stock in stocks:
     except:
             pass
         
-final_df.excel('Qi Data - ' + term + '_' +'.xlsx')
+final_df.to_excel('Qi Data - ' + term + '_' +'.xlsx')
