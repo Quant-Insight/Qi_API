@@ -5,6 +5,7 @@
 #
 # Requirements:
 #         import pandas
+#         import re
 #
 #######################################################################################################################################
 #
@@ -91,6 +92,15 @@ def get_model_data(model,start,end,term):
     df_.index = dates
     
     return df_
+
+def remove_special_characters(input_string):
+    # Define a regular expression pattern to match special characters
+    pattern = r'[^a-zA-Z0-9\s]'  # Matches any character that is not a letter, number, or space
+
+    # Use re.sub to replace special characters with blank spaces
+    cleaned_string = re.sub(pattern, '_', input_string)
+
+    return cleaned_string
         
 #######################################################################################################################################
 # Main code
@@ -101,6 +111,7 @@ sp1500_names =  list(set([x.name for x in api_instance.get_models(tags="S&P 500"
 stocks = sp1500_names
 
 # Change the address where the file will be saved and the name of the Excel file. 
+writer = pandas.ExcelWriter('YOUR-PATH/example_excel.xlsx', engine='openpyxl')
 
 # Chose start and end date
 start = '2009-01-01'
@@ -108,23 +119,17 @@ end = '2023-10-10'
 term = 'Long Term'
 
 for stock in stocks:
-    try:
+    model_data = get_model_data(stock,start,end,'Long Term')
+    sens_data = get_sensitivity_grid(stock,start,end,'Long Term')
 
-        model_data = get_model_data(stock,start,end,term)
-        sens_data = get_sensitivity_grid(stock,start,end,term)
+    model_data.index = model_data.index.strftime('%Y-%m-%d')
 
-        combined_df = pandas.concat([model_data,sens_data], axis=1)
-        combined_df.index = [stock]
+    df_aux = pandas.concat([model_data,sens_data], axis = 1)
+    df_aux.insert(0, 'Model', [stock]*len(df_aux))
+    df_final = pandas.concat([df_final, df_aux])
 
-        if final_df.empty:
-            final_df = combined_df
+df_final.to_excel(writer)
+    
+writer.close()
 
-        else:
-            final_df = pandas.concat([final_df, combined_df])
-
-        print(str(stocks.index(stock)+1) + '/' + str(len(stocks)) + ' ' + term)
-
-    except:
-            pass
-        
-final_df.to_excel('Qi Data - ' + term + '_' +'.xlsx')
+print(stocks.index(stock))
