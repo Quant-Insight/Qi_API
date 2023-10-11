@@ -16,35 +16,35 @@
 # Output: Sensitivities of a given model during a giving period of time (356 days max).
 #               * e.g.
 #                    {'2015-01-01': [{'bucket_name': 'USD Liquidity',
-#                                     'coefficient': -0.01386,
-#                                     'driver_contribution': 0.06006,
+#                                     'coefficient': ...,
+#                                     'driver_contribution': ...,
 #                                     'driver_name': 'USD Liquidity - JPY [{USD Liquidity - JPY | '
 #                                                    'close}]',
 #                                     'driver_short_name': 'USD Liquidity - JPY',
-#                                     'driver_zscore': -0.73754,
-#                                     'driver_zscore_window_mean': -43.24339,
-#                                     'driver_zscore_window_stdev': 5.87539,
-#                                     'sensitivity': -0.868},
+#                                     'driver_zscore': ...,
+#                                     'driver_zscore_window_mean': ...,
+#                                     'driver_zscore_window_stdev': ...,
+#                                     'sensitivity': ...},
 #                                    {'bucket_name': 'USD Liquidity',
-#                                     'coefficient': -0.01657,
-#                                     'driver_contribution': 0.0958,
+#                                     'coefficient': ...,
+#                                     'driver_contribution': ...,
 #                                     'driver_name': 'USD Liquidity - EUR [{USD Liquidity - EUR | '
 #                                                    'close}]',
 #                                     'driver_short_name': 'USD Liquidity - EUR',
-#                                     'driver_zscore': -1.18068,
-#                                     'driver_zscore_window_mean': -18.98716,
-#                                     'driver_zscore_window_stdev': 4.89786,
-#                                     'sensitivity': -0.86482},
+#                                     'driver_zscore': ...,
+#                                     'driver_zscore_window_mean': ...,
+#                                     'driver_zscore_window_stdev': ...,
+#                                     'sensitivity': ...},
 #                                    {'bucket_name': 'Economic Growth',
-#                                     'coefficient': -0.51496,
-#                                     'driver_contribution': -0.05174,
+#                                     'coefficient': ...,
+#                                     'driver_contribution': ...,
 #                                     'driver_name': 'Euro GDP [{GDP Now-Cast Euro Area | now}]',
 #                                     'driver_short_name': 'Euro GDP',
 #                    ...
-#                                     'driver_zscore': -1.25775,
-#                                     'driver_zscore_window_mean': 2.45488,
-#                                     'driver_zscore_window_stdev': 0.26188,
-#                                     'sensitivity': -0.00546}]}
+#                                     'driver_zscore': ...,
+#                                     'driver_zscore_window_mean': ...,
+#                                     'driver_zscore_window_stdev': ...,
+#                                     'sensitivity': ...}]}
 #
 #
 #######################################################################################################################################
