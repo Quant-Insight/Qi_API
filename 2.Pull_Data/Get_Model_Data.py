@@ -72,6 +72,5 @@ def get_model_data(model, start, end, term):
                                 'Absolute Gap':absolute_gap})
 
         df_.index = dates
-        df_.index = df_.index.strftime('%Y-%m-%d')
 
         return df_
