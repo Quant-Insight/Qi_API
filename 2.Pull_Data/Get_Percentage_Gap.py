@@ -62,5 +62,6 @@ def get_Percentage_Gap(model, start, end, term):
         df_ = pandas.DataFrame({'Percentage Gap':percentage_gap})
 
         df_.index = dates
+        df_.index = df_.index.strftime('%Y-%m-%d')
 
         return df_
