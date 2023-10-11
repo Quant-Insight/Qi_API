@@ -62,5 +62,6 @@ def get_model_value(model, start, end, term):
         df_ = pandas.DataFrame({'Model Value':model_value})
 
         df_.index = dates
+        df_.index = df_.index.strftime('%Y-%m-%d')
 
         return df_
