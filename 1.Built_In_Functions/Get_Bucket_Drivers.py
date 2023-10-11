@@ -1,29 +1,43 @@
 #######################################################################################################################################
 # 
-# get_bucket_drivers(bucket, numeric_id) is a QI API function to retrieve all the drivers .  
+# get_bucket_drivers(bucket, numeric_id) is a QI API function to retrieve all the drivers.  
 # 
 # Inputs:
-#               * bucket - numeric id or name of the bucket (e.g. 'Corp credit')
+#               * bucket - numeric id or name of the bucket (e.g. 'Corporate Credit')
 #               * numeric_id (optional) - True to consider bucket as a numeric id. False to consider bucket as a name (False by default).
 #
 # Output: A list with all the drivers of the bucket requested.
 #               * e.g.
-#                      [{'buckets': ['Corp credit'],
+#                      [{'buckets': ['Corporate Credit'],
+#                        'deactivated': None,
 #                        'expression': 'a',
-#                        'id': 1632,
-#                        'instrument1': {'coverage': None,
-#                                        'id': 23165,
-#                                        'mnemonic': 'PX_LAST',
-#                                        'ticker': '...'},
-#                         'instrument2': None,
-#                         'instrument3': None,
-#                         'instrument4': None,
-#                         'name': 'FinSub Credit [...]',
-#                         'short_name': 'FinSub Credit'},
-#                         ...
-#                         ...
-#                       ]
-#
+#                         'id': 1,
+#                         'name': 'FinSub Credit [{FinSub Credit | bid_spread}]',
+#                         'short_name': 'FinSub Credit',
+#                         'status': 'ACTIVE',
+#                         'timeseries_ety1': {'field': 'bid_spread',
+#                                             'id': 3736,
+#                                             'instrument': {'asset_class': None,
+#                                                            'id': 4150,
+#                                                            'identifiers': {'BloombergTicker': 'ITRXEUE '
+#                                                                                               'CBGT '
+#                                                                                               'Index',
+#                                                                            'IHSID': 'FinSub credit'},
+#                                                            'is_future': False,
+#                                                            'name': 'FinSub credit',
+#                                                            'source': 'Ihsmarkit',
+#                                                            'status': 'active'},
+#                                             'last_source': 'Ihsmarkit',
+#                                             'status': 'active'},
+#                         'timeseries_ety2': None,
+#                         'timeseries_ety3': None,
+#                         'timeseries_ety4': None},
+#                         {'buckets': ['Corporate Credit'],
+#                        ...
+#                                             'status': 'active'},
+#                         'timeseries_ety2': None,
+#                         'timeseries_ety3': None,
+#                         'timeseries_ety4': None}]
 #######################################################################################################################################
 
 
@@ -58,7 +72,7 @@ numeric_id = False
 try:
     # Get drivers for a given bucket
     api_response = api_instance.get_bucket_drivers(bucket, numeric_id=numeric_id)
-    pprint(api_response)
+    print(api_response)
     
 except ApiException as e:
     print("Exception when calling DefaultApi->get_bucket_drivers: %s\n" % e)
