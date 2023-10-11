@@ -4,17 +4,21 @@
 # instrument.  
 # 
 # Inputs:
-#               * instrument - numeric id or name of the instrument (e.g. 'ITRXAJE CBGT Index')
-#               * mnemonic (optional) - Where a string is provided as an instrument, this is the associated field name (e.g. PX_LAST). 
-#                 PX_LAST is the default value. 
+#               * instrument - numeric id or name of the instrument (e.g. 'AAPL')
 #               * numeric_id (optional) - True to consider driver as a numeric id. False to consider driver as a name (False by default).
 #
 # Output: All the information of the requested instrument.
 #               * e.g.
-#                      {'coverage': 'COMPLETE',
-#                       'id': 23166,
-#                       'mnemonic': 'PX_LAST',
-#                       'ticker': 'ITRXAJE CBGT Index'}
+#                      {'asset_class': None,
+#                         'id': 31,
+#                         'identifiers': {'BloombergTicker': 'AAPL US Equity',
+#                                         'ISIN': 'US0378331005',
+#                                         'MSID': '126.1.AAPL',
+#                                         'SEDOL': '2046251'},
+#                         'is_future': False,
+#                         'name': 'AAPL',
+#                         'source': 'Morningstar',
+#                         'status': 'active'}
 #
 #######################################################################################################################################
 
@@ -39,11 +43,7 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
 # Numeric ID or name of the instrument to retrieve
 # Datatype: str
-instrument = 'ITRXAJE CBGT Index'
-
-# Where a string is provided as an instrument, this is the associated field name (e.g. PX_LAST) (optional) (default to PX_LAST)
-# Datatype: str
-mnemonic = 'PX_LAST'
+instrument = 'AAPL'
 
 # If set to true, will consider identifier as a numeric ID - not as a name.(optional) (default to false)
 # Datatype: bool
