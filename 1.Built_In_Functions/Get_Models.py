@@ -11,22 +11,15 @@
 #
 # Output: A list with all the models filtered by tags (optional) and asset classes (optional).
 #               * e.g.
-#                      [{'asset_class': None,
-#                       'created': None,
-#                       'definition': None,
-#                       'drivers': None,
-#                       'id': 7545,
-#                       'model_parameter': 'long term',
-#                       'name': 'A',
-#                       'notes': None,
-#                       'status': 'ACTIVE',
-#                       'tags': None,
-#                       'version': None},
-#                       {'asset_class': None,
-#                       'created': None,
-#                       ...
-#                       ...
-#                       ]
+#                      [{'group': 'qi_admin',
+#                         'id': 1,
+#                         'model_parameter': 'short term',
+#                         'name': 'A',
+#                         'security_name': 'Agilent Technologies [US00846U1016 | A UN Equity | 126.1.A '
+#                                          '| 2520153]',
+#                         'status': 'ACTIVE',
+#                         'type': None},
+#                        ...
 #
 #######################################################################################################################################
 
@@ -51,7 +44,7 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
 # Comma delimited list of tags to filter results with. Results must contain *all*tags specified. (optional)
 # Datatype: str
-tags = 'S&P 1500'
+tags = 'S&P 500'
 
 asset_classes = 'Equity'
 
