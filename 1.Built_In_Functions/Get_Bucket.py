@@ -34,7 +34,7 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 # Numeric ID or name of the bucket to retrieve
 # Datatype: str
 
-bucket = 'Corp credit'
+bucket = 'Corporate Credit'
 
 # If set to true, will consider identifier as a numeric ID - not as a name. (optional) (default to false)
 # Datatype: bool
