@@ -1,7 +1,7 @@
     
 #######################################################################################################################################
 # 
-# The following code allows you to pull data to an excel file. 
+# The following code allows you to pull data to an Excel file. 
 #
 # Requirements:
 #         import pandas
@@ -97,26 +97,34 @@ def get_model_data(model,start,end,term):
 #######################################################################################################################################
 
 # Define your stocks here.  
-sp1500_names =  [x.name for x in api_instance.get_models(tags="S&P 500")][::2]
+sp1500_names =  list(set([x.name for x in api_instance.get_models(tags="S&P 500")]))
 stocks = sp1500_names
 
 # Change the address where the file will be saved and the name of the Excel file. 
-writer = pandas.ExcelWriter('C:/Users/EXAMPLE_ADDRESS.xlsx', engine='openpyxl')
 
 # Chose start and end date
-start = '2015-01-01'
-end = '2020-04-01'
+start = '2009-01-01'
+end = '2023-10-10'
+term = 'Long Term'
 
 for stock in stocks:
-    model_data = get_model_data(stock,start,end,'Long Term')
-    sens_data = get_sensitivity_grid(stock,start,end,'Long Term')
+    try:
 
-    model_data.index = [str(x).split(' ')[0] for x in model_data.index]
+        model_data = get_model_data(stock,start,end,term)
+        sens_data = get_sensitivity_grid(stock,start,end,term)
 
-    df_final = pandas.concat([model_data,sens_data], axis=1, join = 'inner')
+        combined_df = pandas.concat([model_data,sens_data], axis=1)
+        combined_df.index = [stock]
 
-df_final.to_excel(writer, sheet_name = stock)
-    
-writer.save()
+        if final_df.empty:
+            final_df = combined_df
 
-print(stocks.index(stock))
+        else:
+            final_df = pandas.concat([final_df, combined_df])
+
+        print(str(stocks.index(stock)+1) + '/' + str(len(stocks)) + ' ' + term)
+
+    except:
+            pass
+        
+final_df.excel('Qi Data - ' + term + '_' +'.xlsx')
