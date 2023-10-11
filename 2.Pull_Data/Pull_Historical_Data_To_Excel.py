@@ -97,7 +97,7 @@ def get_model_data(model,start,end,term):
 #######################################################################################################################################
 
 # Define your stocks here.  
-sp1500_names =  [x.name for x in api_instance.get_models(tags="S&P 1500")][::2]
+sp1500_names =  [x.name for x in api_instance.get_models(tags="S&P 500")][::2]
 stocks = sp1500_names
 
 # Change the address where the file will be saved and the name of the Excel file. 
@@ -115,7 +115,7 @@ for stock in stocks:
 
     df_final = pandas.concat([model_data,sens_data], axis=1, join = 'inner')
 
-    df_final.to_excel(writer, sheet_name = stock)
+df_final.to_excel(writer, sheet_name = stock)
     
 writer.save()
 
