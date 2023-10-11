@@ -5,6 +5,8 @@
 # 
 # Inputs:
 #               * model - numeric id or name of the model (e.g. 'AAPL')
+#               * date_from (optional) - dates should follow the format YYYY-mm-dd
+#               * date_to (optional) - dates should follow the format YYYY-mm-dd
 #               * term (optional - we recommend to use 'Long Term'): 
 #                                 * 'Long Term' is defined as 250 day lookback period.
 #                                 * 'Short Term' is defined as 83 day lookback period.
