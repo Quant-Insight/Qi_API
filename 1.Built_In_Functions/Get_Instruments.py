@@ -4,12 +4,38 @@
 # 
 # Inputs
 #               
-# Output: A list with the coverage, id, mnemonic and ticker of all the instruments available in our API.
+# Output: A list with the coverage, id, mnemonic, and ticker of all the instruments available in our API.
 #               * e.g.
-#                       [{'coverage': None, 'id': 23147, 'mnemonic': 'Now', 'ticker': 'Now_France'},
-#                        {'coverage': None, 'id': 23148, 'mnemonic': 'Now', 'ticker': 'Now_Japan'},
+#                       [{'asset_class': None,
+#                         'id': 1,
+#                         'identifiers': {},
+#                         'is_future': False,
+#                         'name': 'GDP Now-Cast Brazil',
+#                         'source': 'Now-Casting',
+#                         'status': 'active'},
+#                         {'asset_class': None,
+#                         'id': 2,
+#                         'identifiers': {},
+#                         'is_future': False,
+#                         'name': 'GDP Now-Cast Canada',
+#                         'source': 'Now-Casting',
+#                         'status': 'active'},
+#                         {'asset_class': None,
+#                         'id': 3,
+#                         'identifiers': {},
+#                         'is_future': False,
+#                         'name': 'GDP Now-Cast China',
+#                         'source': 'Now-Casting',
+#                         'status': 'active'},
+#                         {'asset_class': None,
+#                         'id': 4,
+#                         'identifiers': {},
+#                         'is_future': False,
 #                        ...
-#                       ]
+#                         'is_future': False,
+#                         'name': 'ITA',
+#                         'source': 'Morningstar',
+#                         'status': 'active'}]
 #
 #######################################################################################################################################
 
