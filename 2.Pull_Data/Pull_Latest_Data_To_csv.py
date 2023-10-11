@@ -172,10 +172,10 @@ def get_model_data(model,start,end,term):
 
 ### Define universe for Global Equities
 
-US = [x.name for x in api_instance.get_models(tags = 'S&P 500')][::2]
-Europe = [x.name for x in api_instance.get_models(tags = 'Euro Stoxx 600')][::2]
-ETFs = [x.name for x in api_instance.get_models(tags = 'ETF-Equity')][::2]
-Indices = [x.name for x in api_instance.get_models(tags = 'Indices')][::2]
+US = list(set([x.name for x in api_instance.get_models(tags = 'S&P 500')]))
+Europe = list(set([x.name for x in api_instance.get_models(tags = 'Euro Stoxx 600')]))
+ETFs = list(set([x.name for x in api_instance.get_models(tags = 'ETF-Equity')]))
+Indices = list(set([x.name for x in api_instance.get_models(tags = 'Indices')]))
 
 assets = US + Europe + ETFs + Indices
 
