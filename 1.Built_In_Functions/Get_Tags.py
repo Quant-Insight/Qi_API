@@ -8,8 +8,8 @@
 #
 # Output: All the information of the requested model.
 #               * e.g.
-#                      [{'label': 'STOXX Europe 600'},
-#                       {'label': 'S&P 1500'},
+#                      [{'label': 'Euro Stoxx 600'},
+#                       {'label': 'S&P 500'},
 #                       {'label': ...},
 #                       {'label': ...},
 #                       {'label': ...},
