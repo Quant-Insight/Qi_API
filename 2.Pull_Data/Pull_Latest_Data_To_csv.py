@@ -129,8 +129,7 @@ def get_sensitivity_grid(model,start,end,term):
 ### Function to pull model timeseries data
 
 def get_model_data(model,start,end,term):
-    
-    
+      
     year_start = int(start[:4])
     year_end = int(end[:4])
     time_series = []
@@ -166,6 +165,7 @@ def get_model_data(model,start,end,term):
     df_ = pandas.DataFrame({'FVG':FVG, 'Rsq':Rsq, 'Model Value':model_value, 'Percentage Gap':percentage_gap,
                             'Absolute Gap':absolute_gap})
     df_.index = dates
+    df_.index = df_.index.strftime('%Y-%m-%d')
     
     return df_
 
@@ -200,7 +200,7 @@ for term in ['Short Term','Long Term']:
                 final_df = combined_df
 
             else:
-                final_df = pandas.concat([final_df, combined_df], axis = 0, join = 'outer')
+                final_df = pandas.concat([final_df, combined_df])
 
             print(str(assets.index(asset)+1) + '/' + str(len(assets)) + ' ' + term)
 
