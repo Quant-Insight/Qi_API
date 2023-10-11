@@ -63,4 +63,4 @@ def get_absolute_gap(model, start, end, term):
 
         df_.index = dates
 
-        return df_
+    return df_
