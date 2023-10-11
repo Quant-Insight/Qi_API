@@ -12,39 +12,35 @@
 #
 # Output: All the information of the requested model.
 #               * e.g.
-#                     {'asset_class': 'Equity',
-#                      'created': None,
-#                      'definition': {'bucket': None,
-#                                     'expression': 'a',
-#                                     'id': 5069,
-#                                     'instrument1': {'coverage': None,
-#                                                     'id': 30962,
-#                                                     'mnemonic': 'PX_LAST',
-#                                                     'ticker': '...'},
-#                                     'instrument2': None,
-#                                     'instrument3': None,
-#                                     'instrument4': None},
-#                        'drivers': [{'buckets': ['...'],
-#                                     'expression': 'a',
-#                                     'id': 1632,
-#                                     'instrument1': {'coverage': None,
-#                                                     'id': 23165,
-#                                                     'mnemonic': 'PX_LAST',
-#                                                     'ticker': '...'},
-#                                     'instrument2': None,
-#                                     'instrument3': None,
-#                                     'instrument4': None,
-#                                     'name': 'FinSub Credit [...]',
-#                                     'short_name': 'FinSub Credit'},
-#                         ...
-#                         ...
-#                         ...
-#                         'id': 6857,
-#                         'model_parameter': 'long term',
-#                         'name': 'AAPL',
-#                         'notes': '',
+#                        {'asset_class': 'Equity',
+#                         'calc_complete': datetime.datetime(2023, 10, 11, 5, 33, 10, tzinfo=tzutc()),
+#                         'created': None,
+#                         'definition': {'bucket': None,
+#                                        'expression': 'a',
+#                                        'id': 314,
+#                                        'timeseries_ety1': {'field': 'close',
+#                                                            'id': 29,
+#                                                            'instrument': {'asset_class': None,
+#                                                                           'id': 31,
+#                                                                           'identifiers': {'BloombergTicker': 'AAPL '
+#                                                                                                              'US '
+#                                                                                                              'Equity',
+#                                                                                           'ISIN': 'US0378331005',
+#                                                                                           'MSID': '126.1.AAPL',
+#                                                                                           'SEDOL': '2046251'},
+#                                                                           'is_future': False,
+#                                                                           'name': 'AAPL',
+#                                                                           'source': 'Morningstar',
+#                                                                           'status': 'active'},
+#                                                            'last_source': 'Morningstar',
+#                                                            'status': 'active'},
+#                                        'timeseries_ety2': None,
+#                                        'timeseries_ety3': None,
+#                                        'timeseries_ety4': None},
+#                        ...
 #                         'status': 'ACTIVE',
-#                         'tags': ['S&P 1500'],
+#                         'tags': ['S&P 500', 'Technology', 'USD', 'Stock'],
+#                         'type': 'QI',
 #                         'version': 1}
 #
 #######################################################################################################################################
