@@ -207,4 +207,4 @@ for term in ['Short Term','Long Term']:
         except:
             pass
         
-    final_df.to_csv('Qi Data - ' + term + '_' + last_date +'.csv')
+final_df.to_csv('Qi Data - ' + term + '_' + last_date +'.csv')
