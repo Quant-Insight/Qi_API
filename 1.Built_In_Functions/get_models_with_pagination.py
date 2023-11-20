@@ -65,6 +65,7 @@ try:
     # Get list of all defined models on the system  
     response = api_instance.get_models_with_pagination(
         asset_classes=asset_classes,
+        tags=tags,
         term=term,
         include_delisted=True
     )
@@ -74,9 +75,10 @@ try:
         
         response = api_instance.get_models_with_pagination(
             asset_classes=asset_classes,
+            tags=tags,
             term=term,
-            exclusive_start_key=exclusive_start_key,
-            include_delisted=True
+            include_delisted=True,
+            exclusive_start_key=exclusive_start_key
         )
         _models, exclusive_start_key = process_response(response)
         models += _models
