@@ -8,7 +8,7 @@
 #               * tags (optional) - comma delimited list of tags to filter results with (e.g. 'S&P 1500') 
 #               * asset_class (optional) - comma delimited list of asset classes to filter results with. Results must contain all asset
 #                                          classes specified (e.g. 'Equity').
-#               * term (optiona) - model term parameter, e.g. 'long term' or 'short term'
+#               * term (optional) - model term parameter, e.g. 'long term' or 'short term'
 #               * include_delisted (optional) - boolean type paramater for including delisted models (True or False), default is False
 #               * exclusive_start_key (optional) - start key for pagination (use last_evaluated_key from previous paginated response)
 #               * count (optional) - number of models to return, default is 10,000
