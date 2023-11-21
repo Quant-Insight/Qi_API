@@ -1,7 +1,8 @@
 #######################################################################################################################################
 # 
 # get_model_sensitivities_paginated_one_day(model, date_from=date_from, date_to=date_to, term=term, numeric_id=numeric_id, version=version) is a QI API 
-# endpoint to retrieve the sensitivities for multiple models for given date.  
+# endpoint to retrieve the sensitivities for multiple assets for given date. Note that if the asset universe is large, it can take several minutes to pull 
+# all asset's sensitivities.  
 # 
 # Inputs:
 #               * asset_classes (optional) - asset class to filter assets by (e.g. 'Equity')
@@ -14,28 +15,16 @@
 #               * exclusive_start_key (optional) - start key for pagination (use last_evaluated_key from previous paginated response).
 #               * model_count (optional) - number of models to return in each paginated response (default is 100). 
 #
-# Output: Sensitivities of a given model during a giving period of time (356 days max).
+# Output: Pandas DataFrame of sensitivity data for a universe of assets for a given date.
 #               * e.g.
-#                    {'items': {'A': {'2023-11-17': [{'driver_name': 'FinSub Credit [{FinSub Credit | bid_spread}]',
-#                         'driver_short_name': 'FinSub Credit',
-#                         'bucket_name': 'Corporate Credit',
-#                         'sensitivity': -0.1669},
-#                        {'driver_name': 'Itraxx Japan [{iTraxx Japan | bid_spread}]',
-#                         'driver_short_name': 'Itraxx Japan',
-#                         'bucket_name': 'Corporate Credit',
-#                         'sensitivity': -0.1309},
-#                        {'driver_name': 'Itraxx Xover [{iTraxx Xover | bid_spread}]',
-#                         'driver_short_name': 'Itraxx Xover',
-#                         'bucket_name': 'Corporate Credit',
-#                         'sensitivity': -0.17576},
-#                        {'driver_name': 'JPY 10Y Real Rate [{JPY 10Y IL Govt. | yield_bid}]',
-#                         'driver_short_name': 'JPY 10Y Real Rate',
-#                         'bucket_name': 'Real Rates',
-#                         'sensitivity': 2.88986},
-#                    ...
-#                    ... ]}}
-#                    'model_count': 100,
-#                    'last_evaluated_key': 'AIG'}
+#                    
+#
+#        model     | China GDP                   | China 5y CDS                        | Copper                | FinSub Credit                | ... | 
+#       AAPL       | -0.26924                    | -0.26444                            | 0.31652               | 0.16956                      | ... |  
+#       META       | -0.27617                    | -0.27528                            | 0.32443               | 0.15854                      | ... |  
+#       AMZN       | -0.28721                    | -0.29178                            | 0.33853               | 0.15243                      | ... |  
+#       ...        | ...                         | ...                                 | ...                   | ...                          | ... |       
+#
 #
 #######################################################################################################################################
 
@@ -45,6 +34,7 @@ import time
 import qi_client
 from qi_client.rest import ApiException
 from pprint import pprint
+import pandas
 
 # Configure API key authorization: QI API Key
 configuration = qi_client.Configuration()
@@ -91,6 +81,8 @@ try:
         )
         _results, exclusive_start_key = process_sensitivity_response(response)
         results += _results
+
+    df_results = pandas.DataFrame(results
     
 except ApiException as e:
     print("Exception when calling DefaultApi->get_model_sensitivities_paginated_one_day: %s\n" % e)
