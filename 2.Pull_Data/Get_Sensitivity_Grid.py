@@ -75,7 +75,7 @@ def get_sensitivity_grid(model,start,end,term):
             df_sensitivities = pandas.DataFrame()
 
             for data in sensitivity[date]:
-                df_sensitivities[str(data['driver_name'])]=[data['sensitivity']]
+                df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
 
             df_sensitivities = df_sensitivities.rename(index={0:date})
             df_sensitivities = df_sensitivities.sort_index(axis=1)
