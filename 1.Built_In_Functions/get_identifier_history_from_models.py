@@ -54,7 +54,7 @@ identifier_type = 'SEDOL'
 
 try:
     # Get a model definition
-    api_instance.get_identifier_history_from_models(
+    api_response = api_instance.get_identifier_history_from_models(
         {
             'models': models,
             'identifier_type': identifier_type
