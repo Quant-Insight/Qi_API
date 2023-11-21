@@ -1,15 +1,16 @@
 #######################################################################################################################################
 # 
-# get_model_sensitivities_paginated_one_day(model, date_from=date_from, date_to=date_to, term=term, numeric_id=numeric_id, version=version) is a QI API 
+# get_model_sensitivities_paginated_one_day(target_date=target_date, asset_classes=asset_classes, tags=tags, term=term) is a QI API 
 # endpoint to retrieve the sensitivities for multiple assets for given date. Note that if the asset universe is large, it can take several minutes to pull 
 # all asset's sensitivities.  
 # 
 # Inputs:
 #               * asset_classes (optional) - asset class to filter assets by (e.g. 'Equity')
 #               * tags (optional) - tag (sub category) to filter assets by (e.g. 'Stock' or 'USD' or 'S&P 500') 
+#               * models (optional) - list of assets/models to request sensitivity data for. Can be used instead of assset_classes and/or tags
 #               * target_date (optional) - the date to request data for (e.g. '2023-11-17'), default is the previous week day (t-1)
 #               * date_to (optional) - end of the period we want to retrieve (e.g. '2016-01-01')
-#               * term (optional - we recommend to use 'Long Term', which is the default if not set): 
+#               * term (optional) - we recommend to use 'Long Term', which is the default if not set): 
 #                                 * 'Long Term' is defined as 250 day lookback period.
 #                                 * 'Short Term' is defined as 83 day lookback period.
 #               * exclusive_start_key (optional) - start key for pagination (use last_evaluated_key from previous paginated response).
