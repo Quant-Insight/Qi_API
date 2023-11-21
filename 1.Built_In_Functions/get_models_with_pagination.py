@@ -86,4 +86,4 @@ try:
     model_names = [x['name'] for x in models]
     
 except ApiException as e:
-    print("Exception when calling DefaultApi->get_models: %s\n" % e)
+    print("Exception when calling DefaultApi->get_models_with_pagination: %s\n" % e)
