@@ -1,6 +1,6 @@
 #######################################################################################################################################
 # 
-# get_models_from_identifiers(models, term, version, numeric_id) is a QI API function to retrieve the information of a given model.  
+# get_models_from_identifiers(identifiers, target_date) is a QI API function to retrieve the assets/models for a given list of identifiers and date.  
 # 
 # Inputs:
 #               * identifiers - list of identifiers with the same identifier type (SEDOLs, ISINs, BBG Tickers or MS IDs). 
