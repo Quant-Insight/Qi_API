@@ -12,7 +12,7 @@ configuration = qi_client.Configuration()
 configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
 
 # create an instance of the API class
-api_instance = qi_client_admin.DefaultApi(qi_client_admin.ApiClient(configuration))
+api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
 
 # Function to create a dataframe for the sensitivity data
