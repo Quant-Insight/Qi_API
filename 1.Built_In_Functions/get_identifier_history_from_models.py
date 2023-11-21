@@ -1,6 +1,6 @@
 #######################################################################################################################################
 # 
-# get_model(model, term, version, numeric_id) is a QI API function to retrieve the information of a given model.  
+# get_identifier_history_from_models(models, identifier_type) is a QI API function to retrieve all historic identifiers for a list of assets.  
 # 
 # Inputs:
 #               * models - list of asset names
