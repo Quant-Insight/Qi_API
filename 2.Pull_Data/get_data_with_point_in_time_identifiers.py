@@ -73,7 +73,7 @@ def insert_point_in_time_identifier_column(df, model, identifier_type):
             if date >= start_date and date < end_date:
                 identifier_col.append(identifier_entry['identifier'])
 
-    df.insert(0, identifier_type, sedol_col)
+    df.insert(0, identifier_type, identifier_col)
     
     return df
 
