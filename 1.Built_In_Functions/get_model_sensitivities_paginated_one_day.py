@@ -82,7 +82,7 @@ try:
         _results, exclusive_start_key = process_sensitivity_response(response)
         results += _results
 
-    df_results = pandas.DataFrame(results
+    df_results = pandas.DataFrame(results)
     
 except ApiException as e:
     print("Exception when calling DefaultApi->get_model_sensitivities_paginated_one_day: %s\n" % e)
