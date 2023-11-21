@@ -62,7 +62,7 @@ def insert_point_in_time_identifier_column(df, model, identifier_type):
 
     default_start_date = min(df.index.tolist())
     default_end_date = '3000-01-01'
-    sedol_col = []
+    identifier_col = []
     for date in df.index:
         for identifier_entry in model_identifiers:
             start_date = identifier_entry.get('effective_date')
@@ -71,9 +71,9 @@ def insert_point_in_time_identifier_column(df, model, identifier_type):
             end_date = end_date if end_date else default_end_date
 
             if date >= start_date and date < end_date:
-                sedol_col.append(identifier_entry['identifier'])
+                identifier_col.append(identifier_entry['identifier'])
 
-    df.insert(0, 'SEDOL', sedol_col)
+    df.insert(0, identifier_type, sedol_col)
     
     return df
 
