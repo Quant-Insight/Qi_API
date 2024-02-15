@@ -77,7 +77,7 @@ try:
         asset_classes = asset_classes,
         tags = tags
     )
-    results, exclusive_start_key = process_timeseries_response(response)
+    results, exclusive_start_key = process_timeseries_response(response, target_date)
     
     while exclusive_start_key:
         
@@ -87,7 +87,7 @@ try:
             tags = tags,
             exclusive_start_key = exclusive_start_key
         )
-        _results, exclusive_start_key = process_timeseries_response(response)
+        _results, exclusive_start_key = process_timeseries_response(response, target_date)
         results += _results
     
     df_results = pandas.DataFrame(results)
