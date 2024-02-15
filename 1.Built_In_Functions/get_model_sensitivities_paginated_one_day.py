@@ -15,10 +15,10 @@
 #               * exclusive_start_key [str] (optional) - Key to use to denote the beginning of the page.
 #               * model_count [int] (optional) - Maximum number of models for which data is returned (page count). 
 #
-# Output: List of dictionaries
+# Output: Dictionary
 #               * e.g.
 #                    
-#                 [{'Model': 'A',
+#                 {'Model': 'A',
 #                  'FinSub Credit': -0.38334,
 #                  'Itraxx Japan': -0.32033,
 #                  'Itraxx Xover': -0.47727,
@@ -44,11 +44,7 @@
 #                  'BoJ QT Expectations': -0.14789,
 #                  'FED Rate Expectations': 0.08618,
 #                ...
-#                  'Euro GDP': -0.05919,
-#                  'Japan GDP': 1.56175,
-#                  'US GDP': -0.06865,
-#                  'USD TWI': -1.47793},
-#                 ...]
+#                   }
 #
 #
 #############################################################################################################################################################################################
