@@ -94,8 +94,8 @@ def process_sensitivity_response(response):
 try:
     response = api_instance.get_model_sensitivities_paginated_one_day(
         target_date = target_date,
-        asset_classes='Equity',
-        tags='USD, Stock'
+        asset_classes = asset_classes,
+        tags = tags
     )
     results, exclusive_start_key = process_sensitivity_response(response)
     
@@ -103,9 +103,9 @@ try:
         
         response = api_instance.get_model_sensitivities_paginated_one_day(
             target_date = target_date,
-            asset_classes='Equity',
-            tags='USD, Stock',
-            exclusive_start_key=exclusive_start_key
+            asset_classes = asset_classes,
+            tags = tags,
+            exclusive_start_key = exclusive_start_key
         )
         _results, exclusive_start_key = process_sensitivity_response(response)
         results += _results
