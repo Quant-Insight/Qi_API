@@ -1,33 +1,57 @@
-#######################################################################################################################################
+#############################################################################################################################################################################################
 # 
-# get_model_sensitivities_paginated_one_day(target_date=target_date, asset_classes=asset_classes, tags=tags, term=term) is a QI API 
-# endpoint to retrieve the sensitivities for multiple assets for given date. Note that if the asset universe is large, it can take several minutes to pull 
-# all asset's sensitivities.  
+# get_model_sensitivities_paginated_one_day(target_date, models=models,tags=tags, asset_classes=asset_classes, term=term, model_count=model_count,exclusive_start_key=exclusive_start_key) 
+# is a QI API endpoint to retrieve the sensitivities for multiple assets for a given date. Note that if the asset universe is large, it can take several minutes to pull 
+# all asset sensitivities.  
 # 
 # Inputs:
-#               * asset_classes (optional) - asset class to filter assets by (e.g. 'Equity')
-#               * tags (optional) - tag (sub category) to filter assets by (e.g. 'Stock' or 'USD' or 'S&P 500') 
-#               * models (optional) - list of assets/models to request sensitivity data for. Can be used instead of assset_classes and/or tags
-#               * target_date (optional) - the date to request data for (e.g. '2023-11-17'), default is the previous week day (t-1)
-#               * date_to (optional) - end of the period we want to retrieve (e.g. '2016-01-01')
-#               * term (optional) - we recommend to use 'Long Term', which is the default if not set): 
-#                                 * 'Long Term' is defined as 250 day lookback period.
-#                                 * 'Short Term' is defined as 83 day lookback period.
-#               * exclusive_start_key (optional) - start key for pagination (use last_evaluated_key from previous paginated response).
-#               * model_count (optional) - number of models to return in each paginated response (default is 100). 
+#               * target_date [date] (required) - Date of data required YYYY-MM-DD format.
+#               * models[str] (optional) - Comma delimited string containing models with which to filter results.
+#               * tags [str] (optional) - Comma delimited string containing tags with which to filter results. Results must contain all tags specified.
+#               * asset_classes [str] (optional) - Comma-delimited list of asset classes with which to filter results. Results must contain any asset class specified.
+#               * term [str] (optional) - Parameter of the models. We recommend using 'Long Term', which is the default if not set): 
+#                                 * 'Long Term' is defined as a 250-day lookback period.
+#                                 * 'Short Term' is defined as an 83-day lookback period.
+#               * exclusive_start_key [str] (optional) - Key to use to denote the beginning of the page.
+#               * model_count [int] (optional) - Maximum number of models for which data is returned (page count). 
 #
-# Output: Pandas DataFrame of sensitivity data for a universe of assets for a given date.
+# Output: List of dictionaries
 #               * e.g.
 #                    
+#                 [{'Model': 'A',
+#                  'FinSub Credit': -0.38334,
+#                  'Itraxx Japan': -0.32033,
+#                  'Itraxx Xover': -0.47727,
+#                  'JPY 10Y Real Rate': -0.06651,
+#                  'USD 10Y Real Rate': -0.54041,
+#                  'China 5Y CDS': -0.35719,
+#                  'EM CDS': -0.25019,
+#                  'Italian Sov. Confidence': -0.58794,
+#                  'Copper': 0.48586,
+#                  'Iron Ore': 0.43123,
+#                  'VIX': 0.30648,
+#                  'VXEEM': 0.3598,
+#                  'USD Liquidity - EUR': 0.88494,
+#                  'USD Liquidity - JPY': 0.64997,
+#                  'VDAX': 0.27223,
+#                  'US 10Y Infl. Expec.': -0.94378,
+#                  'US 2Y Infl. Expec.': -0.65697,
+#                  'US 5Y Infl. Expec.': -0.81722,
+#                  'US 5s30s Swap': 0.6244,
+#                  'USDCNH': -0.53109,
+#                  'WTI': -0.44088,
+#                  'US HY': -0.56051,
+#                  'BoJ QT Expectations': -0.14789,
+#                  'FED Rate Expectations': 0.08618,
+#                ...
+#                  'Euro GDP': -0.05919,
+#                  'Japan GDP': 1.56175,
+#                  'US GDP': -0.06865,
+#                  'USD TWI': -1.47793},
+#                 ...]
 #
-#        model     | China GDP                   | China 5y CDS                        | Copper                | FinSub Credit                | ... | 
-#       AAPL       | -0.26924                    | -0.26444                            | 0.31652               | 0.16956                      | ... |  
-#       META       | -0.27617                    | -0.27528                            | 0.32443               | 0.15854                      | ... |  
-#       AMZN       | -0.28721                    | -0.29178                            | 0.33853               | 0.15243                      | ... |  
-#       ...        | ...                         | ...                                 | ...                   | ...                          | ... |       
 #
-#
-#######################################################################################################################################
+#############################################################################################################################################################################################
 
 
 from __future__ import print_function
@@ -52,6 +76,7 @@ api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 # Setup parameters
 asset_classes = 'Equity'
 tags = 'USD, Stock'
+target_date = '2024-02-14'
 
 # Function to process sensitivity data in the paginated response.
 def process_sensitivity_response(response):
@@ -68,6 +93,7 @@ def process_sensitivity_response(response):
 
 try:
     response = api_instance.get_model_sensitivities_paginated_one_day(
+        target_date = target_date,
         asset_classes='Equity',
         tags='USD, Stock'
     )
@@ -76,6 +102,7 @@ try:
     while exclusive_start_key:
         
         response = api_instance.get_model_sensitivities_paginated_one_day(
+            target_date = target_date,
             asset_classes='Equity',
             tags='USD, Stock',
             exclusive_start_key=exclusive_start_key
