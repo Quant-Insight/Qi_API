@@ -60,10 +60,16 @@ tags = 'USD, Stock'
 target_date = '2024-02-14'
 
 # Function to process timeseries data in the paginated response.
-def process_response(response):
-    models = response['items']
+def process_timeseries_response(response, target_date):
+    results = []
+    data = response['items']
     last_evaluated_key = response.get('last_evaluated_key', None)
-    return models, last_evaluated_key
+    for model, _model_data in data.items():
+        result = {'Model': model}
+        for _data in _model_data[target_date]:
+                result[_data] = _model_data[target_date][_data]
+        results.append(result)
+    return results, last_evaluated_key
 
 try:
     response = api_instance.get_model_timeseries_paginated_one_day(
@@ -71,7 +77,7 @@ try:
         asset_classes = asset_classes,
         tags = tags
     )
-    results, exclusive_start_key = process_response(response)
+    results, exclusive_start_key = process_timeseries_response(response)
     
     while exclusive_start_key:
         
@@ -81,8 +87,10 @@ try:
             tags = tags,
             exclusive_start_key = exclusive_start_key
         )
-        _results, exclusive_start_key = process_response(response)
-        results = results | _results
+        _results, exclusive_start_key = process_timeseries_response(response)
+        results += _results
+    
+    df_results = pandas.DataFrame(results)
     
 except ApiException as e:
     print("Exception when calling DefaultApi->get_model_sensitivities_paginated_one_day: %s\n" % e)
