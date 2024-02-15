@@ -1,7 +1,7 @@
 #############################################################################################################################################################################################
 # 
 # get_model_timeseries_paginated_one_day(target_date, models=models,tags=tags, asset_classes=asset_classes, term=term, model_count=model_count,exclusive_start_key=exclusive_start_key)
-# is a QI API endpoint to retrieve the timeseries for multiple assets for a given date. Note that if the asset universe is large, it can take several minutes to pull 
+# is a QI API endpoint to retrieve the model data for multiple assets for a given date. Note that if the asset universe is large, it can take several minutes to pull 
 # all asset sensitivities.  
 # 
 # Inputs:
