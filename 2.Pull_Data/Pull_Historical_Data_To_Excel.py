@@ -101,14 +101,47 @@ def remove_special_characters(input_string):
     cleaned_string = re.sub(pattern, '_', input_string)
 
     return cleaned_string
+
+# Function to process the paginated responses
+def process_response(response):
+    models = response['items']
+    last_evaluated_key = response.get('last_evaluated_key', None)
+    return models, last_evaluated_key
         
 #######################################################################################################################################
 # Main code
 #######################################################################################################################################
 
 # Define your stocks here.  
-sp1500_names =  list(set([x.name for x in api_instance.get_models(tags="S&P 500")]))
-stocks = sp1500_names
+# Comma delimited list of tags to filter results with. Results must contain *all*tags specified. (optional)
+# Datatype: str
+tags = 'S&P 500'
+asset_classes = 'Equity'
+term = 'long term'
+
+try:
+    # Get list of all defined models on the system  
+    response = api_instance.get_models_with_pagination(
+        asset_classes=asset_classes,
+        tags=tags,
+        term=term,
+        include_delisted=True
+    )
+    models, exclusive_start_key = process_response(response)
+
+    while exclusive_start_key:
+        
+        response = api_instance.get_models_with_pagination(
+            asset_classes=asset_classes,
+            tags=tags,
+            term=term,
+            include_delisted=True,
+            exclusive_start_key=exclusive_start_key
+        )
+        _models, exclusive_start_key = process_response(response)
+        models += _models
+
+    stocks = [x['name'] for x in models]
 
 # Change the address where the file will be saved and the name of the Excel file. 
 writer = pandas.ExcelWriter('YOUR-PATH/example_excel.xlsx', engine='openpyxl')
@@ -117,6 +150,8 @@ writer = pandas.ExcelWriter('YOUR-PATH/example_excel.xlsx', engine='openpyxl')
 start = '2009-01-01'
 end = '2023-10-10'
 term = 'Long Term'
+
+df_final = pandas.DataFrame()
 
 for stock in stocks:
     model_data = get_model_data(stock,start,end,'Long Term')
