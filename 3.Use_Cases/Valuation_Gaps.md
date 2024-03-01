@@ -1,47 +1,28 @@
 ## Description
 
-This piece of code retrieves the data of a list of given models (models within Stoxx 600), for a given date (2019-01-14) and find the largest valuation gaps accross a given set of assets. 
+# This piece of code retrieves the data of a list of given models (models within Stoxx 600), for a given date (2024-02-23) and find the largest valuation gaps accross a given set of assets. 
 
-**Requirements:** 
+# **Requirements:** 
 
-* Install matplotlib and pandas:
+# * Install matplotlib and pandas:
 
-    * Jupyter Notebooks:
+#     * Jupyter Notebooks:
     
-        ```  
-        !pip install matplotlib pandas
-        ```
+#         ```  
+#         !pip install matplotlib pandas
+#         ```
         
-    * Command line:
+#     * Command line:
         
-        ```
-        $ pip install matplotlib pandas
-        ```
+#         ```
+#         $ pip install matplotlib pandas
+#         ```
 
 
-**Inputs:** For the purpose of this example, the model and the date are already defined in example_valuation_gaps() function. 
+# **Inputs:** For the purpose of this example, the model and the date are already defined in example_valuation_gaps() function. 
                
-**Output:** A candle chart representing the top valuation gaps for a given date, and a csv file with the top 10 valuation gaps' summary. 
+# **Output:** A candle chart representing the top valuation gaps for a given date, and a csv file with the top 10 valuation gaps' summary. 
                
-
-## Code
-
-```python
-import qi_client
-import pandas
-from datetime import datetime
-
-# Configure API key authorization: QI API Key
-configuration = qi_client.Configuration()
-
-# Add the API Key provided by QI
-configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
-
-# Uncomment to set up a proxy
-# configuration.proxy = 'http://localhost:3128'
-
-# create an instance of the API class
-api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
 ################################################################################################################
 #                                                 Functions
@@ -90,8 +71,8 @@ def get_top_valuation_gaps(date, models):
     
     for asset in models:
         try:
-            if float(get_vals(asset, date, date)['Rsq']) > 65:
-                FVG_s.append(float(get_vals(asset, date, date)['FVG']))
+            if float(get_vals(asset, date, date)['Rsq'].iloc[0]) > 65:
+                FVG_s.append(float(get_vals(asset, date, date)['FVG'].iloc[0]))
                 ID.append(asset)
                 Names.append(
                         api_instance.get_model(
@@ -99,42 +80,62 @@ def get_top_valuation_gaps(date, models):
                         ).name
                 )
                         
-                Rsq_s.append(float(get_vals(asset, date, date)['Rsq']))
+                Rsq_s.append(float(get_vals(asset, date, date)['Rsq'].iloc[0]))
         # Skip if data not available
-        except TypeError:
+        except (IndexError, TypeError):
             continue
     
     df_FVG = pandas.DataFrame({'Name': Names, 'FVG': FVG_s, 'Rsq': Rsq_s})
     df_FVG.index = ID
     
+   
     top_gaps = pandas.concat([
             df_FVG.nsmallest(5, 'FVG'), df_FVG.nlargest(5, 'FVG')
     ])
     MAX = []
     MIN = []
     
+
     for asset in top_gaps['Name']:
         MAX.append(max(get_vals(asset, '2015-01-02', date)['FVG']))
         MIN.append(min(get_vals(asset, '2015-01-02', date)['FVG']))
         
     top_gaps['Max'] = MAX
+    
+
     top_gaps['Min'] = MIN
+    
     
     return top_gaps
 
+
 # This function calls get_top_valuation_gaps() function to retrieve the top ten valuation gaps of all the 
-# models within Stoxx 600 and creates a cvs file with a summary of the values obtained, and a candle chart
+# models within S&P 500 and creates a cvs file with a summary of the values obtained, and a candle chart
 # representing the top ten valuation gaps. 
+
+
 def example_valuation_gaps():
     
     # To obtain the top ten valuation gaps of another model(s), please modify the input of 
     # get_top_valuation_gaps() function. 
     
-    sp500 = list(set([
-            model.name for model in api_instance.get_models(tags='S&P 500')
-    ]))
+
+    data = api_instance.get_models_with_pagination(tags='S&P 500')
+
+    models = data['items']
+    last_evaluated_key = data.get('last_evaluated_key', None)
+
+    while last_evaluated_key:
+        data = api_instance.get_models_with_pagination(exclusive_start_key=last_evaluated_key)
+        models.extend(data['items'])
+        last_evaluated_key = data.get('last_evaluated_key', None)
+
+    sp500 = list(set([model['name'] for model in models]))
+
     
-    df = get_top_valuation_gaps('2019-01-14', sorted(sp500))
+    df = get_top_valuation_gaps('2024-02-23', sorted(sp500))
+    
+  
     
     import matplotlib
     import matplotlib.pyplot as plt
