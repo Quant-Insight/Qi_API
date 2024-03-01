@@ -1,34 +1,27 @@
-## Description
+# Description
 
-# This piece of code retrieves the data of a list of given models (models within Stoxx 600), for a given date (2024-02-23) and find the largest valuation gaps accross a given set of assets. 
+#### This piece of code retrieves the data of a list of given models (models within Stoxx 600), for a given date (2024-02-23) and find the largest valuation gaps accross a given set of assets. 
 
-# **Requirements:** 
+#### **Requirements:** 
 
-# * Install matplotlib and pandas:
+#### * Install matplotlib and pandas:
 
-#     * Jupyter Notebooks:
-    
-#         ```  
-#         !pip install matplotlib pandas
-#         ```
+####     * Jupyter Notebooks:
+      
+        !pip install matplotlib pandas
         
-#     * Command line:
+####     * Command line:
         
-#         ```
-#         $ pip install matplotlib pandas
-#         ```
+         $ pip install matplotlib pandas
 
-
-# **Inputs:** For the purpose of this example, the model and the date are already defined in example_valuation_gaps() function. 
+#### **Inputs:** For the purpose of this example, the model and the date are already defined in example_valuation_gaps() function. 
                
-# **Output:** A candle chart representing the top valuation gaps for a given date, and a csv file with the top 10 valuation gaps' summary. 
+#### **Output:** A candle chart representing the top valuation gaps for a given date, and a csv file with the top 10 valuation gaps' summary. 
                
 
-################################################################################################################
 #                                                 Functions
-################################################################################################################
-#
-# This function retrieves the timeseries of a given model, for a given period of time. 
+
+#### This function retrieves the time series of a given model, for a given period of time. 
 def get_vals(model, start, end):
     
     year_start = int(start[:4])
@@ -64,7 +57,7 @@ def get_vals(model, start, end):
     df.set_index('Dates', inplace=True)
     return df
 
-# This function obtains the top ten valuation gaps of a given model(s), on a given date. 
+#### This function obtains the top ten valuation gaps of a given model(s), on a given date. 
 def get_top_valuation_gaps(date, models):
     
     FVG_s, ID, Names, Rsq_s = ([] for i in range(4))
@@ -109,9 +102,7 @@ def get_top_valuation_gaps(date, models):
     return top_gaps
 
 
-# This function calls get_top_valuation_gaps() function to retrieve the top ten valuation gaps of all the 
-# models within S&P 500 and creates a cvs file with a summary of the values obtained, and a candle chart
-# representing the top ten valuation gaps. 
+#### This function calls get_top_valuation_gaps() function to retrieve the top ten valuation gaps of all the models within S&P 500 and creates a cvs file with a summary of the values obtained, and a candle chart representing the top ten valuation gaps. 
 
 
 def example_valuation_gaps():
@@ -195,34 +186,3 @@ def example_valuation_gaps():
                 facecolor=fig.get_facecolor())
     
     plt.show()
-        
-    
-################################################################################################################
-#                                                    Main Code
-################################################################################################################
-
-example_valuation_gaps()
-```
-
-## Output
-
-* cvs file with the top 10 valuation gaps summary: 
-
-
-| Model Name 	| Min	      | Max	        | FVG     |
-| ----------- | ---------:| -----------:| -------:|
-| CBOE	        |-4.04112	  |2.67265	    |-1.96438  |
-| POOL	        |-2.64086	  |2.95494	    |-1.88752  |
-| PHM	        |-2.89102	  |2.32767	    |-1.86929  |
-| PVH	        |-3.56621	  |2.43804	    |-1.8517  |
-| FRC	        |-3.09681	  |1.88427	    |-1.72977  |
-| NLSN	        |-4.22266	  |3.6743	    |3.09275  |
-| PNW	        |-5.00716	  |2.6625	    |1.8462  |
-| KHC	        |-2.48645	  |4.18165	    |1.80759  |
-| NEM	        |-2.7226	  |3.43324	    |1.74196  |
-| AMGN	        |-2.91793	  |2.90618	    |1.66109  |
-
-
-* Candle chart representing the top valuation gaps for a given date:
-
-![alt text](https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/Top_10_Valuation_Gaps.png "Top 10 Valuation Gaps")
