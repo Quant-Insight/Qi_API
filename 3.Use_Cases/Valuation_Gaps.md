@@ -193,5 +193,5 @@
 
 
 <br>
-<img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/val_gap.png"/>
+<img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/Top_10_Valuation_Gaps.png"/>
 </br>
