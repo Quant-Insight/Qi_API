@@ -105,7 +105,7 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/pie_chart_new.png" alt="pie chart"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/pie_chart_new2.png" alt="pie chart"/>
    </p>
    </br>
 
