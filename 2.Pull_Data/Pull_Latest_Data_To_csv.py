@@ -77,6 +77,7 @@ last_date = str(date)[:10]
 
 ### Function to pull sensitivity data
 
+
 def get_sensitivity_grid(model,start,end,term):
     
     
@@ -95,10 +96,7 @@ def get_sensitivity_grid(model,start,end,term):
         else:
             date_to = end
     
-#         print("Gathering data for %s from %s to %s..." % (model,
-#         date_from,
-#         date_to))
-    
+
         sensitivity.update(
         api_instance.get_model_sensitivities(model=model,date_from=date_from,date_to=date_to,term=term))
     
@@ -120,16 +118,16 @@ def get_sensitivity_grid(model,start,end,term):
         if sensitivity_grid.empty:
             sensitivity_grid = df_sensitivities
         else:
-            sensitivity_grid = pandas.concat([sensitivity_grid, df_sensitivities], axis = 0, join = 'outer')
+            sensitivity_grid = pandas.concat([sensitivity_grid, df_sensitivities])
 
             
     return sensitivity_grid
 
-
 ### Function to pull model timeseries data
 
 def get_model_data(model,start,end,term):
-      
+    
+    
     year_start = int(start[:4])
     year_end = int(end[:4])
     time_series = []
@@ -145,9 +143,6 @@ def get_model_data(model,start,end,term):
         else:
             date_to = end
     
-#         print("Gathering data for %s from %s to %s..." % (model,
-#         date_from,
-#         date_to))
     
         time_series += api_instance.get_model_timeseries(model=model,date_from=date_from,date_to=date_to,term=term)
     
@@ -165,19 +160,28 @@ def get_model_data(model,start,end,term):
     df_ = pandas.DataFrame({'FVG':FVG, 'Rsq':Rsq, 'Model Value':model_value, 'Percentage Gap':percentage_gap,
                             'Absolute Gap':absolute_gap})
     df_.index = dates
-    df_.index = df_.index.strftime('%Y-%m-%d')
     
     return df_
 
 
 ### Define universe for Global Equities
 
-US = list(set([x.name for x in api_instance.get_models(tags = 'S&P 500')]))
-Europe = list(set([x.name for x in api_instance.get_models(tags = 'Euro Stoxx 600')]))
-ETFs = list(set([x.name for x in api_instance.get_models(tags = 'ETF-Equity')]))
-Indices = list(set([x.name for x in api_instance.get_models(tags = 'Indices')]))
+data = api_instance.get_models_with_pagination(tags='S&P 500')
+US = list(set([model['name'] for model in data['items']]))
+
+data = api_instance.get_models_with_pagination(tags='Euro Stoxx 600')
+Europe = list(set([model['name'] for model in data['items']]))
+
+data = api_instance.get_models_with_pagination(tags='ETF-Equity')
+ETFs = list(set([model['name'] for model in data['items']]))
+
+data = api_instance.get_models_with_pagination(tags='Indices')
+Indices = list(set([model['name'] for model in data['items']]))
+
+
 
 assets = US + Europe + ETFs + Indices
+
 
 ### Pull data and export to csv
 
@@ -191,20 +195,23 @@ for term in ['Short Term','Long Term']:
         try:
 
             model_data = get_model_data(asset,last_date,last_date,term)
+            model_data.index = model_data.index.strftime('%Y-%m-%d') 
+
             sens_data = get_sensitivity_grid(asset,last_date,last_date,term)
+            
 
             combined_df = pandas.concat([model_data,sens_data], axis=1)
             combined_df.index = [asset]
-
+            
             if final_df.empty:
                 final_df = combined_df
 
             else:
-                final_df = pandas.concat([final_df, combined_df])
+                final_df = pandas.concat([final_df, combined_df])  
 
             print(str(assets.index(asset)+1) + '/' + str(len(assets)) + ' ' + term)
 
         except:
             pass
-        
-final_df.to_csv('Qi Data - ' + term + '_' + last_date +'.csv')
+    print(final_df)    
+    final_df.to_csv('Qi Data - ' + term + '_' + last_date +'.csv')
