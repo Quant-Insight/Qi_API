@@ -214,8 +214,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date,term):
     portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
     
     for stock in stock_names:
-
-        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Weight'].iloc[0])*float(portfolio[portfolio['Name']==stock]['L/S'].iloc[0]) for a in df_tot.loc[stock]]
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
@@ -258,7 +257,8 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
     
     for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Position'].iloc[0])/100 for a in df_tot.loc[stock]]
+        
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
@@ -608,12 +608,33 @@ def get_model_names_from_tickers(tickers):
 
     ### Load US Models from API
 
-    API_US = [x.name for x in api_instance.get_models(tags='USD')][::2]
+    data = api_instance.get_models_with_pagination(tags='USD')
+    models = data['items']
+    last_evaluated_key = data.get('last_evaluated_key', None)
+    
+    while last_evaluated_key:
+        data = api_instance.get_models_with_pagination(exclusive_start_key=last_evaluated_key)
+        models.extend(data['items'])
+        last_evaluated_key = data.get('last_evaluated_key', None)
+
+    API_US = list(set([model['name'] for model in models]))
+
 
 
     ### Load other Models from API
 
-    API_other = [x.name for x in api_instance.get_models()][::2]
+    data = api_instance.get_models_with_pagination()
+    models = data['items']
+    last_evaluated_key = data.get('last_evaluated_key', None)
+    
+    while last_evaluated_key:
+        data = api_instance.get_models_with_pagination(exclusive_start_key=last_evaluated_key)
+        models.extend(data['items'])
+        last_evaluated_key = data.get('last_evaluated_key', None)
+
+    API_other = list(set([model['name'] for model in models]))
+
+
     [API_other.remove(model) for model in API_US if model in API_other]
     
     potential_models = [model for model in API_other if model.split(' ')[0] in [x.split(' ')[0] for x in tickers]]
