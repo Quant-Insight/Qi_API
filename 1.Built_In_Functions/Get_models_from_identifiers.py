@@ -48,6 +48,6 @@ try:
             'target_date': target_date
         }
     )
-    pprint(api_response)
+    print(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->get_model: %s\n" % e)
