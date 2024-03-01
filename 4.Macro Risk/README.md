@@ -17,7 +17,7 @@ Requirements:
 
       ### Set Variables
       benchmark_name = 'S&P500'
-      date = '2020-03-16'
+      date = '2024-02-23'
       term = 'Long Term'
       
       ### Create portfolio (alternatively import a csv with the same format)
@@ -33,7 +33,7 @@ Portfolio:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio table.png" alt="Portfolio Table"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio_new.png" alt="Portfolio Table"/>
    </p>
    </br>
 
@@ -50,7 +50,7 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/cash exposures.png" alt="Cash table"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/cash_exposures_new.png" alt="Cash table"/>
    </p>
    </br>
    
@@ -69,7 +69,7 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio_sens.png" alt="Sens table"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio_exposures_new.png" alt="Sens table"/>
    </p>
    </br>
    
@@ -105,7 +105,7 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/factor pie.png" alt="pie chart"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/pie_chart_new.png" alt="pie chart"/>
    </p>
    </br>
 
@@ -138,6 +138,6 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio vs benchmark.png" alt="portfolio vs benchmark"/>
+   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/bar_chart_new.png" alt="portfolio vs benchmark"/>
    </p>
    </br>
