@@ -29,29 +29,22 @@
 #             
 #  |    Date    |       Model     |    Inflation  |   Economic Growth |   FVG    |      Rsq   |   color   |   opacity |  Abs_FVG | 
 #  |------------|:---------------:|:-------------:|:-----------------:|:--------:|:----------:|:---------:|:---------:|:--------:|
-#  | 2022-07-01 |   FinSub Credit |     4.25965   |     -1.02326      |  0.75017 |   89.45689 |  #C3423F  |       1   |  0.75017 | 
-#  | 2022-08-01 |   FinSub Credit |     3.97254   |      0.06424      |  0.19365 |   86.13906 |  #C3423F  |       1   |  0.19365 | 
-#  | 2022-09-01 |   FinSub Credit |     3.93689   |      0.40389      |  0.61370 |   79.15580 |  #C3423F  |       1   |  0.61370 | 
-#  | 2022-10-03 |   FinSub Credit |     4.10553   |     -0.75933      |  0.22458 |   80.85060 |  #C3423F  |       1   |  0.22458 | 
-#  | 2022-11-01 |   FinSub Credit |     2.99549   |      5.04176      | -0.73674 |   71.21545 |    green  |       1   |  0.73674 | 
-#  | 2022-12-01 |   FinSub Credit |     3.07601   |      0.13947      | -0.04620 |   87.86449 |    green  |       1   |  0.04620 | 
-#  | 2023-01-02 |   FinSub Credit |     5.46220   |     -2.94689      | -0.13818 |   87.97831 |    green  |       1   |  0.13818 | 
-#  | 2023-02-01 |   FinSub Credit |     6.13980   |     -2.40436      |  0.00444 |   93.00861 |  #C3423F  |       1   |  0.00444 | 
-#  | 2023-03-01 |   FinSub Credit |     5.39560   |     -3.06798      | -0.25878 |   95.61448 |    green  |       1   |  0.25878 | 
-#  | 2023-04-03 |   FinSub Credit |     5.47268   |     -2.76149      |  0.52473 |   92.87617 |  #C3423F  |       1   |  0.52473 | 
-#  | 2023-05-01 |   FinSub Credit |     6.06210   |     -1.31371      |  0.37152 |   89.86457 |  #C3423F  |       1   |  0.37152 | 
-#  | 2023-06-01 |   FinSub Credit |     5.50428   |     -1.19680      | -0.47917 |   86.74478 |    green  |       1   |  0.47917 | 
-#  | 2023-07-03 |   FinSub Credit |    -0.01514   |      8.93639      | -0.10270 |   89.54379 |    green  |       1   |  0.10270 | 
+#  | 2023-02-01 |   FinSub Credit |     6.13980   |     -2.40436      |  0.00444 |   93.00861 |  #C3423F  |     1.0   |  0.00444 | 
+#  | 2023-03-01 |   FinSub Credit |     5.39560   |     -3.06798      | -0.25878 |   95.61448 |    green  |     1.0   |  0.25878 | 
+#  | 2023-04-03 |   FinSub Credit |     5.47268   |     -2.76149      |  0.52473 |   92.87617 |  #C3423F  |     1.0   |  0.52473 | 
+#  | 2023-05-01 |   FinSub Credit |     6.06210   |     -1.31374      |  0.37152 |   89.86457 |  #C3423F  |     1.0   |  0.37152 | 
+#  | 2023-06-01 |   FinSub Credit |     5.50426   |     -1.19680      | -0.47917 |   86.74478 |    green  |     1.0   |  0.47917 | 
+#  | 2023-07-03 |   FinSub Credit |    -0.01514   |      8.93639      | -0.10270 |   89.54379 |    green  |     1.0   |  0.10270 | 
+#  | 2023-08-01 |   FinSub Credit |    -1.44730   |      4.11940      | -0.15458 |   89.82607 |    green  |     1.0   |  0.15458 | 
+#  | 2023-09-01 |   FinSub Credit |    -2.85034   |      3.82991      | -0.11005 |   87.49998 |    green  |     1.0   |  0.11005 | 
+#  | 2023-10-02 |   FinSub Credit |    -1.12347   |      1.85725      |  0.86927 |   65.23466 |  #C3423F  |     1.0   |  0.86927 | 
+#  | 2023-11-01 |   FinSub Credit |    -2.02367   |      1.53610      |  0.06609 |   56.79162 |  #C3423F  |     0.5   |  0.06609 | 
+#  | 2023-12-01 |   FinSub Credit |    -2.08324   |      0.30495      | -1.18943 |   42.44633 |    green  |     0.5   |  1.18943 | 
+#  | 2024-01-01 |   FinSub Credit |     2.66188   |      1.48640      | -0.71345 |   49.92741 |    green  |     0.5   |  0.71345 | 
+#  | 2024-02-01 |   FinSub Credit |    -0.69796   |      3.53261      |  0.03556 |   77.03457 |  #C3423F  |     1.0   |  0.03556 | 
 #
 #######################################################################################################################################
 
-```
-
-<br>
-<img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/taa_example.png" alt="Case Study"/>
-</br>
-
-```
 import Qi_wrapper
 import pandas
 from datetime import datetime,timedelta
@@ -102,7 +95,19 @@ def get_taa_data(universe):
     final_dates = get_first_mondays_in_range()
     df_final = pandas.DataFrame(columns = ['Date', 'Model', 'Inflation', 'Economic Growth', 'FVG', 'Rsq'])
 
-    qi_universe = [model.name for model in api_instance.get_models()[::2]]
+    data = api_instance.get_models_with_pagination()
+
+    models = data['items']
+    last_evaluated_key = data.get('last_evaluated_key', None)
+
+    while last_evaluated_key:
+        data = api_instance.get_models_with_pagination(exclusive_start_key=last_evaluated_key)
+        models.extend(data['items'])
+        last_evaluated_key = data.get('last_evaluated_key', None)
+
+    qi_universe = list(set([model['name'] for model in models]))
+
+
 
     models_to_check = [model for model in universe if model in qi_universe]
 
