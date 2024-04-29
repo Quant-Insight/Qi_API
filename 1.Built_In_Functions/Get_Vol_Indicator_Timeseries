@@ -1,7 +1,7 @@
     
 #######################################################################################################################################
 # 
-# get_vol_indicator_timeseries(bucket, numeric_id) is a QI API function to retrieve the id and the name of a given bucket from our API.  
+# get_vol_indicator_timeseries() is a QI API function to retrieve all the historical values available for our Vol indicators, using our API.  
 # 
 # Inputs:
 #               This endpoint doesn't need any parameter. 
