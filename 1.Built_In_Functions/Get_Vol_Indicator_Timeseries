@@ -1,0 +1,64 @@
+    
+#######################################################################################################################################
+# 
+# get_vol_indicator_timeseries(bucket, numeric_id) is a QI API function to retrieve the id and the name of a given bucket from our API.  
+# 
+# Inputs:
+#               This endpoint doesn't need any parameter. 
+#
+# Output: the time series of the Vol indicator.
+#               * e.g.
+#                      [{'name': 'Qi Vol Indicator',
+#                         'data': [{'date': '2017-11-03', 'value': 16.47},
+#                         {'date': '2017-11-06', 'value': 16.71},
+#                         {'date': '2017-11-07', 'value': 16.76},
+#                         {'date': '2017-11-08', 'value': 17.16},
+#                         {'date': '2017-11-09', 'value': 17.49},
+#                         {'date': '2017-11-10', 'value': 18.05},
+#                         {'date': '2017-11-13', 'value': 18.64},
+#                         {'date': '2017-11-14', 'value': 19.33},
+#                         {'date': '2017-11-15', 'value': 20.14},
+#                         {'date': '2017-11-16', 'value': 20.58},
+#                         {'date': '2017-11-17', 'value': 21.2},
+#                         {'date': '2017-11-20', 'value': 20.76},
+#                         {'date': '2017-11-21', 'value': 20.72},
+#                         {'date': '2017-11-22', 'value': 21.45},
+#                         {'date': '2017-11-23', 'value': 22.16},
+#                         {'date': '2017-11-24', 'value': 22.99},
+#                         {'date': '2017-11-27', 'value': 22.74},
+#                         {'date': '2017-11-28', 'value': 22.14},
+#                         {'date': '2017-11-29', 'value': 21.94},
+#                         {'date': '2017-11-30', 'value': 21.95},
+#                         {'date': '2017-12-01', 'value': 21.56},
+#                         {'date': '2017-12-04', 'value': 21.49},
+#                         {'date': '2017-12-05', 'value': 21.73},
+#                         {'date': '2017-12-06', 'value': 22.39},
+#                         ...
+#                         {'adjusted_value': 16.98, 'date': '2021-10-27'},
+#                         {'adjusted_value': 16.53, 'date': '2021-10-28'},
+#                         {'adjusted_value': 16.26, 'date': '2021-10-29'},
+#                         {'adjusted_value': 16.41, 'date': '2021-11-01'},
+#                         ...]}]
+#
+#######################################################################################################################################
+
+
+import qi_client
+from qi_client.rest import ApiException
+from pprint import pprint
+
+# Configure API key authorization: Qi API Key
+configuration = qi_client.Configuration()
+configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+
+# Uncomment to use proxy - please refer to Connectivity Guidance doc for more details.
+# configuration.proxy = 'http://corporateproxy.business.com:8080'
+
+# Instantiate API class.
+api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
+
+try:
+    api_response = api_instance.get_vol_indicator_timeseries()
+    print(api_response)
+except ApiException as e:
+    print(f"Exception when calling DefaultApi:get_vol_indicator_timeseries: {e}")
