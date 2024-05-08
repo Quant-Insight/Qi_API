@@ -28,43 +28,60 @@
 
 def get_bucket_grid(model,start,end,term):
     
-    #Note that we only have data from Monday to Friday.
-    start_date = datetime.strptime(start, '%Y-%m-%d')
-    end_date = datetime.strptime(end, '%Y-%m-%d')    
+    year_start = int(start[:4])
+    year_end = int(end[:4])
+    sensitivity = {}
+
+    for year in range(year_start, year_end + 1):
+        query_start = start
+
+        if year != year_start:
+            date_from = '%d-01-01' % year
+        else:
+            date_from = start
+
+        if year != year_end:
+            date_to = '%d-12-31' % year
+        else:
+            date_to = end
+
+        print("Gathering data for %s from %s to %s..." % (model,
+        date_from,
+        date_to))
+
+        sensitivity.update(
+        api_instance.get_model_sensitivities(
+        model,
+        date_from=date_from,
+        date_to=date_to,
+        term=term
+        )
+        )
     
-    if (start_date.weekday() == 5 or start_date.weekday() == 6) and (end_date.weekday() == 5 or end_date.weekday() == 6) and ((end_date - start_date).days == 1):
-        print('Please choose a period of time which includes days between Monday and Friday.')
-        
-    elif (end_date - start_date).days > 365:
-        print('Please specify a period of time smaller than 365 days')
-        
-    else: 
+    sensitivity_grid = pandas.DataFrame()
     
-        sensitivity = api_instance.get_model_sensitivities(model=model,date_from=start,date_to=end,term=term)
+    dates = [x for x in sensitivity.keys()]
+    dates.sort()
 
-        sensitivity_grid = pandas.DataFrame()
+    for date in dates:
+        
+        df_sensitivities = pandas.DataFrame()
 
-        dates = [x for x in sensitivity.keys()]
-        dates.sort()
+        for data in sensitivity[date]:
 
-        for date in dates:
+            if data['bucket_name'] in df_sensitivities.columns:
+                df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
 
-            df_sensitivities = pandas.DataFrame()
-
-            for data in sensitivity[date]:
-
-                if data['bucket_name'] in df_sensitivities.columns:
-                    df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
-
-                else:
-                    df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
-
-            df_sensitivities = df_sensitivities.rename(index={0:date})
-            df_sensitivities = df_sensitivities.sort_index(axis=1)
-
-            if sensitivity_grid.empty:
-                sensitivity_grid = df_sensitivities
             else:
-                sensitivity_grid = pandas.concat([sensitivity_grid, df_sensitivities])
+                df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
 
-        return sensitivity_grid
+        df_sensitivities = df_sensitivities.rename(index={0:date})
+        df_sensitivities = df_sensitivities.sort_index(axis=1)
+
+        if sensitivity_grid.empty:
+            sensitivity_grid = df_sensitivities
+        else:
+            sensitivity_grid = pandas.concat([sensitivity_grid, df_sensitivities], axis = 0, join = 'outer')
+            
+
+    return sensitivity_grid
