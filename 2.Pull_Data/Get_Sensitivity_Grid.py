@@ -29,62 +29,44 @@
 #######################################################################################################################################
 
 def get_sensitivity_grid(model,start,end,term):
-    
-    #Note that we only have data from Monday to Friday.
-    start_date = datetime.strptime(start, '%Y-%m-%d')
-    end_date = datetime.strptime(end, '%Y-%m-%d')    
-    
-    if (start_date.weekday() == 5 or start_date.weekday() == 6) and (end_date.weekday() == 5 or end_date.weekday() == 6) and ((end_date - start_date).days == 1):
-        print('Please choose a period of time which includes days between Monday and Friday.')
+
+    year_start = int(start[:4])
+    year_end = int(end[:4])
+    sensitivity = {}
+    for year in range(year_start, year_end + 1):
+        query_start = start
         
-    else: 
-        # Note that the periods of time can be longer than a year. We need to divide them in one-year periods. 
-        year_start = int(start[:4])
-        year_end = int(end[:4])
-        sensitivity = {}
+        if year != year_start:
+            date_from = '%d-01-01' % year
+        else:
+            date_from = start
+        if year != year_end:
+            date_to = '%d-12-31' % year
+        else:
+            date_to = end
+    
+        sensitivity.update(
+        api_instance.get_model_sensitivities(model=model,date_from=date_from,date_to=date_to,term=term))
+    
+    df_sensitivities = pandas.DataFrame()
+    sensitivity_grid = pandas.DataFrame()
+    dates = [x for x in sensitivity.keys()]
+    dates.sort()
 
-        for year in range(year_start, year_end + 1):
-            query_start = start
-
-            if year != year_start:
-                date_from = '%d-01-01' % year
-            else:
-                date_from = start
-
-            if year != year_end:
-                date_to = '%d-12-31' % year
-            else:
-                date_to = end
-
-            sensitivity.update(
-            api_instance.get_model_sensitivities(
-            model,
-            date_from=date_from,
-            date_to=date_to,
-            term=term
-            )
-            )
-
-
+    for date in dates:
         df_sensitivities = pandas.DataFrame()
-        sensitivity_grid = pandas.DataFrame()
-        dates = [x for x in sensitivity.keys()]
-        dates.sort()
 
-        for date in dates:
-            df_sensitivities = pandas.DataFrame()
+        for data in sensitivity[date]:
+            df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
 
-            for data in sensitivity[date]:
-                df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
+        df_sensitivities = df_sensitivities.rename(index={0:date})
+        df_sensitivities = df_sensitivities.sort_index(axis=1)
 
-            df_sensitivities = df_sensitivities.rename(index={0:date})
-            df_sensitivities = df_sensitivities.sort_index(axis=1)
+        if sensitivity_grid.empty:
+            sensitivity_grid = df_sensitivities
+        else:
+            sensitivity_grid = pandas.concat([sensitivity_grid, df_sensitivities], axis = 0, join = 'outer')
 
-            if sensitivity_grid.empty:
-                sensitivity_grid = df_sensitivities
-            else:
-                sensitivity_grid = pandas.concat([sensitivity_grid, df_sensitivities])
-
-
-        return sensitivity_grid
+            
+    return sensitivity_grid
     
