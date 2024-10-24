@@ -305,8 +305,7 @@ def get_bucket_grid(model,start,end,term):
         term=term
         )
         )
-    
-    
+        
     sensitivity_grid = pandas.DataFrame()
     
     dates = [x for x in sensitivity.keys()]
@@ -319,7 +318,7 @@ def get_bucket_grid(model,start,end,term):
         for data in sensitivity[date]:
 
             if data['bucket_name'] in df_sensitivities.columns:
-                df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+                df_sensitivities.loc[0, str(data['bucket_name'])] = df_sensitivities.loc[0, str(data['bucket_name'])] + [data['sensitivity']]
 
             else:
                 df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
