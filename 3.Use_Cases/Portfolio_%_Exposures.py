@@ -16,7 +16,7 @@
 #                              'L/S':[1,-1,1]})
 #                              
 #                              
-#               stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, FB
+#               stock a, b and c must be df of models in the Qi API, e.g. AAPL, MSFT, FB
 #
 #               This can be done by manually inputting the data (as seen above), or by importing an Excel file, or csv file like so:
 #
@@ -115,7 +115,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date):
             for data in sensitivity[date]:
 
                 if data['bucket_name'] in df_sensitivities.columns:
-                    df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+                    df_sensitivities.loc[0, str(data['bucket_name'])] += data['sensitivity']
 
                 else:
                     df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]

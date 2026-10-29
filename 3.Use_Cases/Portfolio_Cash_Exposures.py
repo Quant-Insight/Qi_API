@@ -105,7 +105,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
         for data in sensitivity[date]:
 
             if data['bucket_name'] in df_sensitivities.columns:
-                df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+                df_sensitivities.loc[0, str(data['bucket_name'])] += data['sensitivity']
 
             else:
                 df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
