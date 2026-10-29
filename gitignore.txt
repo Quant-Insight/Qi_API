@@ -1,0 +1,87 @@
+# =============================================================================
+# Secrets and credentials - never commit these
+# =============================================================================
+# Environment files (use these to hold QI_API_KEY / QI_DOWNLOAD_TOKEN locally)
+.env
+.env.*
+!.env.example
+*.env
+
+# Keys, certificates and credential stores
+*.pem
+*.key
+*.p12
+*.pfx
+*.crt
+*.cer
+*.jks
+*.keystore
+id_rsa*
+id_dsa*
+id_ecdsa*
+id_ed25519*
+credentials*
+!credentials*.example
+secrets*
+!secrets*.example
+*secret*.json
+*secret*.yaml
+*secret*.yml
+*api_key*
+*apikey*
+*api-key*
+*token*.txt
+
+# pip / package-index configuration that may embed tokens
+pip.conf
+pip.ini
+.pypirc
+.netrc
+
+# Local configuration overrides
+config.local.*
+local_settings.py
+
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+build/
+dist/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# =============================================================================
+# Jupyter
+# =============================================================================
+.ipynb_checkpoints/
+
+# =============================================================================
+# Local data output (may contain licensed Qi data)
+# =============================================================================
+*.csv
+!**/sample*.csv
+
+# =============================================================================
+# Editors and OS
+# =============================================================================
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+Thumbs.db

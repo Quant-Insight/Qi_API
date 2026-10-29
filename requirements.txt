@@ -1,0 +1,33 @@
+# Qi API examples - pinned dependencies
+#
+# Requires Python 3.11 or newer.
+#
+# Install with:
+#     export QI_DOWNLOAD_TOKEN=<your client download token>
+#     pip install -r requirements.txt
+#
+# The download token is read from the environment so that it never needs to
+# be written into this file or committed to the repository.
+
+# --- Quant Insight client (private package index) ---------------------------
+--extra-index-url=https://dl.cloudsmith.io/${QI_DOWNLOAD_TOKEN}/quant-insight/python/python/index/
+qi-client
+
+# --- Direct dependencies -----------------------------------------------------
+pandas==2.3.3
+numpy==2.4.6
+matplotlib==3.11.2
+python-dateutil==2.9.0.post0
+tenacity==9.2.1
+
+# --- Transitive dependencies (pinned for reproducible installs) --------------
+contourpy==1.4.0
+cycler==0.12.1
+fonttools==4.67.0
+kiwisolver==1.5.1
+packaging==26.3
+pillow==12.3.0
+pyparsing==3.3.3
+pytz==2026.5
+six==1.17.0
+tzdata==2026.5

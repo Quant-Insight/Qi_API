@@ -9,7 +9,9 @@
 #
 # Requirements:
 #
-# !pip install retrying
+# Python 3.11+ and the packages in requirements.txt:
+#
+#         pip install -r requirements.txt
 #
 # For Jupyter Notebooks use (API Key needs to be declared without ''):
 #
@@ -39,7 +41,7 @@ from pprint import pprint
 import os
 import pandas
 from datetime import datetime
-from retrying import retry
+from tenacity import retry, stop_after_attempt, wait_exponential
 
 
 
@@ -99,7 +101,7 @@ def get_asset_bucket_drivers(model,date,term):
     for data in sensitivity[date]:
 
         if data['bucket_name'] in df_sensitivities.columns:
-            df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+            df_sensitivities.loc[0, str(data['bucket_name'])] += data['sensitivity']
 
         else:
             df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
@@ -197,7 +199,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date,term):
         for data in sensitivity[date]:
 
             if data['bucket_name'] in df_sensitivities.columns:
-                df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+                df_sensitivities.loc[0, str(data['bucket_name'])] += data['sensitivity']
 
             else:
                 df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
@@ -238,7 +240,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
         for data in sensitivity[date]:
 
             if data['bucket_name'] in df_sensitivities.columns:
-                df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+                df_sensitivities.loc[0, str(data['bucket_name'])] += data['sensitivity']
 
             else:
                 df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
@@ -267,12 +269,11 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
     return portfolio_sensitivities
 
 
-from retrying import retry
-
-
-@retry(wait_exponential_multiplier=1000,
-       wait_exponential_max=10000,
-       stop_max_attempt_number=100)
+# Retry with exponential back-off (2s, 4s, 8s, then 10s), up to 100 attempts.
+# reraise=True surfaces the original API error if every attempt fails.
+@retry(wait=wait_exponential(multiplier=2, max=10),
+       stop=stop_after_attempt(100),
+       reraise=True)
 
 def get_bucket_grid(model,start,end,term):
     
@@ -716,7 +717,7 @@ def get_bucket_drivers(model,date,term):
     for data in sensitivity[date]:
 
         if data['bucket_name'] in df_sensitivities.columns:
-            df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+            df_sensitivities.loc[0, str(data['bucket_name'])] += data['sensitivity']
 
         else:
             df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
