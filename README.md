@@ -53,14 +53,27 @@ All dependencies, including `qi-client`, are pinned to exact, tested versions in
 
 Use this if you can't install uv, for example on a locked-down machine. It needs Python 3.12 or newer to be installed already.
 
-    git clone https://github.com/Quant-Insight/Qi_API.git
-    cd Qi_API
+1. Check your Python version first. On an older version, the install fails with an error that doesn't mention the Python version:
 
-    python -m venv .venv                   # on macOS, use python3 instead of python
-    source .venv/bin/activate              # Windows: .venv\Scripts\activate
+        python3 --version                  # macOS / Linux
+        python --version                   # Windows
 
-    export QI_DOWNLOAD_TOKEN=YOUR_TOKEN    # Windows: see the commands in Option 1, step 4
-    pip install -r requirements.txt
+    If it shows anything below 3.12, install Python 3.12 or newer from [python.org](https://www.python.org/downloads/), then use that version explicitly in the next step: `python3.12 -m venv .venv` on macOS / Linux, or `py -3.12 -m venv .venv` on Windows.
+
+2. Download the repository, create the environment and install:
+
+        git clone https://github.com/Quant-Insight/Qi_API.git
+        cd Qi_API
+
+        python3 -m venv .venv                  # Windows: python -m venv .venv
+        source .venv/bin/activate              # Windows: .venv\Scripts\activate
+
+        export QI_DOWNLOAD_TOKEN=YOUR_TOKEN    # Windows: see the commands in Option 1, step 4
+        pip install -r requirements.txt
+
+3. If you want to use Jupyter notebooks, install Jupyter into the same environment:
+
+        pip install notebook
 
 ### Troubleshooting: "qi-client not found"
 
