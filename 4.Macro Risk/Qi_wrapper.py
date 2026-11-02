@@ -48,6 +48,15 @@ configuration.api_key['X-API-KEY'] = QI_API_KEY
 api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
 
+def _concat_rows(df_tot, df_new):
+    # Stacks per-stock rows like pandas.concat(join='outer'), but drops all-NA columns first
+    # (e.g. a missing sensitivity) to avoid pandas' FutureWarning about all-NA entries,
+    # then restores every column so the result is unchanged.
+    columns = df_tot.columns.union(df_new.columns, sort=False)
+    parts = [df.dropna(axis=1, how='all') for df in (df_tot, df_new)]
+    return pandas.concat(parts, axis=0, join='outer').reindex(columns=columns)
+
+
 
 def get_top_drivers(model,number,date,term):
 
@@ -123,7 +132,7 @@ def get_portfolio_sens_exposures_factor(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            df_tot = _concat_rows(df_tot, df_sensitivities)
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
 
     df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)  
@@ -160,7 +169,7 @@ def get_portfolio_cash_exposures_factor(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            df_tot = _concat_rows(df_tot, df_sensitivities)
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
     
     df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)
@@ -202,7 +211,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            df_tot = _concat_rows(df_tot, df_sensitivities)
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])  
     
     df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)  
@@ -243,7 +252,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            df_tot = _concat_rows(df_tot, df_sensitivities)
         
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
             
