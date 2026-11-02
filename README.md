@@ -2,13 +2,14 @@
 
 This repository includes some examples of how to use Quant-Insight's API. 
 
-It contains five main folders:
+It contains four main folders:
 
   * 1.Built_In_Functions: contains the API's built-in functions.
   * 2.Pull_Data: contains useful examples of how to pull the data from Qi's database. 
   * 3.Use_Cases: examples of how Qi data is used.
   * 4.Macro Risk: a comprehensive guide on how to calculate your portfolio's macro risk.
-  * 5.Case Studies: contains examples of how Qi uses the API.
+
+`Qi API documentation.pdf` is the reference for every function in the Qi client. It was generated for an earlier client version, so for installation, supported Python versions and setting your API key, follow this README instead.
 
 ## What do you need to start using the API?
 
@@ -20,7 +21,7 @@ It contains five main folders:
 
 ## Installation
 
-All dependencies are pinned to exact, tested versions in `requirements.txt`.
+All dependencies, including `qi-client`, are pinned to exact, tested versions in `requirements.txt`. Jupyter is not included; if you want to use notebooks, install it separately into the same environment (for example `uv pip install notebook`), or use VS Code's built-in notebook support.
 
 ### Option 1 (recommended): uv
 
@@ -50,16 +51,22 @@ All dependencies are pinned to exact, tested versions in `requirements.txt`.
 
 ### Option 2: venv and pip
 
-Use this if you can't install uv, for example on a locked-down machine. It needs Python 3.11 or newer to be installed already.
+Use this if you can't install uv, for example on a locked-down machine. It needs Python 3.12 or newer to be installed already.
 
     git clone https://github.com/Quant-Insight/Qi_API.git
     cd Qi_API
 
-    python -m venv .venv
+    python -m venv .venv                   # on macOS, use python3 instead of python
     source .venv/bin/activate              # Windows: .venv\Scripts\activate
 
     export QI_DOWNLOAD_TOKEN=YOUR_TOKEN    # Windows: see the commands in Option 1, step 4
     pip install -r requirements.txt
+
+### Troubleshooting: "qi-client not found"
+
+If the install stops with an error saying `qi-client` was not found, the most likely cause is that `QI_DOWNLOAD_TOKEN` is not set in the terminal you are installing from. uv and pip don't mention the token in this error. Check it with `echo $QI_DOWNLOAD_TOKEN` (macOS / Linux) or `echo $env:QI_DOWNLOAD_TOKEN` (PowerShell), set it if it is empty, and run the install again. Environment variables only last for the terminal window they were set in.
+
+If you used uv, always install with `uv pip`, not `pip`: a uv environment doesn't include pip, so a plain `pip` command installs into a different Python on your machine.
 
 ### Hosted notebooks (no terminal access)
 
@@ -78,6 +85,13 @@ Set your API key as the environment variable `QI_API_KEY` **before** starting Py
     $env:QI_API_KEY="YOUR_API_KEY"         # Windows (PowerShell)
 
 If you use Jupyter, start it from the same terminal (`jupyter notebook` or `jupyter lab`) so that it can see the key.
+
+**VS Code:** notebooks and scripts run inside VS Code don't see variables set in a terminal. Instead, create a file called `.env` in the repository folder containing:
+
+    QI_API_KEY=YOUR_API_KEY
+    QI_DOWNLOAD_TOKEN=YOUR_TOKEN
+
+(no quotes, no spaces around `=`). VS Code loads it automatically; restart the notebook kernel after creating it. The `.gitignore` in this repository stops `.env` from being committed.
 
 If you can't set environment variables (for example in a hosted notebook), enter the key at a prompt at the start of your notebook instead. This keeps it out of the saved file:
 
@@ -102,7 +116,7 @@ Most functions take a model name, a date (or start and end dates) and a term (`'
 
 The full list of use case functions:
                         <br>
-                        <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/api_wrapper_functions.png" alt="QI Use Case Functions"/>
+                        <img src="img/api_wrapper_functions.png" alt="QI Use Case Functions"/>
                         </br>
 
 ## Using the Qi client directly
@@ -119,4 +133,4 @@ If you prefer to call the API without the wrapper, read the key from the environ
 
     api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
-Many of the example scripts in this repository contain the line `configuration.api_key['X-API-KEY'] = 'ADD-YOUR-API-KEY-HERE'`. We recommend replacing it with `os.environ['QI_API_KEY']`, as above, rather than pasting your key in.
+All the example scripts in this repository read the key from `QI_API_KEY` in the same way, so you never need to paste your key into them.

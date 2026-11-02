@@ -9,26 +9,19 @@
 #
 # Requirements:
 #
-# Python 3.11+ and the packages in requirements.txt:
+# Python 3.12+ and the packages in requirements.txt (see the README for full instructions):
 #
-#         pip install -r requirements.txt
+#         uv pip install -r requirements.txt
 #
-# For Jupyter Notebooks use (API Key needs to be declared without ''):
+# Set your API key as the environment variable QI_API_KEY before importing this module,
+# e.g. in your terminal, in a .env file (VS Code), or with a getpass prompt in a notebook:
 #
-#         %set_env QI_API_KEY = YOUR_API_KEY
+#         import os, getpass
+#         os.environ['QI_API_KEY'] = getpass.getpass('Qi API key: ')
+#
 #         import Qi_wrapper
 #
-#
-# For other Python development environments (API Key needs to be declared as a string ''):
-#
-#         import os
-#         import subprocess
-#         import sys
-#
-#         os.environ['QI_API_KEY'] = 'YOUR_API_KEY'
-#
-#         import Qi_wrapper 
-#
+# Never write your API key into a script or notebook.
 #######################################################################################################################################
 
 
@@ -53,6 +46,15 @@ if not QI_API_KEY:
 configuration = qi_client.Configuration()
 configuration.api_key['X-API-KEY'] = QI_API_KEY
 api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
+
+
+def _concat_rows(df_tot, df_new):
+    # Stacks per-stock rows like pandas.concat(join='outer'), but drops all-NA columns first
+    # (e.g. a missing sensitivity) to avoid pandas' FutureWarning about all-NA entries,
+    # then restores every column so the result is unchanged.
+    columns = df_tot.columns.union(df_new.columns, sort=False)
+    parts = [df.dropna(axis=1, how='all') for df in (df_tot, df_new)]
+    return pandas.concat(parts, axis=0, join='outer').reindex(columns=columns)
 
 
 
@@ -130,7 +132,7 @@ def get_portfolio_sens_exposures_factor(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            df_tot = _concat_rows(df_tot, df_sensitivities)
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
 
     df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)  
@@ -138,7 +140,7 @@ def get_portfolio_sens_exposures_factor(portfolio,date,term):
     
     for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Weight'].iloc[0])*float(portfolio[portfolio['Name']==stock]['L/S'].iloc[0]) for a in df_tot.loc[stock]]
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
@@ -167,7 +169,7 @@ def get_portfolio_cash_exposures_factor(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            df_tot = _concat_rows(df_tot, df_sensitivities)
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
     
     df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)
@@ -175,7 +177,7 @@ def get_portfolio_cash_exposures_factor(portfolio,date,term):
     
     for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Position'].iloc[0])/100 for a in df_tot.loc[stock]]
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
@@ -209,7 +211,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            df_tot = _concat_rows(df_tot, df_sensitivities)
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])  
     
     df_rsq = pandas.DataFrame({'Rsq': rsq}, index = stock_names)  
@@ -250,7 +252,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            df_tot = _concat_rows(df_tot, df_sensitivities)
         
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
             
@@ -562,8 +564,12 @@ def get_portfolio(factor,universe,size,date,term):
             for data in sensitivity[date]:
                 df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
 
+            # Some models (e.g. *_USDomestic) use a smaller factor set; skip those without this factor
+            if factor not in df_sensitivities.columns:
+                continue
+
             top5 = abs(df_sensitivities).T.nlargest(5,0)
-            Factor_sens = float(df_sensitivities[factor])
+            Factor_sens = float(df_sensitivities[factor].iloc[0])
 
             if factor in top5.index:
                 FACTOR_sensitivity.append(Factor_sens)
@@ -613,7 +619,8 @@ def get_model_names_from_tickers(tickers):
     last_evaluated_key = data.get('last_evaluated_key', None)
     
     while last_evaluated_key:
-        data = api_instance.get_models_with_pagination(exclusive_start_key=last_evaluated_key)
+        # The tags filter must be repeated on every page, otherwise later pages return all models
+        data = api_instance.get_models_with_pagination(tags='USD', exclusive_start_key=last_evaluated_key)
         models.extend(data['items'])
         last_evaluated_key = data.get('last_evaluated_key', None)
 
