@@ -9,7 +9,7 @@
 #
 # Output: All the information of the requested driver.
 #               * e.g.
-#                      {'buckets': ['Corp credit'],
+#                      {'buckets': ['Corporate Credit'],
 #                       'expression': 'a',
 #                       'id': 1633,
 #                       'instrument1': {'coverage': None,
@@ -27,6 +27,7 @@
 
 from __future__ import print_function
 import time
+import os
 import qi_client
 from qi_client.rest import ApiException
 from pprint import pprint
@@ -34,8 +35,8 @@ from pprint import pprint
 # Configure API key authorization: QI API Key
 configuration = qi_client.Configuration()
 
-# Add the API Key provided by QI
-configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Your API key is read from the QI_API_KEY environment variable (see the README)
+configuration.api_key['X-API-KEY'] = os.environ['QI_API_KEY']
 
 # Uncomment to set up a proxy
 # configuration.proxy = 'http://localhost:3128'

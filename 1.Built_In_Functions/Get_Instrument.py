@@ -1,6 +1,6 @@
 #######################################################################################################################################
 # 
-# get_instrument(instrument, mnemonic=mnemonic, numeric_id=numeric_id)) is a QI API function to retrieve the information of a given 
+# get_instrument(instrument, numeric_id=numeric_id) is a QI API function to retrieve the information of a given 
 # instrument.  
 # 
 # Inputs:
@@ -25,6 +25,7 @@
 
 from __future__ import print_function
 import time
+import os
 import qi_client
 from qi_client.rest import ApiException
 from pprint import pprint
@@ -32,8 +33,8 @@ from pprint import pprint
 # Configure API key authorization: QI API Key
 configuration = qi_client.Configuration()
 
-# Add the API Key provided by QI
-configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Your API key is read from the QI_API_KEY environment variable (see the README)
+configuration.api_key['X-API-KEY'] = os.environ['QI_API_KEY']
 
 # Uncomment to set up a proxy
 # configuration.proxy = 'http://localhost:3128'
@@ -51,7 +52,7 @@ numeric_id = False
 
 try:
     # Get instrument definition
-    api_response = api_instance.get_instrument(instrument, mnemonic=mnemonic, numeric_id=numeric_id)
+    api_response = api_instance.get_instrument(instrument, numeric_id=numeric_id)
     pprint(api_response)
 except ApiException as e:
     print("Exception when calling DefaultApi->get_instrument: %s\n" % e)

@@ -5,7 +5,7 @@
 # having the option to filter by tags and by asset classes. 
 # 
 # Inputs:
-#               * tags (optional) - comma delimited list of tags to filter results with (e.g. 'S&P 1500') 
+#               * tags (optional) - comma delimited list of tags to filter results with (e.g. 'S&P 500') 
 #               * asset_class (optional) - comma delimited list of asset classes to filter results with. Results must contain all asset
 #                                          classes specified (e.g. 'Equity').
 #               * term (optional) - model term parameter, e.g. 'long term' or 'short term'
@@ -33,6 +33,7 @@
 
 from __future__ import print_function
 import time
+import os
 import qi_client
 from qi_client.rest import ApiException
 from pprint import pprint
@@ -40,8 +41,8 @@ from pprint import pprint
 # Configure API key authorization: QI API Key
 configuration = qi_client.Configuration()
 
-# Add the API Key provided by QI
-configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Your API key is read from the QI_API_KEY environment variable (see the README)
+configuration.api_key['X-API-KEY'] = os.environ['QI_API_KEY']
 
 # Uncomment to set up a proxy
 # configuration.proxy = 'http://localhost:3128'
