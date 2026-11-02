@@ -2,18 +2,19 @@
 # 
 # This python script generates a csv file containing the most recent day's data.
 #
-# Run the following command in your terminal to generate the file:
-#       python Pull_Latest_Data_To_csv.py --key "Your_API-KEY”
+# Set your API key as the environment variable QI_API_KEY (see the README), then run
+# the following command in your terminal to generate the file:
+#       python Pull_Latest_Data_To_csv.py
 #
 # The asset universe is defined as such in the script:
-#   US = [x.name for x in api_instance.get_models(tags = 'S&P 1500')][::2]
-#   Europe = [x.name for x in api_instance.get_models(tags = 'STOXX Europe 600')][::2]
+#   US = [x.name for x in api_instance.get_models(tags = 'S&P 500')][::2]
+#   Europe = [x.name for x in api_instance.get_models(tags = 'Euro Stoxx 600')][::2]
 #   ETFs = [x.name for x in api_instance.get_models(tags = 'ETF-Equity')][::2]
 #   Indices = [x.name for x in api_instance.get_models(tags = 'Indices')][::2]
 #   assets = US + Europe + ETFs + Indices
 #
 # However this can easily be altered to your specific assets, for example:
-#   assets = ['AAPL','FB','MSFT','GS' ... ]
+#   assets = ['AAPL','META','MSFT','GS' ... ]
 #
 # 2 csv files will be generated, 1 for long term and 1 for short term, with the following format:
 #   'Qi Data - Short Term_YYYY-mm-dd.csv' & 'Qi Data - Long Term_YYYY-mm-dd.csv'
@@ -37,6 +38,7 @@ from pprint import pprint
 import pandas
 from datetime import datetime,timedelta
 import argparse
+import os
 import logging
 
 configuration = qi_client.Configuration() 
@@ -44,9 +46,8 @@ configuration = qi_client.Configuration()
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
     logger = logging.getLogger(__name__)
-    arg_parser = argparse.ArgumentParser()
-    arg_parser.add_argument('-k', '--key', default=None,
-                            help="API KEY, e.g. 'AS7TYesif9974HGDS72846hfIN98FD'.")
+    arg_parser = argparse.ArgumentParser(
+        description="Pulls the latest Qi data to csv. The API key is read from the QI_API_KEY environment variable.")
 else:
     raise RuntimeError("Script may only be run directly.")
 
@@ -55,7 +56,10 @@ arguments = arg_parser.parse_args()
 
 ### Input API Key
 
-configuration.api_key['X-API-KEY'] = arguments.key
+QI_API_KEY = os.environ.get('QI_API_KEY')
+if not QI_API_KEY:
+    raise SystemExit("QI_API_KEY environment variable is not set - see the README.")
+configuration.api_key['X-API-KEY'] = QI_API_KEY
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed # configuration.api_key_prefix['X-API-KEY'] = 'Bearer'
 # create an instance of the API class
 api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
@@ -211,7 +215,7 @@ for term in ['Short Term','Long Term']:
 
             print(str(assets.index(asset)+1) + '/' + str(len(assets)) + ' ' + term)
 
-        except:
-            pass
+        except Exception as e:
+            print('Skipping ' + str(asset) + ' (' + term + '): ' + str(e))
     print(final_df)    
     final_df.to_csv('Qi Data - ' + term + '_' + last_date +'.csv')
