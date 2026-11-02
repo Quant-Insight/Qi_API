@@ -9,8 +9,6 @@ It contains four main folders:
   * 3.Use_Cases: examples of how Qi data is used.
   * 4.Macro Risk: a comprehensive guide on how to calculate your portfolio's macro risk.
 
-`Qi API documentation.pdf` is the reference for every function in the Qi client. It was generated for an earlier client version, so for installation, supported Python versions and setting your API key, follow this README instead.
-
 ## What do you need to start using the API?
 
 * **Python 3.12 or newer.** If you install with uv (recommended, see below), uv will download a suitable Python for you.
