@@ -4,9 +4,10 @@
 #
 # Requirements:
 #         import pandas
+#         import Qi_wrapper (run from the repository folder, see the README)
 # 
 # Inputs: 
-#         models - list of models (e.g. ['AAPL', 'FB', 'MSFT'])
+#         models - list of models (e.g. ['AAPL', 'META', 'MSFT'])
 #         number - number of results to be shown in the result (e.g. 10)
 #
 # Output: 
@@ -15,7 +16,7 @@
 #               * RSq: RSq most recent values (yesterday's values) for each of the top models.
 #               * RSq - 1M: RSq values (from a month before) for each of the top models.
 #               * Change: Change between the RSq values obtained.
-#               * e.g.
+#               * e.g. (illustrative output from an earlier date; some of the models shown no longer exist)
 #                             | Name   | RSq      | RSq - 1M | Change    |
 #                      | 521  | SOF    | 17.34892 | 75.72115 | -58.37223 | 
 #                      | 563  | TGS    | 20.27641 | 67.37992 | -47.10351 |
@@ -35,6 +36,7 @@ def Top_RSq_Changes(models, number):
 
     from datetime import datetime, timedelta
     import pandas
+    from Qi_wrapper import get_Rsq, api_instance
     
     # Data is just available from Monday to Friday. We need to check that the dates we are choosing are between those days. 
     if datetime.today().weekday() == 0:
@@ -65,8 +67,8 @@ def Top_RSq_Changes(models, number):
 
         if (len(rsq_now) > 0) and (len(rsq_past) > 0):
             
-            Rsq_s.append(float(rsq_now['Rsq']))
-            Rsq_1m.append(float(rsq_past['Rsq']))
+            Rsq_s.append(float(rsq_now['Rsq'].iloc[0]))
+            Rsq_1m.append(float(rsq_past['Rsq'].iloc[0]))
             
             name = api_instance.get_model(asset).security_name
             asset_names.append(asset)

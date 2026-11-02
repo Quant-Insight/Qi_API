@@ -257,6 +257,6 @@ def FVG_Back_Test_rates(assets,price_data,open_arg,close_arg,RSq_arg,start_date,
     
     results = [HitRate,AverageProfit,AverageHolding,number_of_trades,mean_win,mean_loss,mean_win_loss_ratio]
     
-    df_results = pd.DataFrame(results,index = ['Hit Rate','Avg. Rtrn','Avg. Holding Period','No. of Trades','Avg. Win',
+    df_results = pandas.DataFrame(results,index = ['Hit Rate','Avg. Rtrn','Avg. Holding Period','No. of Trades','Avg. Win',
                                      'Avg. Loss','Win/Loss'], columns = ['Results'])
     return df_results

@@ -18,7 +18,7 @@
 #               * Name - top factor drivers' names (10 for our example). 
 #               * Factor Sensitivities - one column per factor with the sensitivities values. 
 #               * Total Sensitivities (Abs) - Total sum of the sensitivities per model, in absolute terms. 
-#               * e.g.
+#               * e.g. (illustrative output from an earlier date; some of the models shown no longer exist)
 # 
 #
 #                 |         | China GDP   | US GDP   | WTI     | Total Sensitivity (Abs) |
@@ -78,10 +78,14 @@ def optimise_trade_selection(factors,universe_asset_classes,size,date,term, **kw
                         df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
 
 
+                    # Some models (e.g. *_USDomestic) use a smaller factor set; skip those missing any requested factor
+                    if not all(factor in df_sensitivities.columns for factor in factors):
+                        continue
+
                     total = 0
                     for factor in factors:
-                        total += abs(df_sensitivities[factor][0])
-                        factor_sensitivities.append(df_sensitivities[factor][0])
+                        total += abs(df_sensitivities[factor].iloc[0])
+                        factor_sensitivities.append(df_sensitivities[factor].iloc[0])
 
                     df_result.loc[asset] = factor_sensitivities + [total]
 

@@ -7,7 +7,7 @@
 # 
 # Inputs: 
 #         factor - 'factor' (e.g. 'USDCNH')
-#         universe - universe of stocks to choose from (e.g. ['BMW','VIE','ATL'])
+#         universe - universe of stocks to choose from (e.g. ['BMW','VIE'])
 #         size - number of stocks to be in resulting portfolio (e.g. 10)
 #         date - 'date' (e.g. '2019-05-17')
 #         term - 'term' (e.g. 'Long Term')
@@ -18,7 +18,7 @@
 #               * Name - asset model name. 
 #               * Weight - weight of each position in the portfolio.
 #               * Factor Sensitivity - % move in asset for a 1 std move higher in the factor.
-#               * e.g.
+#               * e.g. (illustrative output from an earlier date; some of the models shown no longer exist)
 #
 #                |     | Name   | Weight   | USDCNH Sensitivity |
 #                |-----|:------:|:--------:|:------------------:| 
@@ -61,8 +61,12 @@ def get_portfolio(factor,universe,size,date,term):
                 for data in sensitivity[date]:
                     df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
                 # We want the top 5 drivers in absolute terms. 
+                # Some models use a smaller factor set; skip those without this factor
+                if factor not in df_sensitivities.columns:
+                    continue
+
                 top5 = abs(df_sensitivities).T.nlargest(5,0)
-                Factor_sens = float(df_sensitivities[factor])
+                Factor_sens = float(df_sensitivities[factor].iloc[0])
 
                 if factor in top5.index:
                     FACTOR_sensitivity.append(Factor_sens)

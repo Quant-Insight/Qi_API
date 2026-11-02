@@ -8,25 +8,13 @@ This function creates a portfolio of European stocks based on sensitivities to a
 
 **#Requirements:** 
 
-* Install matplotlib and pandas:
-
-    * Jupyter Notebooks:
-    
-        ```  
-        !pip install matplotlib pandas
-        ```
-        
-    * Command line:
-        
-        ```
-        $ pip install matplotlib pandas
-        ```
+* Install the dependencies from `requirements.txt` in the repository folder, as described in the main README.
 
 
 **Inputs:** 
 
 * factor - 'factor' (e.g. 'USDCNH')
-* universe - universe of stocks to choose from (e.g. ['BMW','VIE','ATL'....])
+* universe - universe of stocks to choose from (e.g. ['BMW','VIE'....])
 * size - number of stocks to be in resulting portfolio (e.g. 10)
 * date - 'date' (e.g. '2019-05-17')
 * term - 'term' (e.g. 'Long Term')
@@ -42,6 +30,7 @@ Dataframe with the following columns:
 ### Code
 
 ```python
+import os
 import qi_client
 import pandas
 from datetime import datetime
@@ -49,8 +38,8 @@ from datetime import datetime
 # Configure API key authorization: QI API Key
 configuration = qi_client.Configuration()
 
-# Add the API Key provided by QI
-configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Your API key is read from the QI_API_KEY environment variable (see the main README)
+configuration.api_key['X-API-KEY'] = os.environ['QI_API_KEY']
 
 # Uncomment to set up a proxy
 # configuration.proxy = 'http://localhost:3128'
@@ -59,7 +48,7 @@ configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
 api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))
 
 # Get stock universe
-universe = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
+universe = [x.name for x in api_instance.get_models(tags="Euro Stoxx 600")][::2]
 
 
 #################################################################################################################
@@ -92,8 +81,12 @@ def get_portfolio(factor,universe,size,date,term):
                 for data in sensitivity[date]:
                     df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
                 # We want the top 5 drivers in absolute terms. 
+                # Some models use a smaller factor set; skip those without this factor
+                if factor not in df_sensitivities.columns:
+                    continue
+
                 top5 = abs(df_sensitivities).T.nlargest(5,0)
-                Factor_sens = float(df_sensitivities[factor])
+                Factor_sens = float(df_sensitivities[factor].iloc[0])
 
                 if factor in top5.index:
                     FACTOR_sensitivity.append(Factor_sens)
@@ -122,6 +115,8 @@ get_portfolio(factor = 'USDCNH', universe = universe, size = 10, date = '2019-05
 
 ### Output
 
+*Illustrative output from an earlier date; some of the models shown no longer exist.*
+
 |     | Name   | Weight   | USDCNH Sensitivity |
 |-----|:------:|:--------:|:------------------:| 
 | 163 | WG/    | 0.077720 | 2.63019            |
@@ -143,29 +138,17 @@ This function returns the top stocks based on sensitivities (in absolute terms) 
 
 **#Requirements:** 
 
-* Install matplotlib and pandas:
-
-    * Jupyter Notebooks:
-    
-        ```  
-        !pip install matplotlib pandas
-        ```
-        
-    * Command line:
-        
-        ```
-        $ pip install matplotlib pandas
-        ```
+* Install the dependencies from `requirements.txt` in the repository folder, as described in the main README.
 
 
 **Inputs:** 
 
-* factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['USDCNH', 'US GDP', 'Brent'])
+* factor - list of factors. We recommend to use a maximum of 3 factors (e.g. ['USDCNH', 'US GDP', 'WTI'])
 * universe_asset_classes - universe asset class (e.g. 'Equity')
 * size - number of models to be in the result (e.g. 10)
 * date - 'date' (e.g. '2019-05-17')
 * term - 'term' (e.g. 'Long Term')
-* universe_tag (optional) - universe tag (e.g. 'STOXX Europe 600') - The list of the tags can be retrieved using api_instance.get_tags()
+* universe_tag (optional) - universe tag (e.g. 'Euro Stoxx 600') - The list of the tags can be retrieved using api_instance.get_tags()
                
 **Output:** 
 Dataframe with the following columns:
@@ -178,6 +161,7 @@ Dataframe with the following columns:
 ### Code
 
 ```python
+import os
 import qi_client
 import pandas
 from datetime import datetime
@@ -185,8 +169,8 @@ from datetime import datetime
 # Configure API key authorization: QI API Key
 configuration = qi_client.Configuration()
 
-# Add the API Key provided by QI
-configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Your API key is read from the QI_API_KEY environment variable (see the main README)
+configuration.api_key['X-API-KEY'] = os.environ['QI_API_KEY']
 
 # Uncomment to set up a proxy
 # configuration.proxy = 'http://localhost:3128'
@@ -239,10 +223,14 @@ def optimise_trade_selection(factors,universe_asset_classes,size,date,term, **kw
                         df_sensitivities[str(data['driver_short_name'])]=[data['sensitivity']]
 
 
+                    # Some models (e.g. *_USDomestic) use a smaller factor set; skip those missing any requested factor
+                    if not all(factor in df_sensitivities.columns for factor in factors):
+                        continue
+
                     total = 0
                     for factor in factors:
-                        total += abs(df_sensitivities[factor][0])
-                        factor_sensitivities.append(df_sensitivities[factor][0])
+                        total += abs(df_sensitivities[factor].iloc[0])
+                        factor_sensitivities.append(df_sensitivities[factor].iloc[0])
 
                     df_result.loc[asset] = factor_sensitivities + [total]
 
@@ -260,10 +248,12 @@ def optimise_trade_selection(factors,universe_asset_classes,size,date,term, **kw
 #                                                           Main Code
 #################################################################################################################
 
-optimise_trade_selection(factors = ['USDCNH', 'US GDP', 'Brent'], universe_asset_classes = 'Equity', size = 10, date = '2019-05-17', term = 'Long Term', universe_tag = 'STOXX Europe 600')
+optimise_trade_selection(factors = ['USDCNH', 'US GDP', 'WTI'], universe_asset_classes = 'Equity', size = 10, date = '2019-05-17', term = 'Long Term', universe_tag = 'Euro Stoxx 600')
 ```
 
 ### Output
+
+*Illustrative output from an earlier date, produced when Brent was still a driver; some of the models shown no longer exist.*
 
 |         | USDCNH   | US GDP   | Brent   | Total Sensitivity (Abs) |
 |:-------:|:--------:|:--------:|:-------:|:-----------------------:|
@@ -287,19 +277,7 @@ This function creates a table with the sensitivities weight exposures in % of a 
 
 **#Requirements:** 
 
-* Install matplotlib and pandas:
-
-    * Jupyter Notebooks:
-    
-        ```  
-        !pip install matplotlib pandas
-        ```
-        
-    * Command line:
-        
-        ```
-        $ pip install matplotlib pandas
-        ```
+* Install the dependencies from `requirements.txt` in the repository folder, as described in the main README.
 
 
 **Inputs:** 
@@ -312,7 +290,7 @@ portfolio = pandas.DataFrame({'Name':[stock a, stock b, stock c],
                               'Weight':[0.3, 0.3, 0.4],
                               'L/S':[1,-1,1]})
 
-stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, FB
+stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, META
 
 This can be done by manually inputting the data (as seen above), or by importing an Excel file, or csv file like so:
 
@@ -330,7 +308,7 @@ This can be done by manually inputting the data (as seen above), or by importing
     | Name | Weight  | L/S |
     | AAPL |   0.3   |  1  |
     | MSFT |   0.3   | -1  |
-    | FB   |   0.4   |  1  |
+    | META |   0.4   |  1  |
 
 * date - portfolio date (e.g. '2019-05-20') 
                
@@ -343,6 +321,7 @@ Dataframe with the following columns:
 ### Code
 
 ```python
+import os
 import qi_client
 import pandas
 from datetime import datetime
@@ -350,8 +329,8 @@ from datetime import datetime
 # Configure API key authorization: QI API Key
 configuration = qi_client.Configuration()
 
-# Add the API Key provided by QI
-configuration.api_key['X-API-KEY'] = 'YOUR_API_KEY'
+# Your API key is read from the QI_API_KEY environment variable (see the main README)
+configuration.api_key['X-API-KEY'] = os.environ['QI_API_KEY']
 
 # Uncomment to set up a proxy
 # configuration.proxy = 'http://localhost:3128'
@@ -385,7 +364,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date):
             for data in sensitivity[date]:
 
                 if data['bucket_name'] in df_sensitivities.columns:
-                    df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+                    df_sensitivities.loc[0, str(data['bucket_name'])] += data['sensitivity']
 
                 else:
                     df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
@@ -395,14 +374,16 @@ def get_portfolio_sens_exposures_bucket(portfolio,date):
             if df_tot.empty:
                 df_tot = df_sensitivities
             else:
-                df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+                # drop all-NA columns before concatenating (avoids a pandas FutureWarning), then restore them
+                columns = df_tot.columns.union(df_sensitivities.columns, sort=False)
+                df_tot = pandas.concat([df_tot.dropna(axis=1, how='all'), df_sensitivities.dropna(axis=1, how='all')], axis = 0, join = 'outer').reindex(columns=columns)
 
 
         portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
 
         for stock in stock_names:
 
-            portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Weight'])*float(portfolio[portfolio['Name']==stock]['L/S']) for a in df_tot.loc[stock]]
+            portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Weight'].iloc[0])*float(portfolio[portfolio['Name']==stock]['L/S'].iloc[0]) for a in df_tot.loc[stock]]
 
         portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
 
@@ -415,7 +396,7 @@ def get_portfolio_sens_exposures_bucket(portfolio,date):
 #                                                           Main Code
 #################################################################################################################
 
-portfolio = pandas.DataFrame({'Name':['AAPL', 'MSFT', 'FB'],
+portfolio = pandas.DataFrame({'Name':['AAPL', 'MSFT', 'META'],
                               'Weight':[0.3, 0.3, 0.4],
                               'L/S':[1,-1,1]})
 date = '2019-05-20'
@@ -425,11 +406,11 @@ get_portfolio_sens_exposures_bucket(portfolio,date)
 
 ### Output
 
-|       | Corp credit | DM FX     | EM FX     | EM Sov Risk | Energy    | Est. Earnings | ... |
+|       | Corporate Credit | DM FX     | EM FX     | EM Sov Risk | Energy    | Est. Earnings | ... |
 |:-----:|:-----------:|:---------:|:---------:|:-----------:|:---------:|:-------------:|:---:|
 | AAPL  | -0.062982   | -0.001827 | -0.022824 | 0.010242    | 0.046779  | 0.032241      | ... |
 | MSFT  | 0.037995    | -0.000489 | 0.002154  | 0.006750    | -0.018942 | -0.000282     | ... |
-| FB    | 0.107824    |  0.019104 | 0.022536  | 0.015764    | -0.006672 | 0.083188      | ... |
+| META  | 0.107824    |  0.019104 | 0.022536  | 0.015764    | -0.006672 | 0.083188      | ... |
 | Total | 0.082837    |  0.016788 | 0.001866  | 0.032756    |  0.021165 | 0.115147      | ... |
 
 
@@ -442,19 +423,7 @@ This function creates a table with the cash exposures of a given portfolio on a 
 
 **#Requirements:** 
 
-* Install matplotlib and pandas:
-
-    * Jupyter Notebooks:
-    
-        ```  
-        !pip install matplotlib pandas
-        ```
-        
-    * Command line:
-        
-        ```
-        $ pip install matplotlib pandas
-        ```
+* Install the dependencies from `requirements.txt` in the repository folder, as described in the main README.
 
 
 **Inputs:** 
@@ -466,7 +435,7 @@ The portfolio has to be in the following format:
 portfolio = pandas.DataFrame({'Name':[stock a, stock b, stock c],
                             'Position':[1000000, -1000000, 1000000]})
 
-stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, FB
+stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, META
 
 This can be done by manually inputting the data (as seen above), or by importing an Excel file, or csv file like so:
 
@@ -484,7 +453,7 @@ This can be done by manually inputting the data (as seen above), or by importing
     | Name | Position |
     | AAPL | 1000000  |
     | MSFT | -1000000 |
-    | FB   | 1000000  |
+    | META | 1000000  |
 
 * date - portfolio date (e.g. '2019-05-20') 
                
@@ -518,7 +487,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date):
             for data in sensitivity[date]:
 
                 if data['bucket_name'] in df_sensitivities.columns:
-                    df_sensitivities[str(data['bucket_name'])][0] = df_sensitivities[str(data['bucket_name'])][0] + [data['sensitivity']]
+                    df_sensitivities.loc[0, str(data['bucket_name'])] += data['sensitivity']
 
                 else:
                     df_sensitivities[str(data['bucket_name'])]=[data['sensitivity']]
@@ -528,14 +497,16 @@ def get_portfolio_cash_exposures_bucket(portfolio,date):
             if df_tot.empty:
                 df_tot = df_sensitivities
             else:
-                df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+                # drop all-NA columns before concatenating (avoids a pandas FutureWarning), then restore them
+                columns = df_tot.columns.union(df_sensitivities.columns, sort=False)
+                df_tot = pandas.concat([df_tot.dropna(axis=1, how='all'), df_sensitivities.dropna(axis=1, how='all')], axis = 0, join = 'outer').reindex(columns=columns)
 
 
         portfolio_sensitivities = pandas.DataFrame({},columns = df_tot.columns)
 
         for stock in stock_names:
 
-            portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
+            portfolio_sensitivities.loc[stock] = [a*float(portfolio[portfolio['Name']==stock]['Position'].iloc[0])/100 for a in df_tot.loc[stock]]
 
         portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
 
@@ -547,7 +518,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date):
 #                                                  Main Code
 #################################################################################################################
 
-portfolio = pandas.DataFrame({'Name':['AAPL', 'MSFT', 'FB'],
+portfolio = pandas.DataFrame({'Name':['AAPL', 'MSFT', 'META'],
                               'Position':[1000000, -1000000, 1000000]})
 date = '2019-05-20'
 
@@ -556,11 +527,11 @@ get_portfolio_cash_exposures_bucket(portfolio,date)
 
 ### Output
 
-|            | Corp credit | DM FX | EM FX  | EM Sov Risk | Energy | Est. Earnings | ... |
+|            | Corporate Credit | DM FX | EM FX  | EM Sov Risk | Energy | Est. Earnings | ... |
 |:----------:|:-----------:|:-----:|:------:|:-----------:|:------:|:-------------:|:---:|
 | AAPL       | -2099.4     | -60.9 | -760.8 | 341.4       | 1559.3 | 1074.7        | ... |
 | MSFT       | 1266.5      | -16.3 | 71.8   | 225.0       | -631.4 | -9.4          | ... |
-| FB         | 2695.6      | 477.6 | 563.4  | 394.1       | -166.8 | 2079.7        | ... |
+| META       | 2695.6      | 477.6 | 563.4  | 394.1       | -166.8 | 2079.7        | ... |
 | Total      | 1862.7      | 400.4 | -125.6 | 960.5       | 761.1  | 3145.0        | ... |
 
 
@@ -572,25 +543,13 @@ This function creates a table showing the % change of an asset due to various co
 
 **#Requirements:** 
 
-* Install matplotlib and pandas:
-
-    * Jupyter Notebooks:
-    
-        ```  
-        !pip install matplotlib pandas
-        ```
-        
-    * Command line:
-        
-        ```
-        $ pip install matplotlib pandas
-        ```
+* Install the dependencies from `requirements.txt` in the repository folder, as described in the main README.
 
 
 **Inputs:** 
 
 * model - model ticker (e.g. 'AAPL')
-* factors - 2 factors you want to compare (e.g. ['Brent', 'Copper']) 
+* factors - 2 factors you want to compare (e.g. ['WTI', 'Copper']) 
 * date - date (e.g. '2019-05-17')
 * term - term (e.g. 'Long Term')
                
@@ -618,25 +577,25 @@ def get_sens_matrix(model,factors,date,term):
         both_results = []
         for factor in factors:
 
-            if float(stdevs.loc[factor]) > 5:
-                move_c = int(round(float(stdevs.loc[factor]),-1))
+            if float(stdevs.loc[factor].iloc[0]) > 5:
+                move_c = int(round(float(stdevs.loc[factor].iloc[0]),-1))
                 intervals = int(round(move_c/2,0))
                 moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
 
-            elif float(stdevs.loc[factor]) > 2:
-                move_c = int(round(float(stdevs.loc[factor]),0))
+            elif float(stdevs.loc[factor].iloc[0]) > 2:
+                move_c = int(round(float(stdevs.loc[factor].iloc[0]),0))
                 intervals = int(round(move_c/2,0))
                 moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
 
-            elif float(stdevs.loc[factor]) < 0.05:
-                move_c = round(float(stdevs.loc[factor]),2)
+            elif float(stdevs.loc[factor].iloc[0]) < 0.05:
+                move_c = round(float(stdevs.loc[factor].iloc[0]),2)
                 intervals = int((move_c/2)*100)
                 move_c = int(100*move_c)
                 moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
                 moves = [round(x/100,2) for x in moves]
 
             else:
-                move_c = round(float(stdevs.loc[factor]),1)
+                move_c = round(float(stdevs.loc[factor].iloc[0]),1)
                 intervals = int((move_c/2)*100)
                 move_c = int(100*move_c)
                 moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
@@ -648,8 +607,8 @@ def get_sens_matrix(model,factors,date,term):
                     moves = [round(x/100,1) for x in moves]
 
             both_moves.append(moves)
-            sens = float(drivers.loc[factor])
-            stdev = float(stdevs.loc[factor])
+            sens = float(drivers.loc[factor].iloc[0])
+            stdev = float(stdevs.loc[factor].iloc[0])
             move_results = [(move/stdev)*sens for move in moves]
             both_results.append(move_results)
 
@@ -666,7 +625,7 @@ def get_sens_matrix(model,factors,date,term):
 #                                                  Main Code
 #################################################################################################################
 
-get_sens_matrix(model = 'AAPL', factors = ['Brent', 'Copper'], date  = '2019-05-17', term = 'Long Term')
+get_sens_matrix(model = 'AAPL', factors = ['WTI', 'Copper'], date  = '2019-05-17', term = 'Long Term')
 
 ```
 
@@ -691,24 +650,12 @@ This function creates a table with the top RSq changes of a given list of models
 
 **#Requirements:** 
 
-* Install matplotlib and pandas:
-
-    * Jupyter Notebooks:
-    
-        ```  
-        !pip install matplotlib pandas
-        ```
-        
-    * Command line:
-        
-        ```
-        $ pip install matplotlib pandas
-        ```
+* Install the dependencies from `requirements.txt` in the repository folder, as described in the main README.
 
 
 **Inputs:** 
 
-* models - list of models (e.g. ['AAPL', 'FB', 'MSFT'])
+* models - list of models (e.g. ['AAPL', 'META', 'MSFT'])
 * number - number of results to be shown in the result (e.g. 10) 
 
                
@@ -723,6 +670,7 @@ Dataframe with the following columns:
 ### Code
 
 ```python
+from Qi_wrapper import get_Rsq, api_instance   # run from the repository folder, see the main README
 
 def Top_RSq_Changes(models, number):
 
@@ -753,13 +701,13 @@ def Top_RSq_Changes(models, number):
 
     for asset in models:
 
-        rsq_now = get_rsq(asset,date,date,'Long Term')
-        rsq_past = get_rsq(asset,date_1m,date_1m,'Long Term')
+        rsq_now = get_Rsq(asset,date,date,'Long Term')
+        rsq_past = get_Rsq(asset,date_1m,date_1m,'Long Term')
 
         if (len(rsq_now) > 0) and (len(rsq_past) > 0):
             
-            Rsq_s.append(float(rsq_now['Rsq']))
-            Rsq_1m.append(float(rsq_past['Rsq']))
+            Rsq_s.append(float(rsq_now['Rsq'].iloc[0]))
+            Rsq_1m.append(float(rsq_past['Rsq'].iloc[0]))
             
             name = api_instance.get_model(asset).security_name
             asset_names.append(asset)
@@ -777,13 +725,15 @@ def Top_RSq_Changes(models, number):
 #                                                  Main Code
 #################################################################################################################
 
-models = [x.name for x in api_instance.get_models(tags="STOXX Europe 600")][::2]
+models = [x.name for x in api_instance.get_models(tags="Euro Stoxx 600")][::2]
 
 Top_RSq_Changes(models = models, number = 10)
 
 ```
 
 ### Output
+
+*Illustrative output from an earlier date; some of the models shown no longer exist.*
 
 |      | Name   | RSq      | RSq - 1M | Change    |
 |:----:|:------:|:--------:|:--------:|:---------:|

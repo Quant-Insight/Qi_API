@@ -7,7 +7,7 @@
 # 
 # Inputs: 
 #         model - model ticker (e.g. 'AAPL')
-#         factors - 2 factors you want to compare (e.g. ['Brent', 'Copper'])
+#         factors - 2 factors you want to compare (e.g. ['WTI', 'Copper'])
 #         date - date (e.g. '2019-05-17')
 #         term - term (e.g. 'Long Term')
 #
@@ -48,25 +48,25 @@ def get_sens_matrix(model,factors,date,term):
         both_results = []
         for factor in factors:
 
-            if float(stdevs.loc[factor]) > 5:
-                move_c = int(round(float(stdevs.loc[factor]),-1))
+            if float(stdevs.loc[factor].iloc[0]) > 5:
+                move_c = int(round(float(stdevs.loc[factor].iloc[0]),-1))
                 intervals = int(round(move_c/2,0))
                 moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
 
-            elif float(stdevs.loc[factor]) > 2:
-                move_c = int(round(float(stdevs.loc[factor]),0))
+            elif float(stdevs.loc[factor].iloc[0]) > 2:
+                move_c = int(round(float(stdevs.loc[factor].iloc[0]),0))
                 intervals = int(round(move_c/2,0))
                 moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
 
-            elif float(stdevs.loc[factor]) < 0.05:
-                move_c = round(float(stdevs.loc[factor]),2)
+            elif float(stdevs.loc[factor].iloc[0]) < 0.05:
+                move_c = round(float(stdevs.loc[factor].iloc[0]),2)
                 intervals = int((move_c/2)*100)
                 move_c = int(100*move_c)
                 moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
                 moves = [round(x/100,2) for x in moves]
 
             else:
-                move_c = round(float(stdevs.loc[factor]),1)
+                move_c = round(float(stdevs.loc[factor].iloc[0]),1)
                 intervals = int((move_c/2)*100)
                 move_c = int(100*move_c)
                 moves = range(move_c - (intervals*5),move_c + (intervals*2),intervals)
@@ -78,8 +78,8 @@ def get_sens_matrix(model,factors,date,term):
                     moves = [round(x/100,1) for x in moves]
 
             both_moves.append(moves)
-            sens = float(drivers.loc[factor])
-            stdev = float(stdevs.loc[factor])
+            sens = float(drivers.loc[factor].iloc[0])
+            stdev = float(stdevs.loc[factor].iloc[0])
             move_results = [(move/stdev)*sens for move in moves]
             both_results.append(move_results)
 

@@ -4,15 +4,7 @@
 
 #### **Requirements:** 
 
-#### * Install matplotlib and pandas:
-
-####     * Jupyter Notebooks:
-      
-        !pip install matplotlib pandas
-        
-####     * Command line:
-        
-         $ pip install matplotlib pandas
+#### * Install the dependencies from `requirements.txt` in the repository folder, as described in the main README.
 
 #### **Inputs:** For the purpose of this example, the model and the date are already defined in example_valuation_gaps() function. 
                
@@ -193,5 +185,5 @@
 
 
 <br>
-<img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/Top_10_Valuation_Gaps_new.png"/>
+<img src="../img/Top_10_Valuation_Gaps_new.png"/>
 </br>

@@ -1,5 +1,6 @@
 from __future__ import print_function 
 import time
+import os
 import qi_client
 from qi_client.rest import ApiException
 from pprint import pprint
@@ -8,7 +9,7 @@ from datetime import datetime, timedelta
 
 configuration = qi_client.Configuration() 
 
-configuration.api_key['X-API-KEY'] = 'YOUR-API-KEY'
+configuration.api_key['X-API-KEY'] = os.environ['QI_API_KEY']
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed # configuration.api_key_prefix['X-API-KEY'] = 'Bearer'
 # create an instance of the API class
 api_instance = qi_client.DefaultApi(qi_client.ApiClient(configuration))

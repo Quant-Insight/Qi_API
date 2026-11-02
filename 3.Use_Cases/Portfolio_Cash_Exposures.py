@@ -15,7 +15,7 @@
 #                              'Position':[1000000, -1000000, 1000000]})
 #                              
 #                              
-#               stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, FB
+#               stock a, b and c must be names of models in the Qi API, e.g. AAPL, MSFT, META
 #
 #               This can be done by manually inputting the data (as seen above), or by importing an Excel file, or csv file like so:
 #
@@ -33,7 +33,7 @@
 #                   | Name | Position  |
 #                   | AAPL |   1000000 |
 #                   | MSFT |  -1000000 |
-#                   | FB   |   1000000 |
+#                   | META |   1000000 |
 
 #           * date - portfolio date (e.g. '2019-05-20') 
 #
@@ -43,10 +43,10 @@
 #               * A column per Bucket with its chash sensitivities associated to each stock in the portfolio. 
 #               * e.g.
 #
-#         | Corp credit | DM FX | EM FX  | EM Sov Risk | Energy | Est. Earnings | Global Growth | Global Real Rates | Infl. Expec. | Metals  | Peripheral EU Sov Risk | QT Expectations | Risk Aversion | Systemic liquidity | Yield Curve Slope
+#         | Corporate Credit | DM FX | EM FX  | EM Sov Risk | Energy | Est. Earnings | Global Growth | Global Real Rates | Infl. Expec. | Metals  | Peripheral EU Sov Risk | QT Expectations | Risk Aversion | Systemic liquidity | Yield Curve Slope
 #   AAPL  | -2099.4     | -60.9 | -760.8 | 341.4       | 1559.3 | 1074.7        | -219.1        | 2257.8            | 4573.0       | -827.3  | -1441.7                | 99.4            | -901.3        | -1012.0            | -1166.9
 #   MSFT  | 1266.5      | -16.3 | 71.8   | 225.0       | -631.4 | -9.4          | -286.2        | 592.1             | -2393.1      | 240.2   | -61.5                  | 909.3           | 1073.9        | -126.8             | 457.7
-#   FB    | 2695.6      | 477.6 | 563.4  | 394.1       | -166.8 | 2079.7        | 1765.7        | -7072.8           | 2003.0       | -1270.4 | 1310.1                 | -2260.5         | -1188.5       | 3623.8             | -564.2
+#   META  | 2695.6      | 477.6 | 563.4  | 394.1       | -166.8 | 2079.7        | 1765.7        | -7072.8           | 2003.0       | -1270.4 | 1310.1                 | -2260.5         | -1188.5       | 3623.8             | -564.2
 #   Total | 1862.7      | 400.4 | -125.6 | 960.5       | 761.1  | 3145.0        | 1260.4        | -4222.9           | 4182.9       | -1857.5 | -193.1                 | -1251.8         | -1015.9       | 2485.0             | -1273.4
 
 ########################################################################################################################################################################################################################################################
@@ -115,7 +115,9 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
         if df_tot.empty:
             df_tot = df_sensitivities
         else:
-            df_tot = pandas.concat([df_tot, df_sensitivities], axis = 0, join = 'outer')
+            # drop all-NA columns before concatenating (avoids a pandas FutureWarning), then restore them
+            columns = df_tot.columns.union(df_sensitivities.columns, sort=False)
+            df_tot = pandas.concat([df_tot.dropna(axis=1, how='all'), df_sensitivities.dropna(axis=1, how='all')], axis = 0, join = 'outer').reindex(columns=columns)
         
         rsq.append(get_Rsq(stock, date, date, term)['Rsq'].values[0])
             
@@ -124,7 +126,7 @@ def get_portfolio_cash_exposures_bucket(portfolio,date,term):
     
     for stock in stock_names:
 
-        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Position'])/100 for a in df_tot.loc[stock]]
+        portfolio_sensitivities.loc[stock] = [a*float(df_rsq['Rsq'][stock])/100*float(portfolio[portfolio['Name']==stock]['Position'].iloc[0])/100 for a in df_tot.loc[stock]]
 
     portfolio_sensitivities.loc['Total'] = [portfolio_sensitivities[x].sum() for x in portfolio_sensitivities.columns]
     
