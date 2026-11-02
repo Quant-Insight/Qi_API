@@ -10,7 +10,9 @@ These incude:
 Requirements:
 <br>
 
-      %set_env QI_API_KEY = YOUR_API_KEY
+      ### Set your API key as the environment variable QI_API_KEY first (see the main README)
+      import os, sys
+      sys.path.insert(0, os.path.abspath('..'))   # Qi_wrapper.py is in the repository folder, one level up
       import Qi_wrapper
       import pandas
       import numpy as np 
@@ -21,7 +23,7 @@ Requirements:
       term = 'Long Term'
       
       ### Create portfolio (alternatively import a csv with the same format)
-      portfolio = pandas.DataFrame({'Name':['MSFT','GOOG','PG','JPM','AAPL','META','GS','MRO','DEI','SO'],
+      portfolio = pandas.DataFrame({'Name':['MSFT','GOOG','PG','JPM','AAPL','META','GS','COP','DEI','SO'],
                   'Position':[194300000,142000000,122440000,122440000,113940000,109690000,106290000,102040000,102040000,99060000]})
 
       portfolio['Weight'] = [abs(x)/sum(abs(portfolio.Position)) for x in portfolio.Position]
@@ -33,7 +35,7 @@ Portfolio:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio_new.png" alt="Portfolio Table"/>
+   <img src="../img/portfolio_new.png" alt="Portfolio Table"/>
    </p>
    </br>
 
@@ -50,7 +52,7 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/cash_exposures_new.png" alt="Cash table"/>
+   <img src="../img/cash_exposures_new.png" alt="Cash table"/>
    </p>
    </br>
    
@@ -69,7 +71,7 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/portfolio_exposures_new.png" alt="Sens table"/>
+   <img src="../img/portfolio_exposures_new.png" alt="Sens table"/>
    </p>
    </br>
    
@@ -105,7 +107,7 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/pie_chart_new2.png" alt="pie chart"/>
+   <img src="../img/pie_chart_new2.png" alt="pie chart"/>
    </p>
    </br>
 
@@ -125,7 +127,7 @@ Output:
       ax.spines["top"].set_visible(False)  
       ax.spines["right"].set_visible(False)
       ax.bar(bar_plot_data.index,bar_plot_data.Total,zorder=1)
-      ax.scatter(bar_plot_data.index,bar_plot_data['S&P500'],zorder=2,color='red')
+      ax.scatter(bar_plot_data.index,bar_plot_data[benchmark_name],zorder=2,color='red')
       plt.xticks(rotation='vertical')
       plt.ylabel('% Chng in Portfolio for a 1std move in Factor',size=12)
       plt.legend([benchmark_name,'Fund'])
@@ -138,6 +140,6 @@ Output:
 
    <br>
    <p align="center">
-   <img src="https://github.com/Quant-Insight/API_Starter_Kit/blob/master/img/bar_chart_new.png" alt="portfolio vs benchmark"/>
+   <img src="../img/bar_chart_new.png" alt="portfolio vs benchmark"/>
    </p>
    </br>
